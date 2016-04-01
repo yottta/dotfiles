@@ -39,6 +39,7 @@ source $ZSH/oh-my-zsh.sh
 # PROMPT settings
 NEWLINE=$'\n'
 RPROMPT="%*"
-PROMPT="$NEWLINE%n@%M %~$NEWLINE%#> "
+PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
 # Preferred editor for local and remote sessions
+#
 export EDITOR='vim'
