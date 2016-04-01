@@ -11,8 +11,8 @@ export ZSH=/home/$USER/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="frisk"
-ZSH_THEME="bureau"
+#ZSH_THEME="frisk"
+#ZSH_THEME="bureau"
 
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -36,5 +36,9 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+# PROMPT settings
+NEWLINE=$'\n'
+RPROMPT="%*"
+PROMPT="$NEWLINE%n@%M %~$NEWLINE%#> "
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
