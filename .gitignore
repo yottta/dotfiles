@@ -1,4 +1,3 @@
-!.gitignore
-!dotfiles.zip
-scripts
-scripts/*
+home/
+scripts/
+work/
