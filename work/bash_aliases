@@ -1,0 +1,43 @@
+#!/bin/bash
+
+CVSROOT=:pserver:ciobanan@cvs.intra.vsa.de:/work/cvsdata
+export LD_LIBRARY_PATH=/opt/sqlanywhere11/lib32/:/opt/sqlanywhere11/lib64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/client:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/server:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/native_threads:/home/jump/Development/softs/yjp-2013-build-13074/bin/linux-x86-64:
+#export LD_LIBRARY_PATH=/opt/sqlanywhere11/lib64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/client:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/server:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/native_threads:
+#shopt -s checkwinsize
+#export PS1="\[\e]0;tErMiNaL : \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\W\$ "
+export JUMP_ENV_SERVER="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 -DASP_MODE=false -DSynchWorkflowBean.serialize=true"
+alias ll='ls -Al --color=auto'
+alias l='ls -l --color=auto'
+alias l.='ls -al --color=auto'
+# various aliases for jump-related tasks
+alias getbootstrap='wget --no-proxy ftp://repository.intra.vsa.de/repository/bootstrap/bootstrap-current.zip;unzip -o bootstrap-current.zip;rm bootstrap-current.zip;chmod 755 bootstrap/bin/ant'
+alias getmodules='bootstrap/bin/ant -buildfile bootstrap/bootstrap.xml repo.get.modules;chmod ogu+x modules/ant/bin/ant'
+alias ant='./modules/ant/bin/ant -Dfile.encoding=ISO-8859-15 -logger org.apache.tools.ant.listener.AnsiColorLogger -propertyfile development/ciobanan/ciobanan.ant.properties'
+alias clean_compile='ant clean+compile'
+alias clean_make_quick_local_release='ant clean make.quick.local.release'
+alias db_update_from_module='ant test.version.update.jump'
+alias eclipse_classpath='ant generate.eclipse.classpath; mv .classpath.txt .classpath'
+#alias sj='./scripts/startJump.sh'
+alias sj="/bin/bash /home/jump/Development/utils/scripts/startJ.sh"
+alias sc="/bin/bash /home/jump/Development/utils/scripts/startC.sh"
+
+alias killj='killproc "jboss|warenEingang.WEMain"'
+alias ee='export SWT_GTK3=0; (/home/jump/Development/softs/eclipse_mars_2/eclipse/eclipse &); exit'
+alias rdb='/home/jump/Development/utils/scripts/restoreWorkDb.sh'
+alias squirrel='/home/jump/Development/softs/squirrel-sql-3.5.0-standard/squirrel-sql.sh'
+alias searchPr='/home/jump/Development/utils/scripts/searchProcess.sh $@'
+alias ..="cd .."
+alias mvnci="mvn clean install -DskipTests -U"
+alias aura_client="mvn clean install -DskipTests -Pauraclient"
+alias aura_patch="mvn clean install -DskipTests; mkdir -p ~/Documents/patches; ./buildPatches.sh ~/Documents/patches"
+alias mvncit="mvn clean install"
+alias vpn="openvpn --config /home/jump/Development/utils/vpn/andreiciobanu.ovpn"
+alias patch="./patch.sh"
+alias psg="ps aux | grep $@"
+alias go="sshpass -p jump ssh -XC $@"
+alias goiesrv="go iesrv02-5.intra.vsa.de"
+alias mdm="(terminator -l mdm &); exit"
+alias awintatools="(terminator -l awintatools &); exit"
+
+alias sonar_start="/bin/bash /home/jump/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh start"
+alias sonar_stop="/bin/bash /home/jump/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh stop"
