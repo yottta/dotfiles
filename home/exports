@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#####-------------EXPORTS------------#####
+# global variables
+export LINUX_SOFTS=~/personal_drive/Programming/development_softwares/linux
+export SOFTS_PATH=$LINUX_SOFTS/softs
+
+# java
+export JAVA_HOME=$SOFTS_PATH/jdk1.8.0_73
+
+# maven
+export MAVEN_HOME=$SOFTS_PATH/apache-maven-3.2.5
+export M2_HOME=$MAVEN_HOME
+export M2=$M2_HOME$/bin
+export MAVEN_OPTS="-Xms256m -Xmx512m"
+
+# eclipse
+export ECLIPSE_HOME=$LINUX_SOFTS/eclipse
+
+# ant
+export ANT_HOME=$SOFTS_PATH/apache-ant-1.9.6
+
+# apache tomcat
+export TOMCAT_HOME=$SOFTS_PATH/apache-tomcat-7.0.42
+
+# gradle
+export GRADLE_HOME=$SOFTS_PATH/gradle-2.0
+
+# include all above software into PATH
+export PATH=${PATH}:${JAVA_HOME}/bin:${ANT_HOME}/bin:${MAVEN_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin
+
+# vim
+export EDITOR="vim"
+
