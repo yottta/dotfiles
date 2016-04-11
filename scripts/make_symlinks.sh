@@ -1,51 +1,74 @@
 #!/bin/bash
 
+# get the script path
+make_symlinks_path=$(cd `dirname $0` && pwd)
+
+# import functions
+. $make_symlinks_path/functions.sh
+
+####### GLOBAL INIT #######
 dir=~/.dotfiles                    # dotfiles directory
 olddir=~/.dotfiles_old             # old dotfiles backup directory
 common_dir="$dir/common"
 #files="bashrc vimrc bash_aliases zshrc oh-my-zsh tmux.conf tmux.theme.sh"    # list of files/folders to symlink in homedir
+# got from keyboard input
+install_zsh="n"
+configured_system=""
 
-###############################
-echo -n "Please provide what kind of computer do you configure: (work/home) "
-read configured_system
+# function for reading the arguments from keyboard
+function read_args_from_keyboard() {
+    echo -n "Please provide what kind of computer do you configure: (work/home) "
+    read configured_system
 
-if [ -z $configured_system ]; then
-	echo "Unable to configure the system! Incorrect configured system argument!"
-	exit 1
-fi
+    if [ -z $configured_system ]; then
+    	echo "Unable to configure the system! Incorrect configured system argument!"
+    	exit 1
+    fi
 
-echo -n "Do you want to install zsh? (y/n) "
-read install_zsh
-###############################
+    echo -n "Do you want to install zsh? (y/n) "
+    read install_zsh
+}
 
-# create dotfiles_old in homedir
-echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
-mkdir -p $olddir
-echo "Done"
+# function for creating symlinks and save the old files
+function create_symlinks() {
+    mkdir -p $olddir
 
-# change to the dotfiles directory
-configured_system_dir=$dir/$configured_system
-echo -n "Changing to the $configured_system_dir directory ..."
-cd $configured_system_dir
-echo "done"
+    final_old_dir="$olddir/original"
+    number_of_dirs=`cd $olddir && ls -la | awk '{print $9}' | egrep "[a-zA-Z]+" | xargs -I '{}' bash -c '[ -d {} ] && echo "is_dir"' | wc -l`
+    if [ $number_of_dirs -gt 0 ]; then
+        last_version_index=`ls -la $olddir | egrep "^d" | awk '{print $9}' | egrep "^version.+" | xargs -I '{}' bash -c 'version_dir={} && echo ${version_dir:7}' | sort -n | tail -1`
+        [ -z $last_version_index ] && last_version_index=0
+        ((last_version_index=last_version_index+1))
+        final_old_dir=$olddir"/version"$last_version_index
+    fi
+    echo -n "Creating $final_old_dir for backup of any existing dotfiles in ~ ..."
+    mkdir -p $final_old_dir
+    echo "done!"
 
-if [ -z $files ]; then
-    files=`ls -la $configured_system_dir | awk '{print $9}' | egrep "[a-zA-Z]+"`
-    files="$files `ls -la $common_dir | awk '{print $9}' | egrep '[a-zA-Z]+'`"
-fi
+    # change to the dotfiles directory
+    configured_system_dir=$dir/$configured_system
+    echo -n "Changing to the $configured_system_dir directory ..."
+    cd $configured_system_dir
+    echo "done"
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
-for file in $files; do
-	echo "Moving any existing dotfiles from ~ to $olddir"
-	mv ~/.$file $olddir/
-	echo "Creating symlink to $file in home directory."
-	file_path=$configured_system_dir/$file
-	if [ ! -f $file_path ]; then
-		file_path=$common_dir/$file
-	fi
-	ln -s $file_path ~/.$file
-done
-
+    if [ -z $files ]; then
+        files=`ls -la $configured_system_dir | awk '{print $9}' | egrep "[a-zA-Z]+"`
+        files="$files `ls -la $common_dir | awk '{print $9}' | egrep '[a-zA-Z]+'`"
+    fi
+    printf "The following entries will be linked to the home directory:\n$files\n\n\n"
+    # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
+    for file in $files; do
+    	echo "Moving .$file from ~ to $final_old_dir"
+    	mv ~/.$file $final_old_dir/
+    	echo "Creating symlink to $file in home directory."
+    	file_path=$configured_system_dir/$file
+    	if [ ! -f $file_path ]; then
+    		file_path=$common_dir/$file
+    	fi
+    	ln -s $file_path ~/.$file
+        echo ""
+    done
+}
 
 install_zsh () {
 	if [ ! $install_zsh == "y" ]; then
@@ -63,23 +86,14 @@ install_zsh () {
 			chsh -s $(which zsh)
 		fi
 	else
-		# If zsh isn't installed, get the platform of the current machine
-		platform=$(uname);
-		# If the platform is Linux, try an apt-get to install zsh and then recurse
-		if [[ $platform == 'Linux' ]]; then
-			if [[ -f /etc/redhat-release ]]; then
-				sudo dnf install zsh
-			        install_zsh
-		        fi
-		        if [[ -f /etc/debian_version ]]; then
-        			sudo apt-get install zsh
-				install_zsh
-		        fi
-		elif [[ $platform == 'Darwin' ]]; then
-		        echo "Please install zsh, then re-run this script!"
-	        	exit
-		fi
+        # Get the installer by distro name and install zsh. See functions.sh
+        linux_installer=$(get_installer_by_distro_name)
+        sudo $installer install zsh
+        [ -z $installer ] && (echo "I am not compatible with the current distro!"; exit 1)
+        install_zsh
 	fi
 }
 
+read_args_from_keyboard
+create_symlinks
 install_zsh
