@@ -58,14 +58,23 @@ function create_symlinks() {
     printf "The following entries will be linked to the home directory:\n$files\n\n\n"
     # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
     for file in $files; do
-    	echo "Moving .$file from ~ to $final_old_dir"
-    	mv ~/.$file $final_old_dir/
-    	echo "Creating symlink to $file in home directory."
-    	file_path=$configured_system_dir/$file
+        target_file=~/.$file
+        if [[ "$file" =~ .*_$ ]]; then
+            echo "yes"
+            target_file=~/$(echo $file | cut -d'_' -f1)
+
+            echo $target_file
+        fi
+
+    	echo "Moving $target_file from ~ to $final_old_dir"
+    	mv $target_file $final_old_dir/
+        echo "Creating symlink of $file in home directory ($target_file)..."
+
+        file_path=$configured_system_dir/$file
     	if [ ! -f $file_path ]; then
     		file_path=$common_dir/$file
     	fi
-    	ln -s $file_path ~/.$file
+    	ln -s $file_path $target_file
         echo ""
     done
 }
