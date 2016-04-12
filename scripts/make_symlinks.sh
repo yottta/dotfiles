@@ -60,10 +60,7 @@ function create_symlinks() {
     for file in $files; do
         target_file=~/.$file
         if [[ "$file" =~ .*_$ ]]; then
-            echo "yes"
             target_file=~/$(echo $file | cut -d'_' -f1)
-
-            echo $target_file
         fi
 
     	echo "Moving $target_file from ~ to $final_old_dir"
