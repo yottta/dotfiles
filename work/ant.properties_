@@ -1,0 +1,4 @@
+repository.cache.dir=/home/jump/repocache
+repository.mirrors=192.168.35.127
+#repository.mirrors=192.168.77.91
+
