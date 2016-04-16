@@ -44,6 +44,7 @@ function install_common() {
     sudo $installer install samba
     sudo $installer install ngrep
     sudo $installer install ssh
+    sudo $installer install tree
     sudo $installer install openvpn
     sudo $installer install guake
     sudo $installer install vlc
