@@ -121,7 +121,7 @@ function install_opensuse_specific() {
     wget -N https://dl.google.com/linux/linux_signing_key.pub
     sudo rpm --import linux_signing_key.pub
     wget -N https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-    sudo $installer google-chrome-stable_current_x86_64.rpm
+    sudo $installer install google-chrome-stable_current_x86_64.rpm
 }
 
 prepare_installation_workspace
