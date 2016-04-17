@@ -1,19 +1,3 @@
-source /opt/sqlanywhere11/bin64/sa_config.sh > /dev/null
-export JAVA_HOME=/home/jump/Development/softs/sdk
-#export JAVA_HOME=/home/jump/Stuffs/aux/jdk1.7.0_45
-export PATH=$JAVA_HOME/bin:$PATH:/sbin/:/opt/sqlanywhere11/bin32:/opt/sqlanywhere11/bin64
-#export LD_LIBRARY_PATH=/opt/sqlanywhere11/lib32:/opt/sqlanywhere11/lib64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/client:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/server:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/native_threads:
-# 8GB RAM
-# export JBOSS_MEM_OPTS="-XX:MaxPermSize=400m -Xms700m -Xmx1500m "
-# 4 GB RAM
-export LANG=en_US.ISO-8859-15
-export LC_ALL=en_US.ISO-8859-15
-export LANGUAGE=en_US.ISO-8859-15
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
-export CVSROOT=:pserver:ciobanan@repository.intra.vsa.de:/work/cvsdata
-#export http_proxy=http://proxy.vsa.de:8080/
-#export no_proxy=jumpentw.intra.vsa.de,iesrv01-4.intra.vsa.de
-export JBOSS_MEM_OPTS="-XX:MaxPermSize=256m -Xms128m -Xmx968m "
-export JUMP_ENV_SERVER="${JUMP_ENV_SERVER} -DauraRestUrl=http://127.0.0.1:8985/client/rest/merge"
+if [ -f ~/.exports ]; then
+    . ~/.exports
+fi

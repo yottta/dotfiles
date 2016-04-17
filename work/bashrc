@@ -1,39 +1,10 @@
 # .bashrc
-
-# Source global definitions
 if [ -f ~/.profile ]; then
 	. ~/.profile
 fi
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
-
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-# User specific aliases and functions
-export EDITOR="/usr/bin/vim"
-export M2_HOME="/home/jump/Development/softs/apache-maven-3.2.5"
-export M2="$M2_HOME/bin"
-export MAVEN_OPTS="-Xms256m -Xmx512m"
-export PATH="$PATH:$M2"
-#export GRADLE_HOME="/home/jump/Development/softs/gradle/gradle-1.9"
-#export PATH="$PATH:$GRADLE_HOME/bin"
-#export JAVA_HOME=/home/jump/Development/softs/sdk
-#export JAVA_HOME="/home/jump/Development/softs/java/jdk1.7.0_45"
-export JAVA_HOME="/home/jump/Development/softs/java/jdk1.8.0_25"
-export PATH=$JAVA_HOME/bin:$PATH:/sbin/:/opt/sqlanywhere11/bin32:/opt/sqlanywhere11/bin64
-
-
-
-# COMMON
-#export AURA_SERVER_PATH="/home/jump/AURA"
-#export ZK_HOST="127.0.0.1"
-#export ZK_PORT="2181"
-
-#export AURA_BACKUP_PATH="/home/jump/dsoroot/application/aura_backup"
-#export AURA_CI_OPTS="-DzookeeperHost=$ZK_HOST -DzookeeperPort=$ZK_PORT -Dremote.logger.client.id=ciobanan-agent -Dremote.logger.logging.server=http://192.168.76.153:8080/awinta-logging-service"
-#export AURA_CLIENTS_OPTS="-Xmx512m"
-#export TERM="xterm-256color"

@@ -122,6 +122,9 @@ function install_opensuse_specific() {
     sudo rpm --import linux_signing_key.pub
     wget -N https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
     sudo $installer install google-chrome-stable_current_x86_64.rpm
+
+    # install virtualbox:wq
+
 }
 
 prepare_installation_workspace

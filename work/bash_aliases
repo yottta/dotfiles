@@ -1,11 +1,5 @@
 #!/bin/bash
 
-CVSROOT=:pserver:ciobanan@cvs.intra.vsa.de:/work/cvsdata
-export LD_LIBRARY_PATH=/opt/sqlanywhere11/lib32/:/opt/sqlanywhere11/lib64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/client:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/server:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/native_threads:/home/jump/Development/softs/yjp-2013-build-13074/bin/linux-x86-64:
-#export LD_LIBRARY_PATH=/opt/sqlanywhere11/lib64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/client:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/server:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/native_threads:
-#shopt -s checkwinsize
-#export PS1="\[\e]0;tErMiNaL : \w\a\]${debian_chroot:+($debian_chroot)}\u@\h:\W\$ "
-export JUMP_ENV_SERVER="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 -DASP_MODE=false -DSynchWorkflowBean.serialize=true"
 alias ll='ls -Al --color=auto'
 alias l='ls -l --color=auto'
 alias l.='ls -al --color=auto'
@@ -17,7 +11,6 @@ alias clean_compile='ant clean+compile'
 alias clean_make_quick_local_release='ant clean make.quick.local.release'
 alias db_update_from_module='ant test.version.update.jump'
 alias eclipse_classpath='ant generate.eclipse.classpath; mv .classpath.txt .classpath'
-#alias sj='./scripts/startJump.sh'
 alias sj="/bin/bash /home/jump/Development/utils/scripts/startJ.sh"
 alias sc="/bin/bash /home/jump/Development/utils/scripts/startC.sh"
 
@@ -34,10 +27,6 @@ alias mvncit="mvn clean install"
 alias vpn="openvpn --config /home/jump/Development/utils/vpn/andreiciobanu.ovpn"
 alias patch="./patch.sh"
 alias psg="ps aux | grep $@"
-alias go="sshpass -p jump ssh -XC $@"
-alias goiesrv="go iesrv02-5.intra.vsa.de"
-alias mdm="(terminator -l mdm &); exit"
-alias awintatools="(terminator -l awintatools &); exit"
 
 alias sonar_start="/bin/bash /home/jump/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh start"
 alias sonar_stop="/bin/bash /home/jump/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh stop"

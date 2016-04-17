@@ -31,7 +31,7 @@ LOG_FILE=/data/sybase/server.log
 # Servername
 #
 
-SERVERNAME=l1j99913
+SERVERNAME=l1j99942
 
 
 ## sonstiges
