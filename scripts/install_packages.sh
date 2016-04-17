@@ -78,6 +78,28 @@ function install_redhat_specific() {
     /usr/lib/virtualbox/vboxdrv.sh setup
     usermod -a -G vboxusers andreic
 
+    # skype
+    sudo $installer install pulseaudio alsa-plugins-pulse alsa-plugins-pulse-32bit pavucontrol libv4l libv4l-32bit libv4l1-0 libv4l1-0-32bit libv4l2-0 libv4l2-0-32bit libv4lconvert0 libv4lconvert0-32bit libpulse0-32bit
+    wget -N http://get.skype.com/go/getskype-linux-beta-suse
+    mv getskype-linux-beta-suse skype.rpm
+    sudo $installer install skype.rpm
+
+    # atom
+    wget -N https://atom.io/download/rpm
+    mv rpm atom.rpm
+    sudo $installer install atom.rpm
+
+    # guake
+    wget -N http://download.opensuse.org/repositories/X11:/terminals/openSUSE_Leap_42.1/x86_64/guake-0.7.2-7.1.x86_64.rpm
+    sudo $installer install guake-0.7.2-7.1.x86_64.rpm
+
+    # google chrome 
+    wget -N https://dl.google.com/linux/linux_signing_key.pub
+    sudo rpm --import linux_signing_key.pub
+    wget -N https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    sudo $installer install google-chrome-stable_current_x86_64.rpm
+
+
     # add chrome repo
     wget -N https://dl.google.com/linux/linux_signing_key.pub
     rpm --import linux_signing_key.pub
