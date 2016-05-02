@@ -11,12 +11,11 @@ alias clean_compile='ant clean+compile'
 alias clean_make_quick_local_release='ant clean make.quick.local.release'
 alias db_update_from_module='ant test.version.update.jump'
 alias eclipse_classpath='ant generate.eclipse.classpath; mv .classpath.txt .classpath'
-alias sj="/bin/bash /home/jump/Development/utils/scripts/startJ.sh"
-alias sc="/bin/bash /home/jump/Development/utils/scripts/startC.sh"
+alias sj="/bin/bash /home/jump/Development/scripts/common/startJ.sh"
+alias sc="/bin/bash /home/jump/Development/scripts/common/startC.sh"
 
 alias killj='killproc "jboss|warenEingang.WEMain"'
 alias ee='export SWT_GTK3=0; (/home/jump/Development/softs/eclipse_mars_2/eclipse/eclipse &); exit'
-alias rdb='/home/jump/Development/utils/scripts/restoreWorkDb.sh'
 alias squirrel='/home/jump/Development/softs/squirrel-sql-3.5.0-standard/squirrel-sql.sh'
 alias searchPr='/home/jump/Development/utils/scripts/searchProcess.sh $@'
 alias ..="cd .."
