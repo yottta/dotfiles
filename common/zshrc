@@ -1,6 +1,9 @@
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+if [ -f ~/.aliases ]; then
+    . ~/.aliases
+fi
 if [ -f ~/.exports ]; then
     . ~/.exports
 fi
