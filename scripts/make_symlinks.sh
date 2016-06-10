@@ -94,8 +94,8 @@ install_zsh () {
 	else
         # Get the installer by distro name and install zsh. See functions.sh
         linux_installer=$(get_installer_by_distro_name)
-        sudo $installer install zsh
-        [ -z $installer ] && (echo "I am not compatible with the current distro!"; exit 1)
+        [ -z $linux_installer ] && (echo "I am not compatible with the current distro!"; exit 1)
+        sudo $linux_installer install zsh
         install_zsh
 	fi
 }
