@@ -1,8 +1,4 @@
 "*":
-  "exception-reporting":
-    userId: "acc263fc-0dcf-a474-65a4-b1b63c2a86f0"
-  welcome:
-    showOnStartup: false
   core:
     audioBeep: false
     themes: [
@@ -12,5 +8,9 @@
   editor:
     invisibles: {}
     preferredLineLength: 180
-  "one-dark-ui": {}
+  "exception-reporting":
+    userId: "acc263fc-0dcf-a474-65a4-b1b63c2a86f0"
   "highlight-selected": {}
+  "one-dark-ui": {}
+  welcome:
+    showOnStartup: false

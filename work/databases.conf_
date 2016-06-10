@@ -10,9 +10,9 @@
 #                z.B. -r um eine Read-Only DB zu starten
 
 /data/sybase/workdb.db::
-/data/sybase/medicon2/referenz.db:referenz:
+#/data/sybase/medicon2/referenz.db:referenz:
 #data/sybase/medicon1/referenz.db:referenz:
-#/data/sybase/multi/referenz.db:referenz:
+/data/sybase/multi/referenz.db:referenz:
 #/data/sybase/medicon2/referenz.db:referenz2:
 #/data/sybase/seehausen/referenz.db:referenz:
 #/data/sybase/osterburg/referenz.db:referenz2:

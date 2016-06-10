@@ -2,4 +2,4 @@
 ; modifications will be lost the next time any apm command is run.
 ;
 ; You should instead edit your .apmrc config located in ~/.atom/.apmrc
-cache = /home/jump/.atom/.apm
+cache = /home/jump/.dotfiles/common/atom/.apm
