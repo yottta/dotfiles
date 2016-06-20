@@ -17,7 +17,7 @@ configured_system=""
 
 # function for reading the arguments from keyboard
 function read_args_from_keyboard() {
-    echo -n "Please provide what kind of computer do you configure: (work/home) "
+    echo -n "Please provide what kind of computer do you configure: (common/work/home) "
     read configured_system
 
     if [ -z $configured_system ]; then
