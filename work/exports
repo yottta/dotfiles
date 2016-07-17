@@ -22,9 +22,9 @@ export LD_LIBRARY_PATH=/opt/sqlanywhere11/lib32/:/opt/sqlanywhere11/lib64:/opt/s
 #export LD_LIBRARY_PATH=/opt/sqlanywhere11/lib64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/client:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/server:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64:/opt/sqlanywhere11/sun/jre160_x64/lib/amd64/native_threads:
 
 ## paths ##
-export M2_HOME="/home/jump/Development/softs/apache-maven-3.3.9"
+export M2_HOME="/home/$USER/Development/softs/apache-maven-3.3.9"
 export M2="$M2_HOME/bin"
-export JAVA_HOME="/home/jump/Development/softs/java/jdk1.8.0_25"
+export JAVA_HOME="/home/$USER/Development/softs/java/jdk1.8.0_25"
 #export JAVA_HOME="/home/jump/Development/softs/java/jdk1.8.0_77"
 #export JAVA_HOME=/home/jump/Development/softs/sdk
 export PATH=/sbin:/opt/sqlanywhere11/bin32:/opt/sqlanywhere11/bin64:$JAVA_HOME/bin:$M2:$PATH

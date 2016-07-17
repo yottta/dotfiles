@@ -11,27 +11,27 @@ alias clean_compile='ant clean+compile'
 alias clean_make_quick_local_release='ant clean make.quick.local.release'
 alias db_update_from_module='ant test.version.update.jump'
 alias eclipse_classpath='ant generate.eclipse.classpath; mv .classpath.txt .classpath'
-alias sj="/bin/bash /home/jump/Development/scripts/common/startJ.sh"
-alias sc="/bin/bash /home/jump/Development/scripts/common/startC.sh"
+alias sj="/bin/bash /home/$USER/Development/scripts/common/startJ.sh"
+alias sc="/bin/bash /home/$USER/Development/scripts/common/startC.sh"
 
 alias killj='killproc "jboss|warenEingang.WEMain"'
-alias eedefault='export SWT_GTK3=0; (/home/jump/Development/softs/eclipse_mars_2/eclipse/eclipse &); exit'
-alias eentv='export SWT_GTK3=0; (/home/jump/Development/softs/eclipse_mars_2/eclipse/eclipse -data /home/jump/Development/eclipse_workspace/alg &); exit'
-alias eeaura='export SWT_GTK3=0; (/home/jump/Development/softs/eclipse_mars_2/eclipse/eclipse -data /home/jump/Development/eclipse_workspace/mdm &); exit'
-alias squirrel='/home/jump/Development/softs/squirrel-sql-3.5.0-standard/squirrel-sql.sh'
-alias searchPr='/home/jump/Development/utils/scripts/searchProcess.sh $@'
+alias eedefault='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/eclipse/eclipse &); exit'
+alias eentv='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/eclipse/eclipse -data /home/$USER/Development/eclipse_workspace/alg &); exit'
+alias eeaura='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/eclipse/eclipse -data /home/$USER/Development/eclipse_workspace/mdm &); exit'
+alias squirrel='/home/$USER/Development/softs/squirrel-sql-3.5.0-standard/squirrel-sql.sh'
+alias searchPr='/home/$USER/Development/utils/scripts/searchProcess.sh $@'
 alias ..="cd .."
 alias mvnci="mvn clean install -DskipTests -U"
 alias aura_client="mvn clean install -DskipTests -Pauraclient"
 alias aura_patch="mvn clean install -DskipTests; mkdir -p ~/Documents/patches; ./buildPatches.sh ~/Documents/patches"
 alias mvncit="mvn clean install"
-alias vpn="openvpn --config /home/jump/Development/utils/vpn/andreiciobanu.ovpn"
+alias vpn="openvpn --config /home/$USER/Development/utils/vpn/andreiciobanu.ovpn"
 alias patch="./patch.sh"
 alias psg="ps aux | grep $@"
 
-alias sonar_start="/bin/bash /home/jump/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh start"
-alias sonar_stop="/bin/bash /home/jump/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh stop"
+alias sonar_start="/bin/bash /home/$USER/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh start"
+alias sonar_stop="/bin/bash /home/$USER/Development/softs/sonarqube-5.3/bin/linux-x86-64/sonar.sh stop"
 
 alias urldecode='sed "s@+@ @g;s@%@\\\\x@g" | xargs -0 printf "%b"'
-alias squirrel="(/bin/bash /media/data/workbench/home/jump/Development/softs/squirrel-sql-3.7.1/squirrel-sql.sh &); exit"
+alias squirrel="(/bin/bash /home/$USER/Development/softs/squirrel-sql-3.7.1/squirrel-sql.sh &); exit"
 alias ntv_console="xrdb -load ~/.Xdefaults_ntv && urxvt "
