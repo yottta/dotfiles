@@ -1,26 +1,65 @@
+"set number
+"set numberwidth=1
+"set clipboard=unnamed
+"set term=xterm-256color
+
+
+"set nocompatible          " get rid of Vi compatibility mode. SET FIRST!
+"filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
+"set t_Co=256              " enable 256-color mode.
+"syntax enable             " enable syntax highlighting (previously syntax on).
+"colorscheme darkblue      " set colorscheme
+"colorscheme default       " set colorscheme
+"set number                " show line numbers
+"set laststatus=2          " last window always has a statusline
+"filetype indent on        " activates indenting for files
+"set nohlsearch            " Don't continue to highlight searched phrases.
+"set incsearch             " But do highlight as you type your search.
+"set ignorecase            " Make searches case-insensitive.
+"set ruler                 " Always show info along bottom.
+"set autoindent            " auto-indent
+"set tabstop=4             " tab spacing
+"set softtabstop=4         " unify
+"set shiftwidth=4          " indent/outdent by 4 columns
+"set shiftround            " always indent/outdent to the nearest tabstop
+"set expandtab             " use spaces instead of tabs
+"set smarttab              " use tabs at the start of a line, spaces elsewhere
+
+
+set fo=tcq
+set nocompatible
+set modeline
+set bg=dark
+
+syntax on
+set hlsearch
+set t_Co=256
 set number
-set numberwidth=1
-set clipboard=unnamed
-set term=xterm-256color
 
+" set default comment color to cyan instead of darkblue
+" which is not very legible on a black background
+highlight comment ctermfg=cyan
 
-set nocompatible          " get rid of Vi compatibility mode. SET FIRST!
-filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
-set t_Co=256              " enable 256-color mode.
-syntax enable             " enable syntax highlighting (previously syntax on).
-colorscheme darkblue      " set colorscheme
-colorscheme default       " set colorscheme
-set number                " show line numbers
-set laststatus=2          " last window always has a statusline
-filetype indent on        " activates indenting for files
-set nohlsearch            " Don't continue to highlight searched phrases.
-set incsearch             " But do highlight as you type your search.
-set ignorecase            " Make searches case-insensitive.
-set ruler                 " Always show info along bottom.
-set autoindent            " auto-indent
-set tabstop=4             " tab spacing
-set softtabstop=4         " unify
-set shiftwidth=4          " indent/outdent by 4 columns
-set shiftround            " always indent/outdent to the nearest tabstop
-set expandtab             " use spaces instead of tabs
-set smarttab              " use tabs at the start of a line, spaces elsewhere
+set tabstop=2
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+
+highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
+match LiteralTabs /\s\  /
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$/
+
+" Show me a ruler
+set ruler
+
+" Set up puppet manifest and spec options
+au BufRead,BufNewFile *.pp
+  \ set filetype=puppet
+au BufRead,BufNewFile *_spec.rb
+  \ nmap <F8> :!rspec --color %<CR>
+
+" Enable indentation matching for =>'s
+filetype plugin indent on
+set number
+
