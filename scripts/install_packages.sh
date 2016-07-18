@@ -78,6 +78,8 @@ function install_redhat_specific() {
     /usr/lib/virtualbox/vboxdrv.sh setup
     usermod -a -G vboxusers andreic
 
+    # for atom deleting support
+    sudo dnf install gvfs
     # skype
     sudo $installer install pulseaudio alsa-plugins-pulse alsa-plugins-pulse-32bit pavucontrol libv4l libv4l-32bit libv4l1-0 libv4l1-0-32bit libv4l2-0 libv4l2-0-32bit libv4lconvert0 libv4lconvert0-32bit libpulse0-32bit
     wget -N http://get.skype.com/go/getskype-linux-beta-suse
