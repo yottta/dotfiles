@@ -2,7 +2,7 @@
 
 #####-------------ALIASES------------#####
 alias ee="($ECLIPSE_HOME/eclipse)"
-alias ll='ls -l'
-alias l='ls -alF'
+alias l='ls -lh --color=auto'
+alias ll='ls -ahlF --color=auto'
 alias ..="cd .."
 alias mvnci="mvn clean install"
