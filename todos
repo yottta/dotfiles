@@ -1,1 +1,73 @@
-arch install guideline
+######arch install guideline
+
+1. Installing
+Download from Arch site the last version
+Write it to usb flash drive
+Reboot, choose, run
+fdisk -l (see your partitions and disks)
+cfdisk (partitioning your disk)
+mkswap <your_swap_partition>
+swapon <your_swap_partition>
+mkfs.ext4 <your_partitions_with_data>
+mount <partition with root> /mnt
+genfstab -p /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+pacman -S vim
+vim /etc/locale.gen (uncomment en_US.UTF-8 UTF-8 and en_US ISO-8859-1)
+locale-gen
+ls /sys/class/net and systemctl enable dhcpcd@enp2s0.service (or try to use wifi-menu; don't forget to install dialog and wpa_supplicant packages with pacman because on the installed system the wifi-menu will not work
+grub-mkconfig -o /boot/grub/grub.cfg
+grub-install /dev/sda (the disk not the partition)
+mkinitcpio -p linux
+passwd (change root passwd)
+exit
+umount /mnt
+reboot
+
+2. Post-installation
+lspci | grep VGA and pacman -S xf86-video-intel (for intel situation)
+sudo pacman -S xf86-input-synaptics
+pacman -S xorg-server xorg-server-utils xorg-xinit xorg-apps
+pacman -S i3-wm i3lock i3status 
+pacman -S opendesktop-fonts
+pacman -S alsa-utils pavucontrol pulseaudio-alsa
+useradd -m -g users -G video,audio,network,optical,storage,disk,wheel -s /bin/bash username
+passwd username
+sudo echo "username ALL=(ALL) NOPASSWD:ALL">> /etc/sudoers
+echo "your_hostname" > /etc/hostname
+change the hostname in /etc/hosts too
+sudo pacman -S gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav gstreamer0.10 gstreamer0.10-plugins
+ln -s /usr/share/zoneinfo/zone/subzone /etc/localtime
+
+3. Config window manager
+replace ~/.xinitrc content just with a simple i3 exec
+add the following line to .bash_profile 
+  [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+reboot and after log in you should be in i3
+git clone https://github.com/vivien/i3blocks
+make clean debug or make clean all
+sudo make install
+
+4. Personal configs
+git clone -> make_symlinks
+sudo pacman -S alsa-utils
+alsamixer
+amixer set Master toggle - in order to unmute the sound 
+alsactl store
+
+5. Packages
+add the following config to /etc/pacman.conf
+  [archlinuxfr]
+  SigLevel = Never
+  Server = http://repo.archlinux.fr/$arch
+pacman -Syu
+pacman -S yogourt
+yogourt google-chrome
+sudo pacman -S mc tmux feh 
+sudo pacman -S bash-completion
+
+6. NetworkManager
+sudo pacman -S networkmanager network-manager-applet
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+sudo systemctl enable systemd-networkd (and sudo systemctl enable systemd-networkd) if it is needed
