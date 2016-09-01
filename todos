@@ -76,3 +76,8 @@ sudo systemctl enable systemd-networkd (and sudo systemctl enable systemd-networ
 
 7. TouchPad
 copy 70-synaptics.conf to /etc/X11/xorg/conf.d
+
+8. Ntp
+sudo pacman -S ntp
+sudo systemctl enable ntpd
+sudo systemctl start ntpd

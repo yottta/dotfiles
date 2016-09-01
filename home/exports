@@ -32,3 +32,8 @@ export PATH=${PATH}:${JAVA_HOME}/bin:${ANT_HOME}/bin:${MAVEN_HOME}/bin:${TOMCAT_
 # vim
 export EDITOR="vim"
 
+rightprompt() {
+  printf "%*s" $COLUMNS "$(TZ='Europe/Bucharest' date +%H:%M:%S)"
+}
+
+export PS1='\[$(tput sc; rightprompt; tput rc)\][\u@\h \W]\$ '

@@ -6,3 +6,4 @@ alias l='ls -lh --color=auto'
 alias ll='ls -ahlF --color=auto'
 alias ..="cd .."
 alias mvnci="mvn clean install"
+alias vi=vim
