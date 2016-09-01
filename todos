@@ -65,9 +65,14 @@ pacman -S yogourt
 yogourt google-chrome
 sudo pacman -S mc tmux feh 
 sudo pacman -S bash-completion
+sudo pacman -S thunar lxappearance
+yaourt -i delorean-dark-3.18
 
 6. NetworkManager
 sudo pacman -S networkmanager network-manager-applet
 sudo systemctl enable NetworkManager
 sudo systemctl start NetworkManager
 sudo systemctl enable systemd-networkd (and sudo systemctl enable systemd-networkd) if it is needed
+
+7. TouchPad
+copy 70-synaptics.conf to /etc/X11/xorg/conf.d
