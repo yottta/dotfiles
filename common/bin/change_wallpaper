@@ -1,0 +1,11 @@
+#!/bin/bash
+
+wallpapers_dir_path=$1
+
+while :
+do
+  array=($(ls $wallpapers_dir_path | grep -iv *sh))
+  img_nr=$(shuf -i1-${#array[@]} -n1)
+  feh --bg-scale $wallpapers_dir_path/${array[$img_nr]}
+  sleep 300
+done

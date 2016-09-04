@@ -67,6 +67,7 @@ sudo pacman -S mc tmux feh
 sudo pacman -S bash-completion
 sudo pacman -S thunar lxappearance
 yaourt -i delorean-dark-3.18
+sudo pacman -S acpi (for battery)
 
 6. NetworkManager
 sudo pacman -S networkmanager network-manager-applet
@@ -81,3 +82,10 @@ copy 70-synaptics.conf to /etc/X11/xorg/conf.d
 sudo pacman -S ntp
 sudo systemctl enable ntpd
 sudo systemctl start ntpd
+
+9.Ssh
+sudo pacman -S openssh
+
+10. Notifications
+sudo pacman -S dunst // notification server
+sudo pacman -S libnotify // client for notifications

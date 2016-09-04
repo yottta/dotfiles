@@ -1,0 +1,10 @@
+#!/bin/bash
+# change the current lang.
+# todo - make this configurable - for the moment supports only 2 languages
+
+current_lang=$(setxkbmap -query | tail -1 | rev | cut -d' ' -f1 | rev)
+if [ "$current_lang" == 'de' ]; then
+  setxkbmap us
+else
+  setxkbmap de
+fi

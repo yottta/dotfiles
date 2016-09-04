@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-alias ee="($ECLIPSE_HOME/eclipse)"
+alias ee="export SWT_GTK3=0; ($ECLIPSE_HOME/eclipse -data /home/$USER/data/workspace/eclipse_workspace &); exit"
 alias l='ls -lh --color=auto'
 alias ll='ls -ahlF --color=auto'
 alias ..="cd .."

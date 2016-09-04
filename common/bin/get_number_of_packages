@@ -1,0 +1,5 @@
+#!/bin/bash
+# Get the number of packages which are ready for being upgraded
+# (todo - extend for multiple systems - debian,fedora,opensuse)
+sudo pacman -Syup > /dev/null 2>&1
+echo $(sudo pacman -Qu | wc -l)

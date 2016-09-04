@@ -1,0 +1,19 @@
+sudo apt-get install gobject-introspection*
+for fedora -> sudo dnf install redhat-rpm-config
+install playerctl from github https://github.com/acrisci/playerctl/releases
+install feh
+install fontawesone from https://github.com/FortAwesome/Font-Awesome/releases (unzip -> go to fonts -> mkdir ~/.fonts -> mv *ttf ~/.fonts -> then copy the ICON into config file -> logout -> login)
+for fedora install network-manager-applet from repo
+install i3blocks from github https://github.com/vivien/i3blocks
+install yosemintesanfrancisco font https://github.com/supermarin/YosemiteSanFranciscoFont
+install lxappearence from repo
+with lxappearence chagenge something. In ~ you should find a file called .gtkrc-2.0. Edit and change the font name to "System San Francisco Display". In .config/gtk-3.0/settings.ini do the same thing
+sudo apt-get install gnome-icon-theme-full
+sudo apt-get install
+ 
+wget http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key
+sudo apt-key add - < Release.key
+sudo apt-get update
+sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
+sudo apt-get update
+sudo apt-get install arc-theme
