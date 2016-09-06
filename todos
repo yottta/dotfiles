@@ -89,3 +89,16 @@ sudo pacman -S openssh
 10. Notifications
 sudo pacman -S dunst // notification server
 sudo pacman -S libnotify // client for notifications
+
+11. Must have
+wget
+nmap - scan a network
+traceroute
+libreoffice
+ngrep
+cronie
+
+12. Nice to have
+nedit - basic text editor
+irssi - text mode chat - test it - learn it
+

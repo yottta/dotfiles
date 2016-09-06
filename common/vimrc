@@ -42,7 +42,7 @@ highlight comment ctermfg=cyan
 
 set tabstop=2
 set expandtab
-set softtabstop=2
+set softtabstop=0 noexpandtab
 set shiftwidth=2
 
 highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
