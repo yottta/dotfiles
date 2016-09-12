@@ -69,7 +69,8 @@ sudo pacman -S bash-completion
 sudo pacman -S thunar lxappearance
 yaourt -i delorean-dark-3.18
 sudo pacman -S acpi (for battery)
-sudo pacman -S sysstat
+sudo pacman -S sysstat (for cpu)
+sudo pacman -S dstat (for better stats)
 
 6. NetworkManager
 sudo pacman -S networkmanager network-manager-applet
