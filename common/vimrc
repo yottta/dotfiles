@@ -97,3 +97,10 @@ let g:NERDTreeDirArrowCollapsible = '?'
 let g:ack_mappings = {
       \  'v':  '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
       \ 'gv': '<C-W><CR><C-W>L<C-W>p<C-W>J' }
+
+nmap <leader>n :tabnew<Enter>
+nmap <leader>h :tabprev<Enter>
+nmap <leader>l :tabnext<Enter>
+nmap <leader>j :tabfirst<Enter>
+nmap <leader>k :tablast<Enter>
+
