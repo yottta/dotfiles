@@ -55,11 +55,11 @@ nnoremap <silent> n n:call HLNext(0.2)<cr>
 nnoremap <silent> N N:call HLNext(0.2)<cr>
 
 function! HLNext(blinktime)
-	set invcursorline
-	redraw
-	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-	set invcursorline
-	redraw
+  set invcursorline
+  redraw
+  exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+  set invcursorline
+  redraw
 endfunction
 
 " show special characters
@@ -84,6 +84,7 @@ let @d = 'ddjP'
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/vim-surround
 set runtimepath^=~/.vim/bundle/nerdtree
+set runtimepath^=~/.vim/bundle/ack.vim
 
 " ctrlP bundle properties
 let g:ctrlp_types = ['fil','buf','mru']
@@ -91,3 +92,8 @@ let g:ctrlp_types = ['fil','buf','mru']
 " NERDTree properties
 let g:NERDTreeDirArrowExpandable = '?'
 let g:NERDTreeDirArrowCollapsible = '?'
+
+
+let g:ack_mappings = {
+      \  'v':  '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
+      \ 'gv': '<C-W><CR><C-W>L<C-W>p<C-W>J' }
