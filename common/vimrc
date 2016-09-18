@@ -90,8 +90,10 @@ set runtimepath^=~/.vim/bundle/ack.vim
 let g:ctrlp_types = ['fil','buf','mru']
 
 " NERDTree properties
-let g:NERDTreeDirArrowExpandable = '?'
-let g:NERDTreeDirArrowCollapsible = '?'
+nmap <leader>t :NERDTreeToggle<Enter>
+let NERDTreeQuitOnOpen=1
+let g:NERDTreeDirArrowExpandable = '>'
+let g:NERDTreeDirArrowCollapsible = '~'
 
 
 let g:ack_mappings = {
