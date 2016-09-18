@@ -1,65 +1,93 @@
-"set number
-"set numberwidth=1
-"set clipboard=unnamed
-"set term=xterm-256color
-
-
-"set nocompatible          " get rid of Vi compatibility mode. SET FIRST!
-"filetype plugin indent on " filetype detection[ON] plugin[ON] indent[ON]
-"set t_Co=256              " enable 256-color mode.
-"syntax enable             " enable syntax highlighting (previously syntax on).
-"colorscheme darkblue      " set colorscheme
-"colorscheme default       " set colorscheme
-"set number                " show line numbers
-"set laststatus=2          " last window always has a statusline
-"filetype indent on        " activates indenting for files
-"set nohlsearch            " Don't continue to highlight searched phrases.
-"set incsearch             " But do highlight as you type your search.
-set ignorecase            " Make searches case-insensitive.
-"set ruler                 " Always show info along bottom.
-"set autoindent            " auto-indent
-"set tabstop=4             " tab spacing
-"set softtabstop=4         " unify
-"set shiftwidth=4          " indent/outdent by 4 columns
-"set shiftround            " always indent/outdent to the nearest tabstop
-"set expandtab             " use spaces instead of tabs
-"set smarttab              " use tabs at the start of a line, spaces elsewhere
-
-set pastetoggle=<F2>
-set fo=tcq
+" get rid of vi compatibility
 set nocompatible
+
+" search properties
+set ignorecase            " Make searches case-insensitive.
+set incsearch             " But do highlight as you type your search.
+set hlsearch
+
+" indentation settings
+set tabstop=2
+set expandtab
+set softtabstop=0 " noexpandtab
+set shiftwidth=2
+
+" lines numbering
+set number
+set numberwidth=1
+
+" Show me a ruler
+set ruler
+" todo rulerformat
+
+" pasting toggle
+set pastetoggle=<F2>
+
+" set syntax on
+syntax on
+
+set laststatus=2          " last window always has a statusline
+set autoindent            " auto-indent
+set formatoptions=tcq
 set modeline
 set bg=dark
 
-syntax on
-set hlsearch
 set t_Co=256
-set number
 
 " set default comment color to cyan instead of darkblue
 " which is not very legible on a black background
 highlight comment ctermfg=cyan
-
-set tabstop=2
-set expandtab
-set softtabstop=0 noexpandtab
-set shiftwidth=2
 
 highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
 match LiteralTabs /\s\  /
 highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
 match ExtraWhitespace /\s\+$/
 
-" Show me a ruler
-set ruler
-
-" Set up puppet manifest and spec options
-au BufRead,BufNewFile *.pp
-  \ set filetype=puppet
-au BufRead,BufNewFile *_spec.rb
-  \ nmap <F8> :!rspec --color %<CR>
-
 " Enable indentation matching for =>'s
 filetype plugin indent on
-set number
 
+" to tell you when you passed 80 characters
+highlight ColorColumn ctermbg=red
+call matchadd('ColorColumn', '\%81v', 100)
+
+" better searching highlight
+nnoremap <silent> n n:call HLNext(0.2)<cr>
+nnoremap <silent> N N:call HLNext(0.2)<cr>
+
+function! HLNext(blinktime)
+	set invcursorline
+	redraw
+	exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+	set invcursorline
+	redraw
+endfunction
+
+" show special characters
+set listchars=tab:>-,trail:.,nbsp:~
+set list
+
+" show a horizontal line where the cursor is
+set cursorline
+
+" set diff view options
+set diffopt=filler,vertical
+
+set showmode
+" set wrapping lines when are longer than the screen
+set wrap
+
+" macros
+let @u = 'ddkP'
+let @d = 'ddjP'
+
+" bundles - extensions - plugins
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set runtimepath^=~/.vim/bundle/vim-surround
+set runtimepath^=~/.vim/bundle/nerdtree
+
+" ctrlP bundle properties
+let g:ctrlp_types = ['fil','buf','mru']
+
+" NERDTree properties
+let g:NERDTreeDirArrowExpandable = '?'
+let g:NERDTreeDirArrowCollapsible = '?'
