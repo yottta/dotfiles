@@ -106,3 +106,8 @@ cronie
 nedit - basic text editor
 irssi - text mode chat - test it - learn it
 
+13. Teamviewer
+enable multilib repo from /etc/pacman.conf
+pacman -Syy
+pacman -Syu gcc-multilib
+yaourt teamviewer
