@@ -106,3 +106,4 @@ nmap <leader>l :tabnext<Enter>
 nmap <leader>j :tabfirst<Enter>
 nmap <leader>k :tablast<Enter>
 
+nnoremap Q !!$SHELL<CR>
