@@ -109,3 +109,7 @@ nmap <leader>k :tablast<Enter>
 nnoremap Q !!$SHELL<CR>
 
 set wildignore+=**/*.pyc
+let g:ctrlp_max_files=0
+set wildignore+=*/target/**
+set number
+nnoremap <F3> :set nonumber!<CR>
