@@ -51,3 +51,6 @@ PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{
 # Preferred editor for local and remote sessions
 #
 export EDITOR='vim'
+
+export NVM_DIR="/home/jump/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -63,8 +63,8 @@ function! HLNext(blinktime)
 endfunction
 
 " show special characters
-set listchars=tab:>-,trail:.,nbsp:~
-set list
+"set listchars=tab:>-,trail:.,nbsp:~
+"set list
 
 " show a horizontal line where the cursor is
 set cursorline
