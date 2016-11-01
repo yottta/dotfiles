@@ -35,9 +35,9 @@ function install_common() {
     sudo $installer install cups
     sudo $installer install mc
     sudo $installer install vim
-    sudo $installer install thunderbird
+    #sudo $installer install thunderbird
     sudo $installer install pidgin
-    sudo $installer install clementine
+    #sudo $installer install clementine
     sudo $installer install tmux
     sudo $installer install atom
     sudo $installer install skype
@@ -46,15 +46,15 @@ function install_common() {
     sudo $installer install ssh
     sudo $installer install tree
     sudo $installer install openvpn
-    sudo $installer install guake
+    #sudo $installer install guake
     sudo $installer install vlc
-    sudo $installer install docker
-    sudo $installer install sshpass
+    #sudo $installer install docker
+    #sudo $installer install sshpass
     sudo $installer install git
     sudo $installer install zip
     sudo $installer install unrar
     sudo $installer install smplayer
-    sudo $installer install google-chrome
+    #sudo $installer install google-chrome
 }
 
 function install_debian_specific() {
