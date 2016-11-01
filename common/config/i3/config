@@ -2,7 +2,7 @@ set $mod Mod4
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
+focus_follows_mouse no
 ##### VARIABLES ######
 # colors
 set $bar_bg_color                   #000000

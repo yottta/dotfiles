@@ -111,3 +111,6 @@ enable multilib repo from /etc/pacman.conf
 pacman -Syy
 pacman -Syu gcc-multilib
 yaourt teamviewer
+
+14. Fffmpeg
+yaourt ffmpeg2
