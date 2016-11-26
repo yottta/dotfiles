@@ -7,6 +7,10 @@ fi
 if [ -f ~/.exports ]; then
     . ~/.exports
 fi
+if [ -f ~/.profile ]; then
+    . ~/.profile
+fi
+
 # Path to your oh-my-zsh installation.
 export ZSH=/home/$USER/.oh-my-zsh
 
@@ -16,7 +20,6 @@ export ZSH=/home/$USER/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="frisk"
 #ZSH_THEME="bureau"
-
 # Uncomment the following line to disable auto-setting terminal title.
 DISABLE_AUTO_TITLE="true"
 
@@ -39,6 +42,8 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+export HISTSIZE=99999999
+
 # PROMPT settings
 NEWLINE=$'\n'
 RPROMPT="%*"
@@ -46,3 +51,7 @@ PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{
 # Preferred editor for local and remote sessions
 #
 export EDITOR='vim'
+
+export NVM_DIR="/home/jump/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

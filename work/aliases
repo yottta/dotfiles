@@ -20,7 +20,7 @@ alias eeaura='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/e
 alias squirrel='/home/$USER/Development/softs/squirrel-sql-3.5.0-standard/squirrel-sql.sh'
 alias searchPr='/home/$USER/Development/utils/scripts/searchProcess.sh $@'
 alias ..="cd .."
-alias mvnci="mvn clean install -DskipTests -U"
+alias mvnci="mvn clean install -DskipTests -U -Pdev -DdevName=ciobanan"
 alias aura_client="mvn clean install -DskipTests -Pauraclient"
 alias aura_patch="mvn clean install -DskipTests; mkdir -p ~/Documents/patches; ./buildPatches.sh ~/Documents/patches"
 alias mvncit="mvn clean install"
@@ -34,4 +34,6 @@ alias sonar_stop="/bin/bash /home/$USER/Development/softs/sonarqube-5.3/bin/linu
 alias urldecode='sed "s@+@ @g;s@%@\\\\x@g" | xargs -0 printf "%b"'
 alias squirrel="(/bin/bash /home/$USER/Development/softs/squirrel-sql-3.7.1/squirrel-sql.sh &); exit"
 alias go_to_ntv="TERM=xterm; ssh her074@ntv"
+alias ntvc="xrdb -load ~/.Xdefaults_ntv && (urxvt &); sleep 0.2; xrdb -load ~/.Xdefaults"
 alias tmux_ntv="/home/jump/Development/projects/tmux/scripts/ntv.sh"
+alias ts="libreoffice ~/Documents/docs/2016/CIOBANU_Emilian_Petru_Andrei_Timesheet_KRONSOFT_2016.ods"

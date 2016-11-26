@@ -1,5 +1,4 @@
 if [ -f ~/.exports ]; then
     . ~/.exports
 fi
-#export JUMP_ENV_SERVER="${JUMP_ENV_SERVER} -DauraRestUrl=http://127.0.0.1:8985/client/rest/merge"
-export JUMP_ENV_SERVER="${JUMP_ENV_SERVER} -DauraRestUrl=http://127.0.0.1:8985/client/rest/merge"
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
