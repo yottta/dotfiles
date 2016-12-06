@@ -15,12 +15,14 @@ alias sc="/bin/bash /home/$USER/Development/scripts/common/startC.sh"
 
 alias killj='killproc "jboss|warenEingang.WEMain"'
 alias eedefault='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/eclipse/eclipse &); exit'
-alias eentv='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/eclipse/eclipse -data /home/$USER/Development/eclipse_workspace/alg &); exit'
+alias eealg='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/eclipse/eclipse -data /home/$USER/Development/eclipse_workspace/alg &); exit'
+alias eeazh='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_neon/eclipse -data /home/$USER/Development/eclipse_workspace/azh &); exit'
 alias eeaura='export SWT_GTK3=0; (/home/$USER/Development/softs/eclipse_mars_2/eclipse/eclipse -data /home/$USER/Development/eclipse_workspace/mdm &); exit'
 alias squirrel='/home/$USER/Development/softs/squirrel-sql-3.5.0-standard/squirrel-sql.sh'
 alias searchPr='/home/$USER/Development/utils/scripts/searchProcess.sh $@'
 alias ..="cd .."
 alias mvnci="mvn clean install -DskipTests -U -Pdev -DdevName=ciobanan"
+alias mvncia="mvn clean install -DskipTests"
 alias aura_client="mvn clean install -DskipTests -Pauraclient"
 alias aura_patch="mvn clean install -DskipTests; mkdir -p ~/Documents/patches; ./buildPatches.sh ~/Documents/patches"
 alias mvncit="mvn clean install"

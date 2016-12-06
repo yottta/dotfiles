@@ -3,9 +3,9 @@
 ############## system #############
 export EDITOR="/usr/bin/vim"
 # lang en_US.ISO-8859-15
-export LANG=en_US.ISO-8859-15
-export LC_ALL=en_US.ISO-8859-15
-export LANGUAGE=en_US.ISO-8859-15
+#export LANG=en_US.ISO-8859-15
+#export LC_ALL=en_US.ISO-8859-15
+#export LANGUAGE=en_US.ISO-8859-15
 # lang en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -34,3 +34,6 @@ export MAVEN_OPTS="-Xms256m -Xmx512m"
 ## properties - jump ##
 export JBOSS_MEM_OPTS="-XX:MaxPermSize=256m -Xms128m -Xmx968m "
 export JUMP_ENV_SERVER="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 -DASP_MODE=false -DSynchWorkflowBean.serialize=true"
+
+#export NVM_DIR="/home/jump/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

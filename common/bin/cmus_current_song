@@ -1,0 +1,5 @@
+#!/bin/bash
+
+result=$(cmus-remote -Q | head -2 | tail -1 | sed 's/file //' | rev | cut -d'/' -f1 | rev | sed 's/.mp3//' | sed 's/_/ /g')
+
+echo "$result" | awk '{printf("%-50s", $0)}'

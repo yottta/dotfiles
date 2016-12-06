@@ -52,6 +52,4 @@ PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{
 #
 export EDITOR='vim'
 
-export NVM_DIR="/home/jump/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
