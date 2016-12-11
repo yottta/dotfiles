@@ -1,7 +1,7 @@
 ! urxvt
 
 URxvt*geometry:                115x40
-URxvt*font:  xft:FreeMono:pixelsize=14
+URxvt*font:  xft:DejaVu Sans Mono:pixelsize=15
 URxvt*depth:                24
 URxvt*borderless: 1
 URxvt*scrollBar:            false
@@ -12,7 +12,7 @@ URxvt.urlLauncher: google-chrome
 URxvt.matcher.button: 1
 !URxvt.transparent:      true
 
-urxvt*foreground: white
+urxvt*foreground: #00FF00
 urxvt*background: black
 
 *color0:  #2E3436
