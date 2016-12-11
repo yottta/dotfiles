@@ -39,6 +39,7 @@ function install_common() {
     sudo $installer install pidgin
     #sudo $installer install clementine
     sudo $installer install tmux
+    sudo $installer install sysstat
     sudo $installer install atom
     sudo $installer install skype
     sudo $installer install samba
