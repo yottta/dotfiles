@@ -1,10 +1,2 @@
 # .bashrc
-if [ -f ~/.profile ]; then
-	. ~/.profile
-fi
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-if [ -f ~/.aliases ]; then
-	. ~/.aliases
-fi
+[ -f ~/.common_system ] && . ~/.common_system

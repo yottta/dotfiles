@@ -3,6 +3,10 @@
 ############## system #############
 export EDITOR="/usr/bin/vim"
 # lang en_US.ISO-8859-15
+#export LANG=de_DE.ISO-8859-15
+#export LC_ALL=de_DE.ISO-8859-15
+#export LANGUAGE=de_DE.ISO-8859-15
+# lang de_DE.ISO-8859-15
 #export LANG=en_US.ISO-8859-15
 #export LC_ALL=en_US.ISO-8859-15
 #export LANGUAGE=en_US.ISO-8859-15
@@ -27,13 +31,11 @@ export M2="$M2_HOME/bin"
 export JAVA_HOME="/home/$USER/Development/softs/java/jdk1.8.0_25"
 #export JAVA_HOME="/home/jump/Development/softs/java/jdk1.8.0_77"
 #export JAVA_HOME=/home/jump/Development/softs/sdk
-export PATH=/sbin:/opt/sqlanywhere11/bin32:/opt/sqlanywhere11/bin64:$JAVA_HOME/bin:$M2:$PATH
+export ANT_HOME="/home/$USER/Development/softs/apache-ant-1.9.7"
+export PATH=/sbin:/opt/sqlanywhere11/bin32:/opt/sqlanywhere11/bin64:$JAVA_HOME/bin:$M2:$ANT_HOME/bin:$PATH
 
 ## properties - maven ##
 export MAVEN_OPTS="-Xms256m -Xmx512m"
 ## properties - jump ##
 export JBOSS_MEM_OPTS="-XX:MaxPermSize=256m -Xms128m -Xmx968m "
 export JUMP_ENV_SERVER="-Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8787 -DASP_MODE=false -DSynchWorkflowBean.serialize=true"
-
-#export NVM_DIR="/home/jump/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

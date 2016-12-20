@@ -1,15 +1,5 @@
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-if [ -f ~/.aliases ]; then
-    . ~/.aliases
-fi
-if [ -f ~/.exports ]; then
-    . ~/.exports
-fi
-if [ -f ~/.profile ]; then
-    . ~/.profile
-fi
+
+[ -f ~/.common_system ] && . ~/.common_system
 
 # Path to your oh-my-zsh installation.
 export ZSH=/home/$USER/.oh-my-zsh
@@ -51,5 +41,3 @@ PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{
 # Preferred editor for local and remote sessions
 #
 export EDITOR='vim'
-
-#[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx

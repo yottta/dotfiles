@@ -5,7 +5,7 @@ alias l.='ls -al --color=auto'
 # various aliases for jump-related tasks
 alias getbootstrap='wget --no-proxy ftp://repository.intra.vsa.de/repository/bootstrap/bootstrap-current.zip;unzip -o bootstrap-current.zip;rm bootstrap-current.zip;chmod 755 bootstrap/bin/ant'
 alias getmodules='bootstrap/bin/ant -buildfile bootstrap/bootstrap.xml repo.get.modules;chmod ogu+x modules/ant/bin/ant'
-alias ant='./modules/ant/bin/ant -Dfile.encoding=ISO-8859-15 -logger org.apache.tools.ant.listener.AnsiColorLogger -propertyfile development/ciobanan/ciobanan.ant.properties'
+#alias ant='./modules/ant/bin/ant -Dfile.encoding=ISO-8859-15 -logger org.apache.tools.ant.listener.AnsiColorLogger -propertyfile development/ciobanan/ciobanan.ant.properties'
 alias clean_compile='ant clean+compile'
 alias clean_make_quick_local_release='ant clean make.quick.local.release'
 alias db_update_from_module='ant test.version.update.jump'
@@ -39,3 +39,4 @@ alias go_to_ntv="TERM=xterm; ssh her074@ntv"
 alias ntvc="xrdb -load ~/.Xdefaults_ntv && (urxvt &); sleep 0.2; xrdb -load ~/.Xdefaults"
 alias tmux_ntv="/home/jump/Development/projects/tmux/scripts/ntv.sh"
 alias ts="libreoffice ~/Documents/docs/2016/CIOBANU_Emilian_Petru_Andrei_Timesheet_KRONSOFT_2016.ods"
+alias ws="(/home/jump/Development/softs/WebStorm-163.9166.30/bin/webstorm.sh&); exit"

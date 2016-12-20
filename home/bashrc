@@ -1,16 +1,2 @@
 #!/bin/bash
-
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-if [ -f ~/.aliases ]; then
-	. ~/.aliases
-fi
-if [ -f ~/.exports ]; then
-	. ~/.exports
-fi
-if [ -f ~/.profile ]; then
-  . ~/.profile
-fi
-
-
+[ -f ~/.common_system ] && . ~/.common_system

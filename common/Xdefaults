@@ -1,7 +1,7 @@
 ! urxvt
 
 URxvt*geometry:                115x40
-URxvt*font:  xft:DejaVu Sans Mono:pixelsize=15
+URxvt*font:  xft:DejaVu Sans Mono:pixelsize=13
 URxvt*depth:                24
 URxvt*borderless: 1
 URxvt*scrollBar:            false
@@ -32,8 +32,10 @@ urxvt*background: black
 *color14: #fcaf3e
 *color15: #EEEEEC
 
-urxvt*transparent: true
-urxvt*shading: 15
+!urxvt*transparent: true
+!urxvt*shading: 50
+urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0200/c800
 
 URxvt*scrollTtyOutput:      false
 URxvt*scrollWithBuffer:     true

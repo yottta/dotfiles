@@ -2,11 +2,7 @@
 
 #####-------------EXPORTS------------#####
 # global variables
-<<<<<<< HEAD
 export LINUX_SOFTS=/media/personal_drive/storage/Programming/development_softwares/linux
-=======
-export LINUX_SOFTS=~/data/workspace
->>>>>>> 4ff4e34f9e361d3d00d1b2e6405bb57a3dd355df
 export SOFTS_PATH=$LINUX_SOFTS/softs
 
 # java
