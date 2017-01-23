@@ -203,7 +203,7 @@ exec --no-startup-id xrandr --current | head -2 | tail -1 | cut -d' ' -f1 | xarg
 exec --no-startup-id xset r rate 200 40
 exec --no-startup-id parcellite
 exec --no-startup-id google-chrome-stable
-exec --no-startup-id dunst
+exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id urxvt -e tmux
 
 ##### assigns between apps and workspaces ######
