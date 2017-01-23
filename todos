@@ -64,6 +64,7 @@ add the following config to /etc/pacman.conf
 pacman -Syu
 pacman -S yogourt
 yogourt google-chrome
+sudo pacman -S volumeicon
 sudo pacman -S mc tmux feh 
 sudo pacman -S bash-completion
 sudo pacman -S thunar lxappearance

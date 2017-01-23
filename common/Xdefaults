@@ -1,7 +1,7 @@
 ! urxvt
 
 URxvt*geometry:                115x40
-URxvt*font:  xft:DejaVu Sans Mono:pixelsize=13
+#URxvt*font:  xft:DejaVu Sans Mono:pixelsize=13
 URxvt*depth:                24
 URxvt*borderless: 1
 URxvt*scrollBar:            false
