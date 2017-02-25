@@ -98,7 +98,7 @@ mode "resize" {
 ##### resize bindings (end) #####
 
 ##### mode state #####
-bindsym $mod+Pause mode "$mode_system"
+bindsym $mod+Shift+Insert mode "$mode_system"
 set $mode_system System (l) lock, (o) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
         bindsym l       exec --no-startup-id $HOME/bin/i3exit lock, mode "default"
