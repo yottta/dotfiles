@@ -119,3 +119,9 @@ yaourt -S skypeforlinux
 
 14. Fffmpeg
 yaourt ffmpeg2
+
+15. Grub hide menu
+Add to /etc/default/grub
+GRUB_TIMEOUT=0
+GRUB_TIMEOUT_STYLE='countdown'
+sudo grub-mkconfig -o /boot/grub/grub.cfg
