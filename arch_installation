@@ -29,6 +29,7 @@ lspci | grep VGA and pacman -S xf86-video-intel (for intel situation)
 sudo pacman -S xf86-input-synaptics
 pacman -S xorg-server xorg-server-utils xorg-xinit xorg-apps
 pacman -S i3-wm i3lock i3status 
+pacman -S ttf-dejavu
 git clone git://github.com/vivien/i3blocks && cd i3blocks && make clean debug && make install
 pacman -S opendesktop-fonts
 pacman -S alsa-utils pavucontrol pulseaudio-alsa

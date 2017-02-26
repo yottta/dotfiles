@@ -34,8 +34,8 @@ set $wp10 "10 &#xf04b;"
 ##### VARIABLES (END) #####
 
 # Font for window titles. Will also be used by the bar unless a different font is used in the bar {} block below.
-font pango:System_San_Fransisco_Display 8
-
+#font pango:System_San_Fransisco_Display 8
+font pango:DejaVu Sans Mono 8
 ##### window settings #####
 # colors
 # target                border                        background                  text                        indicator
