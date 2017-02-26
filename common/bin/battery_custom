@@ -1,0 +1,20 @@
+#!/bin/bash
+
+check_result=$(which acpi > /dev/null 2>&1)
+if [ $? == 1 ]; then
+  echo "acpi not installed"
+  exit 0
+fi
+test="$(acpi)"
+echo "$test" | {
+
+	res=""
+	while IFS= read -r line
+  do
+		percentage=$(echo $line | awk '{print $4}' | sed 's/,//g')
+		battery_number=$(echo $line | awk '{print $2}' | sed 's/://g')
+  	res="$res $battery_number:$percentage"
+  done
+	echo $res
+}
+
