@@ -5,28 +5,32 @@ Download from Arch site the last version
 Write it to usb flash drive
 Reboot, choose, run
 fdisk -l (see your partitions and disks)
-cfdisk (partitioning your disk)
-mkswap <your_swap_partition>
-swapon <your_swap_partition>
-mkfs.ext4 <your_partitions_with_data>
-mount <partition with root> /mnt
-genfstab -p /mnt >> /mnt/etc/fstab
+cfdisk </dev/sda> (partitioning your disk - bootable on root partition)
+mkswap <swap_partition>
+swapon <swap_partition>
+mkfs.ext4 <root_partition>
+mount <root_partition> /mnt
+pacstrap /mnt base base-devel
 arch-chroot /mnt
-pacman -S vim
+passwd (change root passwd)
+pacman -S vim wifi-menu dialog wpa_supplicant git
 vim /etc/locale.gen (uncomment en_US.UTF-8 UTF-8 and en_US ISO-8859-1)
 locale-gen
 ls /sys/class/net and systemctl enable dhcpcd@enp2s0.service (or try to use wifi-menu; don't forget to install dialog and wpa_supplicant packages with pacman because on the installed system the wifi-menu will not work
-grub-mkconfig -o /boot/grub/grub.cfg
+ls -s /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
+echo <hostname> > /etc/hostname
+pacman -S grub-bios
 grub-install /dev/sda (the disk not the partition)
 mkinitcpio -p linux
-passwd (change root passwd)
+grub-mkconfig -o /boot/grub/grub.cfg
 exit
+genfstab -p /mnt >> /mnt/etc/fstab
 umount /mnt
 reboot
 
 2. Post-installation
 lspci | grep VGA and pacman -S xf86-video-intel (for intel situation)
-sudo pacman -S xf86-input-synaptics
+pacman -S xf86-input-synaptics
 pacman -S xorg-server xorg-server-utils xorg-xinit xorg-apps
 pacman -S i3-wm i3lock i3status 
 pacman -S ttf-dejavu
@@ -39,16 +43,12 @@ sudo echo "username ALL=(ALL) NOPASSWD:ALL">> /etc/sudoers
 echo "your_hostname" > /etc/hostname
 change the hostname in /etc/hosts too
 sudo pacman -S gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav gstreamer0.10 gstreamer0.10-plugins
-ln -s /usr/share/zoneinfo/zone/subzone /etc/localtime
 
 3. Config window manager
 replace ~/.xinitrc content just with a simple i3 exec
 add the following line to .bash_profile 
   [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 reboot and after log in you should be in i3
-git clone https://github.com/vivien/i3blocks
-make clean debug or make clean all
-sudo make install
 
 4. Personal configs
 git clone -> make_symlinks
@@ -91,6 +91,8 @@ sudo systemctl start ntpd
 
 9.Ssh
 sudo pacman -S openssh
+sudo systemctl enable sshd
+sudo systemctl start sshd
 
 10. Notifications
 sudo pacman -S dunst // notification server
