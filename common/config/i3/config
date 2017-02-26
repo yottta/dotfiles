@@ -188,7 +188,7 @@ bindsym $mod+Shift+r restart
 
 ## custom ##
 # start a terminal
-bindsym $mod+Return exec urxvt -e tmux
+bindsym $mod+Return exec xfce4-terminal -e tmux
 
 # custom bind for keyboard layout changing
 bindsym $mod+l exec $HOME/bin/change_keyboard_layout
@@ -205,7 +205,7 @@ exec --no-startup-id copyq
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id volumeicon
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
-exec --no-startup-id urxvt -e tmux
+exec --no-startup-id xfce4-terminal -e tmux
 
 ##### assigns between apps and workspaces ######
 assign [class="Google-chrome"] $wp2
