@@ -196,8 +196,8 @@ bindsym $mod+l exec $HOME/bin/change_keyboard_layout
 ##### key bindings (end) #####
 
 ##### autostarting operations #####
-#exec --no-startup-id $HOME/bin/change_wallpaper $HOME/wallpapers
-exec_always feh --bg-scale /home/enraid/wallpapers/archlinux-simplyblack.png
+exec --no-startup-id $HOME/bin/change_wallpaper $HOME/.wallpapers
+#exec_always feh --bg-scale /home/enraid/wallpapers/archlinux-simplyblack.png
 exec --no-startup-id nm-applet
 exec --no-startup-id xrandr --current | head -2 | tail -1 | cut -d' ' -f1 | xargs -I '{}' xrandr --output {} --primary
 exec --no-startup-id xset r rate 200 40
