@@ -1,3 +1,4 @@
 #!/bin/bash
 xmodmap ~/.Xmodmap
+syndaemon -i 0.3 -K -R -d
 exec i3
