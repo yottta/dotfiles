@@ -76,7 +76,7 @@ sudo pacman -S dstat (for better stats)
 sudo pacman -S ack (better grep tool - used for vim also)
 
 6. NetworkManager
-sudo pacman -S networkmanager network-manager-applet
+sudo pacman -S networkmanager network-manager-applet gnome-keyring (there was a problem with password prompt - gnome-keyring resolves it)
 sudo systemctl enable NetworkManager
 sudo systemctl start NetworkManager
 sudo systemctl enable systemd-networkd (and sudo systemctl enable systemd-networkd) if it is needed
