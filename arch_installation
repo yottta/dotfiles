@@ -125,3 +125,33 @@ Add to /etc/default/grub
 GRUB_TIMEOUT=0
 GRUB_TIMEOUT_STYLE='countdown'
 sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+15. Bluetooth headset 
+# references
+# https://wiki.archlinux.org/index.php/Bluetooth_headset
+# https://bbs.archlinux.org/viewtopic.php?id=197482
+# references (end)
+sudo pacman -S pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware
+sudo systemctl enable bluetooth
+sudo systemctl start bluetooth
+### set up the auto switch to bluetooth headset on connection ###
+add to /etc/pulse/default.pa the following lines:
+# automatically switch to newly-connected devices
+load-module module-switch-on-connect
+# register your device
+bluetoothctl
+power on
+agent on
+default-agent
+scan on
+# when the device appears let's pair and trust it
+pair <mac_addr>
+trust <mac_addr>
+# auto start the bluetooth adapter
+in /etc/bluetooth/main.conf last line from the [Policy] section, add the auto enable flag.
+[Policy]
+AutoEnable=true
+sudo pacman -S blueberry (for tray icon)
+# for fixing the mono problem
+pacmd ls (to find your device index)
+pacmd set-card-profile <your device index> a2dp_sink
