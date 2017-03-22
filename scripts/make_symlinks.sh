@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "deprecated! use configbuddy"
+exit 1 
 # get the script path
 make_symlinks_path=$(cd `dirname $0` && pwd)
 

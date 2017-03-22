@@ -1,4 +1,5 @@
 #!/bin/bash
+DEFAULT_SESSION=i3
 xmodmap ~/.Xmodmap
 syndaemon -i 0.3 -K -R -d
 exec i3

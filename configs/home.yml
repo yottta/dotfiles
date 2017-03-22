@@ -1,0 +1,107 @@
+- Globals:
+  - exitOnError: false
+- FileAction:
+  - atom:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - bin:
+    - hidden: false
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - common_exports:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - common_system:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - dunst:
+    - hidden: false
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home/.config
+  - fonts:
+    - hidden: false
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home/.local/share
+  - i3:
+    - hidden: false
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home/.config
+  - tmux.conf:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - tmux.theme.sh:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - vim:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - vimrc:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - wallpapers:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - Xdefaults:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - xfce4:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - xinitrc:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - Xmodmap:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - zshrc:
+    - hidden: true
+      source: ../common
+      command: ln -s
+      destination: $HOME/testing/home
+  - aliases:
+    - hidden: true
+      source: ../home
+      command: ln -s
+      destination: $HOME/testing/home
+  - bashrc:
+    - hidden: true
+      source: ../home
+      command: ln -s
+      destination: $HOME/testing/home
+  - exports:
+    - hidden: true
+      source: ../home
+      command: ln -s
+      destination: $HOME/testing/home
+
+- PackageAction:
+  - i3:
+    - alternatives: i3wm
