@@ -1,6 +1,0 @@
-# Anhand dieses Files bestimmt der KRS die Identität des Systems, auf dem er sich befindet,
-# wenn er unter der in den config.properties im Property systemInfoLocation nichts findet.
-# Testdaten für Enterprise-Tests im Modul jump_replikation stellen auf diese Id ab.
-# D.h. auch ohne zusätzliche Konfiguration sind die Enterprise-Tests lauffähig.
-versionKrs:1
-systemId:l1j99913

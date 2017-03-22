@@ -1,2 +1,0 @@
-# .bashrc
-[ -f ~/.common_system ] && . ~/.common_system
