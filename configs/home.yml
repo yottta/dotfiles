@@ -1,5 +1,6 @@
 - Globals:
   - exitOnError: false
+  - confirmEveryPackage: true
 - FileAction:
   - atom:
     - hidden: true
