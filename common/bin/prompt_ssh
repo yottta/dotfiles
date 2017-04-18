@@ -1,0 +1,48 @@
+#!/bin/bash
+declare -A mappings
+
+print_and_exit() {
+  msg=$1
+  echo "$msg"
+  echo "Press enter to exit ..."
+  echo ""
+  read
+  exit 1
+}
+
+read_mapped_ssh() {
+  index=1
+  while read line; do    
+    if [[ $line =~ ^#.* ]]; then
+      continue
+    fi
+    mappings[$index]=$line
+    index=$((index+1))
+  done < $HOME/.mapped_ssh
+}
+
+execute_choice() {
+  echo "Choose your target:"
+  for i in "${!mappings[@]}"
+  do
+    echo "$i) `echo ${mappings[$i]} | awk '{print $2}'`@`echo ${mappings[$i]} | awk '{print $1}'`"
+  done
+  read choice
+  choice_result=${mappings[$choice]}
+  user=`echo ${mappings[$i]} | awk '{print $2}'`
+  host=`echo ${mappings[$i]} | awk '{print $1}'`
+  pass=`echo ${mappings[$i]} | awk '{print $3}'`
+  eval sshpass -p$pass ssh $user@$host
+}
+
+if [ ! -f $HOME/.mapped_ssh ]; then
+  print_and_exit "The file $HOME/.mapped_ssh does not exists!"
+fi
+
+res=$(which sshpass)
+if [ $? -ne 0 ]; then
+  print_and_exit "sshpass is required and seems that is not installed! Please fix this before continue!"
+fi
+
+read_mapped_ssh
+execute_choice

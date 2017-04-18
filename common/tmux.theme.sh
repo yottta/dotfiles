@@ -56,7 +56,7 @@ set-window-option -g clock-mode-colour $tm_color_active
 #tm_tunes="#[fg=$tm_color_music]#(osascript ~/.dotfiles/applescripts/tunes.scpt)"
 #tm_battery="#(~/.dotfiles/bin/battery_indicator.sh)"
 
-tm_date="#[fg=$tm_color_active] #(~/.dotfiles/common/bin/cmus_current_song) %d/%m/%Y %H:%M:%S | CPU: #(~/.dotfiles/common/bin/cpu_usage | head -1) | IP: #(~/.dotfiles/common/bin/iface | head -1)"
+tm_date="#[fg=$tm_color_active] #(~/.dotfiles/common/bin/cmus_current_song) | %d/%m/%Y %H:%M:%S | CPU: #(~/.dotfiles/common/bin/cpu_usage | head -1) | IP: #(~/.dotfiles/common/bin/iface | head -1)"
 #tm_host="#[fg=$tm_color_feature,bold]#h"
 #tm_session_name="#[fg=$tm_color_feature,bold]$tm_icon #S"
 

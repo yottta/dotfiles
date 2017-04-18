@@ -2,4 +2,12 @@
 
 result=$(cmus-remote -Q | head -2 | tail -1 | sed 's/file //' | rev | cut -d'/' -f1 | rev | sed 's/.mp3//' | sed 's/_/ /g')
 
-echo "$result" | awk '{printf("%-50s", $0)}'
+stat=$(cmus-remote -Q | grep status | awk '{print $2}')
+stat_char="_"
+if [ $stat == 'paused' ]; then
+  stat_char="|"
+fi
+if [ $stat == 'playing' ]; then
+  stat_char=">"
+fi
+echo "$stat_char $result" #| awk '{printf("%s -> %-50s", $2, $1)}'
