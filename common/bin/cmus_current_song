@@ -11,3 +11,4 @@ if [ $stat == 'playing' ]; then
   stat_char=">"
 fi
 echo "$stat_char $result" #| awk '{printf("%s -> %-50s", $2, $1)}'
+
