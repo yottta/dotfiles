@@ -29,9 +29,12 @@ execute_choice() {
   done
   read choice
   choice_result=${mappings[$choice]}
-  user=`echo ${mappings[$i]} | awk '{print $2}'`
-  host=`echo ${mappings[$i]} | awk '{print $1}'`
-  pass=`echo ${mappings[$i]} | awk '{print $3}'`
+  user=`echo $choice_result | awk '{print $2}'`
+  host=`echo $choice_result | awk '{print $1}'`
+  pass=`echo $choice_result | awk '{print $3}'`
+  if [ ! -z $TMUX ]; then
+    tmux rename-window `echo ${mappings[$choice]} | awk '{print $2}'`@`echo ${mappings[$choice]} | awk '{print $1}'`
+  fi
   eval sshpass -p$pass ssh $user@$host
 }
 
