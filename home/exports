@@ -31,9 +31,3 @@ export PATH=${JAVA_HOME}/bin:${ANT_HOME}/bin:${MAVEN_HOME}/bin:${TOMCAT_HOME}/bi
 
 # vim
 export EDITOR="vim"
-#source /usr/share/nvm/init-nvm.sh
-
-if [ -e ~/custom_exports ]; then
-  . ~/custom_exports
-fi
-

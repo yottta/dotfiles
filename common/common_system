@@ -1,8 +1,8 @@
 #!/bin/bash
 
-[ -f ~/.profile ] && . ~/.profile
 [ -f ~/.common_exports ] && . ~/.common_exports
 [ -f ~/.exports ] && . ~/.exports
+[ -f ~/custom_exports ] && . ~/custom_exports
 [ -f ~/.aliases ] && . ~/.aliases
 [ -f /etc/bashrc ] && . /etc/bashrc
 
