@@ -1,108 +1,108 @@
-- Globals:
-  - exitOnError: false
-  - confirmEveryPackage: true
-- FileAction:
-  - atom:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - bin:
-    - hidden: false
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - common_exports:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - common_system:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - dunst:
-    - hidden: false
-      source: ../common
-      command: ln -s
-      destination: $HOME/.config
-  - fonts:
-    - hidden: false
-      source: ../common
-      command: ln -s
-      destination: $HOME/.local/share
-  - i3:
-    - hidden: false
-      source: ../common
-      command: ln -s
-      destination: $HOME/.config
-  - tmux.conf:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - tmux.theme.sh:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - vim:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - vimrc:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - wallpapers:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - Xdefaults:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - xfce4:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - xinitrc:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - Xmodmap:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - zshrc:
-    - hidden: true
-      source: ../common
-      command: ln -s
-      destination: $HOME
-  - aliases:
-    - hidden: true
-      source: ../home
-      command: ln -s
-      destination: $HOME
-  - bashrc:
-    - hidden: true
-      source: ../home
-      command: ln -s
-      destination: $HOME
-  - exports:
-    - hidden: true
-      source: ../home
-      command: ln -s
-      destination: $HOME
+Globals:
+- exitOnError: false
+  confirmEveryPackage: true
+FileAction:
+- atom:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- bin:
+  - hidden: false
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- common_exports:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- common_system:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- dunst:
+  - hidden: false
+    source: ../common
+    command: ln -s
+    destination: $HOME/.config
+- fonts:
+  - hidden: false
+    source: ../common
+    command: ln -s
+    destination: $HOME/.local/share
+- i3:
+  - hidden: false
+    source: ../common
+    command: ln -s
+    destination: $HOME/.config
+- tmux.conf:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- tmux.theme.sh:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- vim:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- vimrc:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- wallpapers:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- Xdefaults:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- xfce4:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- xinitrc:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- Xmodmap:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- zshrc:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- aliases:
+  - hidden: true
+    source: ../home
+    command: ln -s
+    destination: $HOME
+- bashrc:
+  - hidden: true
+    source: ../home
+    command: ln -s
+    destination: $HOME
+- exports:
+  - hidden: true
+    source: ../home
+    command: ln -s
+    destination: $HOME
 
-- PackageAction:
-  - i3:
-    - alternatives: i3wm
+PackageAction:
+- i3:
+  - alternatives: i3wm
