@@ -1,9 +1,4 @@
 FileAction:
-- atom:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
 - bin:
   - hidden: false
     source: ../common
@@ -24,26 +19,6 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $HOME/.local/share
-- tmux.conf:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
-- tmux.theme.sh:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
-- vim:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
-- vimrc:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
 - wallpapers:
   - hidden: true
     source: ../common
@@ -74,3 +49,6 @@ FileAction:
     source: ../home
     command: ln -s
     destination: $HOME
+
+includes:
+  - tmux.yml

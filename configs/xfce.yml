@@ -1,0 +1,6 @@
+FileAction:
+- xfce4:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
