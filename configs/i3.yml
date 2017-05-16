@@ -1,0 +1,21 @@
+FileAction:
+- dunst:
+  - hidden: false
+    source: ../common
+    command: ln -s
+    destination: $HOME/.config
+- i3:
+  - hidden: false
+    source: ../common
+    command: ln -s
+    destination: $HOME/.config
+- xinitrc:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- Xmodmap:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME

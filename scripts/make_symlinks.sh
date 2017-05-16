@@ -86,8 +86,8 @@ install_zsh () {
 	# Test to see if zshell is installed.  If it is:
 	if [ -f /bin/zsh -o -f /usr/bin/zsh ]; then
 		# Clone my oh-my-zsh repository from GitHub only if it isn't already present
-		if [[ ! -d $dir/oh-my-zsh/ ]]; then
-			git clone http://github.com/robbyrussell/oh-my-zsh.git
+		if [[ ! -d $HOME/.oh-my-zsh/ ]]; then
+			git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
 		fi
 		# Set the default shell to zsh if it isn't currently set to zsh
 		if [[ ! $(echo $SHELL) == $(which zsh) ]]; then
@@ -102,6 +102,7 @@ install_zsh () {
 	fi
 }
 
-read_args_from_keyboard
-create_symlinks
+#read_args_from_keyboard
+#create_symlinks
+install_zsh='y'
 install_zsh

@@ -1,9 +1,4 @@
 FileAction:
-- atom:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
 - bin:
   - hidden: false
     source: ../common
@@ -30,16 +25,6 @@ FileAction:
     command: ln -s
     destination: $HOME
 - tmux.theme.sh:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
-- vim:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
-- vimrc:
   - hidden: true
     source: ../common
     command: ln -s
