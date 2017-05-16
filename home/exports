@@ -6,7 +6,7 @@ export LINUX_SOFTS=$HOME/data/workspace
 export SOFTS_PATH=$LINUX_SOFTS/softs
 
 # java
-export JAVA_HOME=$SOFTS_PATH/jdk1.8.0_101
+export JAVA_HOME=$SOFTS_PATH/jdk
 
 # maven
 export MAVEN_HOME=$SOFTS_PATH/apache-maven-3.3.9

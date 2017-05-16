@@ -1,0 +1,11 @@
+FileAction:
+- tmux.conf:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- tmux.theme.sh:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME

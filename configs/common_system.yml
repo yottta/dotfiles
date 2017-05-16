@@ -59,3 +59,6 @@ FileAction:
     source: ../home
     command: ln -s
     destination: $HOME
+
+includes:
+  - tmux.yml
