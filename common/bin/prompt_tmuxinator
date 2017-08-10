@@ -1,0 +1,69 @@
+#!/bin/bash
+declare -A mappings
+
+print_and_exit() {
+  msg=$1
+  echo "$msg"
+  echo "Press enter to exit ..."
+  echo ""
+  read
+  exit 1
+}
+
+read_tmuxinator_files() {
+  index=1
+  while read line; do    
+    if [[ $line =~ ^#.* ]]; then
+      continue
+    fi
+    mappings[$index]=$line
+    index=$((index+1))
+  done < <(ls -l ~/.tmuxinator | tail --lines=+2 | grep yml | awk '{print $9}')
+}
+
+execute_choice() {
+  echo "Choose your target:"
+  for i in "${!mappings[@]}"
+  do
+    echo "$i) ${mappings[$i]}"
+  done
+  read choice
+  choice_result=${mappings[$choice]}
+ 
+  if [[ $choice_result =~ .*#.*  ]]; then
+    pre_function=$(echo $choice_result | cut -d'#' -f2 | cut -d'.' -f1)
+    $pre_function $choice_result
+  fi
+  tmuxinator $(echo $choice_result | cut -d'.' -f1)
+}
+
+prepare_k8s_cluster() {
+  prepare_ssh_tmuxinator_file $1 "k8s"
+}
+
+prepare_mysql_cluster() {
+  prepare_ssh_tmuxinator_file $1 "mysql"
+}
+
+prepare_prometheus_cluster() {
+  prepare_ssh_tmuxinator_file $1 "monitoring"
+}
+
+prepare_ssh_tmuxinator_file() {
+  echo "env: "
+  read env
+
+  head -n $(grep -n "panes:" ~/.tmuxinator/$1 | cut -d':' -f1) ~/.tmuxinator/$1 > ~/.tmuxinator/$1_tmp
+  mv ~/.tmuxinator/$1_tmp ~/.tmuxinator/$1
+  while read line; do
+    echo "        - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/data/workspace/projects/common/ssh-key/aciobanu_openssh andrei.ciobanu01@$line" >> ~/.tmuxinator/$1
+  done < <(cat ~/data/workspace/projects/git/mip-docker-cdp/env/$env/inventory* | grep $2 | grep -v "^#" | grep -v "^\[" | cut -d"=" -f2 | cut -d" " -f1)
+}
+
+number_of_tmuxinator_files=$(ls -l ~/.tmuxinator | tail --lines=+2 | grep yml | wc -l)
+if [ ! -d $HOME/.tmuxinator ] || [ $number_of_tmuxinator_files -eq 0 ]; then
+  print_and_exit "The file $HOME/.tmuxinator does not contains configs!"
+fi
+
+read_tmuxinator_files
+execute_choice
