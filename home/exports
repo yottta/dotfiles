@@ -27,7 +27,7 @@ export TOMCAT_HOME=$SOFTS_PATH/apache-tomcat-7.0.42
 export GRADLE_HOME=$SOFTS_PATH/gradle-2.0
 
 # include all above software into PATH
-export PATH=${JAVA_HOME}/bin:${ANT_HOME}/bin:${MAVEN_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin:$PATH
+export PATH=$PATH:${JAVA_HOME}/bin:${ANT_HOME}/bin:${MAVEN_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin
 
 # vim
 export EDITOR="vim"

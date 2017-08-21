@@ -33,4 +33,4 @@ group_lazy_load() {
 }
 
 export NVM_DIR="$HOME/.nvm"
-group_lazy_load $HOME/.nvm/nvm.sh nvm node npm
+group_lazy_load $HOME/.nvm/nvm.sh nvm node npm ng
