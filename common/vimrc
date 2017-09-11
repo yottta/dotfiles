@@ -37,6 +37,7 @@ set t_Co=256
 " set default comment color to cyan instead of darkblue
 " which is not very legible on a black background
 highlight comment ctermfg=cyan
+highlight Visual cterm=bold ctermbg=Blue ctermfg=NONE
 
 highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
 match LiteralTabs /\s\  /
@@ -99,6 +100,10 @@ let g:NERDTreeDirArrowCollapsible = '~'
 let g:ack_mappings = {
       \  'v':  '<C-W><CR><C-W>L<C-W>p<C-W>J<C-W>p',
       \ 'gv': '<C-W><CR><C-W>L<C-W>p<C-W>J' }
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 nmap <leader>n :tabnew<Enter>
 nmap <leader>h :tabprev<Enter>
@@ -112,5 +117,6 @@ set wildignore+=**/*.pyc
 let g:ctrlp_max_files=0
 set wildignore+=*/target/**
 set wildignore+=*/venv/**
+set wildignore+=*/node_modules/**
 set number
 nnoremap <F3> :set nonumber!<CR>

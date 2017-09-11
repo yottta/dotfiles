@@ -7,6 +7,16 @@ alias ll='ls -ahlF --color=auto'
 alias ..="cd .."
 alias mvnci="mvn clean install"
 alias vi=vim
-alias python='/usr/bin/python3'
+#alias python='/usr/bin/python3'
 alias go_remote="(rdesktop work_pc_ip -u work_email -0 -D -g 1366x720 &); exit"
 alias go_on_main="sudo wakeonlan -i host_dynamic_dns -p 9 FC:AA:14:26:6A:20 && ssh -o ConnectTimeout=40 host_dynamic_dns"
+alias go_to_playground="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i <ssh_key> <your_user>@<mip_playground_ip>"
+alias go_tmuxinator="~/bin/prompt_tmuxinator"
+
+# git related
+alias gd="git diff"
+alias gs="git status"
+alias gc="git commit"
+alias gpull="git pull origin master"
+alias gpush="git push origin master"
+alias ga="git add"
