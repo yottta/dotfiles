@@ -2,7 +2,9 @@
 
 #####-------------EXPORTS------------#####
 # global variables
-export $(~/.proxy_functions 1)
+if [ -f ~/.proxy_functions ]; then
+  export $(~/.proxy_functions 1)
+fi
 
 
 export LINUX_SOFTS=$HOME/data/workspace
