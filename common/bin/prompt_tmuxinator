@@ -76,6 +76,7 @@ prepare_ssh_tmuxinator_file() {
   while read line; do
     echo "        - ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i ~/data/workspace/projects/common/ssh-key/aciobanu_openssh andrei.ciobanu01@$line" >> ~/.tmuxinator/$1
   done < <(cat ~/data/workspace/projects/git/mip-docker-cdp/env/$env/inventory* | grep $2 | grep -v "^#" | grep -v "^\[" | cut -d"=" -f2 | cut -d" " -f1)
+  sed -i "/name:/{s/:.*/: $2-$env/}" ~/.tmuxinator/$1
 }
 
 number_of_tmuxinator_files=$(ls -l ~/.tmuxinator | tail --lines=+2 | grep yml | wc -l)

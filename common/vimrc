@@ -86,6 +86,7 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 set runtimepath^=~/.vim/bundle/vim-surround
 set runtimepath^=~/.vim/bundle/nerdtree
 set runtimepath^=~/.vim/bundle/ack.vim
+set runtimepath^=~/.vim/bundle/vim-go
 
 " ctrlP bundle properties
 let g:ctrlp_types = ['fil','buf','mru']
