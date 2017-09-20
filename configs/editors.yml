@@ -1,9 +1,4 @@
 FileAction:
-- atom:
-  - hidden: true
-    source: ../common
-    command: ln -s
-    destination: $HOME
 - vim:
   - hidden: true
     source: ../common

@@ -27,10 +27,10 @@ function cleanup() {
 function install_common() {
     sudo $installer update
     
-    is_kde_env=$(is_kde)
-    if [ $is_kde_env -eq 0 ]; then
-        sudo $installer install parcellite
-    fi
+    #is_kde_env=$(is_kde)
+    #if [ $is_kde_env -eq 0 ]; then
+    #    sudo $installer install parcellite
+    #fi
 
     sudo $installer install cups
     sudo $installer install mc
@@ -40,15 +40,15 @@ function install_common() {
     #sudo $installer install clementine
     sudo $installer install tmux
     sudo $installer install sysstat
-    sudo $installer install atom
+    #sudo $installer install atom
     sudo $installer install skype
-    sudo $installer install samba
+    #sudo $installer install samba
     sudo $installer install ngrep
     sudo $installer install ssh
     sudo $installer install tree
     sudo $installer install openvpn
     #sudo $installer install guake
-    sudo $installer install vlc
+    #sudo $installer install vlc
     #sudo $installer install docker
     #sudo $installer install sshpass
     sudo $installer install git
