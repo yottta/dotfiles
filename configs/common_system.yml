@@ -9,6 +9,11 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $HOME
+- common_aliases:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
 - common_system:
   - hidden: true
     source: ../common
@@ -42,21 +47,6 @@ FileAction:
 - zshrc:
   - hidden: true
     source: ../common
-    command: ln -s
-    destination: $HOME
-- aliases:
-  - hidden: true
-    source: ../home
-    command: ln -s
-    destination: $HOME
-- bashrc:
-  - hidden: true
-    source: ../home
-    command: ln -s
-    destination: $HOME
-- exports:
-  - hidden: true
-    source: ../home
     command: ln -s
     destination: $HOME
 

@@ -9,17 +9,12 @@ includes:
 FileAction:
 - aliases:
   - hidden: true
-    source: ../home
-    command: ln -s
-    destination: $HOME
-- bashrc:
-  - hidden: true
-    source: ../home
+    source: ../work
     command: ln -s
     destination: $HOME
 - exports:
   - hidden: true
-    source: ../home
+    source: ../work
     command: ln -s
     destination: $HOME
 
