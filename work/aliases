@@ -1,5 +1,4 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-alias go_to_jenkins='ssh <jenkins_ip>'
 alias go_tmuxinator="~/bin/prompt_tmuxinator"
