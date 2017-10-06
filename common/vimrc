@@ -119,5 +119,6 @@ let g:ctrlp_max_files=0
 set wildignore+=*/target/**
 set wildignore+=*/venv/**
 set wildignore+=*/node_modules/**
+set wildignore+=**/*.retry
 set number
 nnoremap <F3> :set nonumber!<CR>

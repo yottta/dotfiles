@@ -1,0 +1,22 @@
+#!/bin/bash
+
+which kubectl > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  source <(kubectl completion zsh)
+fi
+
+# GO RELATED
+if [ -d $HOME/data/workspace/projects/common/gocode ]; then
+  export GOPATH="$HOME/data/workspace/projects/common/gocode"
+fi
+
+if [ -d $HOME/gocode ]; then
+  export GOPATH="$HOME/gocode"
+fi
+
+which go > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+  export GOROOT="$HOME/softs/go"
+fi
+
+export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
