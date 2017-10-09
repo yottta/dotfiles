@@ -34,3 +34,18 @@ group_lazy_load() {
 
 export NVM_DIR="$HOME/.nvm"
 group_lazy_load $HOME/.nvm/nvm.sh nvm node npm ng
+
+export LINUX_SOFTS=$HOME/data/workspace
+export SOFTS_PATH=$LINUX_SOFTS/softs
+
+# java
+export JAVA_HOME=$SOFTS_PATH/jdk
+
+# maven
+export MAVEN_HOME=$SOFTS_PATH/apache-maven
+export M2_HOME=$MAVEN_HOME
+export M2=$M2_HOME$/bin
+export MAVEN_OPTS="-Xms256m -Xmx512m"
+
+# include all above software into PATH
+export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH

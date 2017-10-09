@@ -6,19 +6,6 @@ if [ -f ~/.proxy_functions ]; then
   export $(~/.proxy_functions 1)
 fi
 
-
-export LINUX_SOFTS=$HOME/data/workspace
-export SOFTS_PATH=$LINUX_SOFTS/softs
-
-# java
-export JAVA_HOME=$SOFTS_PATH/jdk
-
-# maven
-export MAVEN_HOME=$SOFTS_PATH/apache-maven
-export M2_HOME=$MAVEN_HOME
-export M2=$M2_HOME$/bin
-export MAVEN_OPTS="-Xms256m -Xmx512m"
-
 # eclipse
 export ECLIPSE_HOME=$SOFTS_PATH/eclipse
 
@@ -32,7 +19,7 @@ export TOMCAT_HOME=$SOFTS_PATH/apache-tomcat-7.0.42
 export GRADLE_HOME=$SOFTS_PATH/gradle-4.1
 
 # include all above software into PATH
-export PATH=${JAVA_HOME}/bin:${ANT_HOME}/bin:${MAVEN_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin:$PATH
+export PATH=${ANT_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin:$PATH
 
 # vim
 export EDITOR="vim"
