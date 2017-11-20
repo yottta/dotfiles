@@ -19,7 +19,8 @@ fi
 
 which go > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-  export GOROOT="$HOME/softs/go"
+  export GOROOT="$HOME/data/workspace/softs/go"
+  export PATH="$GOROOT/bin:$PATH"
 fi
 
-export PATH="$GOROOT/bin:$GOPATH/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
