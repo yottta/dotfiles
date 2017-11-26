@@ -1,7 +1,7 @@
-# PROMPT settings
-NEWLINE=$'\n'
-RPROMPT="%*"
-PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
+export ZSH="$HOME/.oh-my-zsh"
+
+# oh-my-zsh
+source $ZSH/oh-my-zsh.sh
 
 # plugins
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -14,8 +14,10 @@ plugins=()
 export HISTSIZE=99999999
 DISABLE_AUTO_TITLE="true"
 
-# oh-my-zsh
-source $HOME/.oh-my-zsh/oh-my-zsh.sh
+# PROMPT settings
+NEWLINE=$'\n'
+RPROMPT="%*"
+PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
 
 # personal settings
 [ -f ~/.common_system ] && . ~/.common_system
