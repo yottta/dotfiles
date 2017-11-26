@@ -20,6 +20,3 @@ export GRADLE_HOME=$SOFTS_PATH/gradle-4.1
 
 # include all above software into PATH
 export PATH=${ANT_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin:$PATH
-
-# vim
-export EDITOR="vim"

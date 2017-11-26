@@ -122,3 +122,5 @@ set wildignore+=*/node_modules/**
 set wildignore+=**/*.retry
 set number
 nnoremap <F3> :set nonumber!<CR>
+let g:go_fmt_command = "goimports"
+

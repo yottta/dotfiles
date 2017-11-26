@@ -20,3 +20,10 @@ alias gch="git checkout --"
 
 # work related
 alias go_to_playground="ssh <playground_ip>"
+
+# cd mapped as cd and ls
+cd_and_ls() {
+  cd $1;
+  ls;
+}
+alias cd="cd_and_ls"
