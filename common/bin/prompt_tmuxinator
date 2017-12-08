@@ -62,13 +62,54 @@ prepare_k8s_cluster() {
 }
 
 prepare_mysql_cluster() {
-  prepare_ssh_tmuxinator_file $1 "mysql"
+  echo "env: "
+  read env
+  datacenters=($(cat ~/data/workspace/projects/git/mip-docker-cdp/env/$env/inventory* | grep '\[mysql-servers' | grep -v 'vars' | rev | cut -d'-' -f1 | rev | cut -d ']' -f1))
+  if [ ${#datacenters[@]} -gt 1 ]; then
+    echo "You have multiple datacenters. Write the correct one: "
+    echo "Your datacenters:"
+    printf "%s \n" "${datacenters[@]}"
+    printf "Your choice: "
+    read datacenter
+  else
+    datacenter=${#datacenters[1]}
+  fi
+
+  head -n $(grep -n "panes:" ~/.tmuxinator/$1 | cut -d':' -f1) ~/.tmuxinator/$1 > ~/.tmuxinator/$1_tmp
+  mv ~/.tmuxinator/$1_tmp ~/.tmuxinator/$1
+	proj=$(echo $datacenter | cut -d'-' -f1)
+	datacenter=$(echo $datacenter | cut -d'-' -f2)
+  while read line; do
+    echo "        - ssh ubuntu@$line" >> ~/.tmuxinator/$1
+  done < <(cat ~/data/workspace/projects/git/mip-docker-cdp/env/$env/inventory* | grep 'mysql' | grep -v "^#" | grep -v "^\[" | grep -v "servers\]$" | grep "ansible_ssh_host" | grep "$datacenter" | grep "$proj" | cut -d"=" -f2 | cut -d" " -f1)
+  sed -i "/name:/{s/:.*/: mysql-$env-$datacenter/}" ~/.tmuxinator/$1
 }
 
 prepare_prometheus_cluster() {
-  prepare_ssh_tmuxinator_file $1 "monitoring"
+  echo "env: "
+  read env
+  datacenters=($(cat ~/data/workspace/projects/git/mip-docker-cdp/env/$env/inventory* | grep '\[monitoring-servers' | grep -v 'vars' | rev | cut -d'-' -f1 | rev | cut -d ']' -f1))
+  if [ ${#datacenters[@]} -gt 1 ]; then
+    echo "You have multiple datacenters. Write the correct one: "
+    echo "Your datacenters:"
+    printf "%s \n" "${datacenters[@]}"
+    printf "Your choice: "
+    read datacenter
+  else
+    datacenter=${#datacenters[1]}
+  fi
+
+  head -n $(grep -n "panes:" ~/.tmuxinator/$1 | cut -d':' -f1) ~/.tmuxinator/$1 > ~/.tmuxinator/$1_tmp
+  mv ~/.tmuxinator/$1_tmp ~/.tmuxinator/$1
+	proj=$(echo $datacenter | cut -d'-' -f1)
+	datacenter=$(echo $datacenter | cut -d'-' -f2)
+  while read line; do
+    echo "        - ssh ubuntu@$line" >> ~/.tmuxinator/$1
+  done < <(cat ~/data/workspace/projects/git/mip-docker-cdp/env/$env/inventory* | grep 'monitoring' | grep -v "^#" | grep -v "^\[" | grep -v "servers\]$" | grep "ansible_ssh_host" | grep "$datacenter" | grep "$proj" | cut -d"=" -f2 | cut -d" " -f1)
+  sed -i "/name:/{s/:.*/: monitoring-$env-$datacenter/}" ~/.tmuxinator/$1
 }
 
+# deprecated #
 prepare_ssh_tmuxinator_file() {
   echo "env: "
   read env
