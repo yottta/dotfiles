@@ -1,0 +1,1 @@
+tmuxinator start go_to_mysql_cluster ubuntu@10.96.215.51 ubuntu@10.96.215.52 ubuntu@10.97.215.220 ubuntu@10.97.215.221
