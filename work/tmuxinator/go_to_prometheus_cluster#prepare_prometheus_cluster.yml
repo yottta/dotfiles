@@ -1,9 +1,9 @@
 # ~/.tmuxinator/bla.yml
 
-name: monitoring-dev
+name: monitoring-dev-real
 
 # Optional tmux socket
-# socket_name: monitoring-dev
+# socket_name: monitoring-dev-real
 
 # Runs before everything. Use it to start daemons etc.
 # pre: sudo /etc/rc.d/mysqld start
@@ -36,7 +36,3 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       synchronize: after
       panes:
-        - ssh 10.98.210.20
-        - ssh 10.96.215.10
-        - ssh 10.98.210.15
-        - ssh 10.97.178.245

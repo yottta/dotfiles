@@ -56,6 +56,9 @@ function install_common() {
     sudo $installer install unrar
     sudo $installer install smplayer
     #sudo $installer install google-chrome
+
+    # xfce movescreen depends
+    sudo $installer install wmctrl
 }
 
 function install_debian_specific() {

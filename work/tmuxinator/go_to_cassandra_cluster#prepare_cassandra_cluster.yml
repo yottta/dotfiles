@@ -1,9 +1,9 @@
 # ~/.tmuxinator/bla.yml
 
-name: k8s-pp-ffm10
+name: cassandra-dev-real
 
 # Optional tmux socket
-# socket_name: k8s-pp-ffm10
+# socket_name: cassandra-dev-real
 
 # Runs before everything. Use it to start daemons etc.
 # pre: sudo /etc/rc.d/mysqld start

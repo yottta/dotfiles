@@ -1,10 +1,11 @@
 Globals:
-- exitOnError: false
+- exitOnError: true
   confirmEveryPackage: true
 
 includes:
   - common_system.yml
   - editors.yml
+  - xfce.yml
 
 FileAction:
 - aliases:

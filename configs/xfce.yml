@@ -3,4 +3,7 @@ FileAction:
   - hidden: true
     source: ../common
     command: ln -s
-    destination: $HOME
+    destination: $HOME/.config
+
+PackageAction:
+- wmctrl
