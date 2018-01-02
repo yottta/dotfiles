@@ -5,7 +5,7 @@ alias ll='ls -ahlF --color=auto'
 alias ..="cd .."
 alias vi=vim
 alias vim="vim -p"
-alias mvnci="mvn clean install"
+alias mvnci="mvn clean install -DskipTests=true"
 
 alias ssh="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
