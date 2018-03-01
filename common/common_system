@@ -4,5 +4,9 @@
 [ -f ~/.exports ] && . ~/.exports
 [ -f ~/.common_aliases ] && . ~/.common_aliases
 [ -f ~/.aliases ] && . ~/.aliases
-[ -f /etc/bashrc ] && . /etc/bashrc
+current_shell="ps | grep `echo $$` | grep -v 'grep' | awk '{ print $4 }' | sed 's/[^a-zA-Z]//g'"
+if [ $current_shell = 'bash' ]; then
+  echo "run this"
+  [ -f /etc/bashrc ] && . /etc/bashrc
+fi
 

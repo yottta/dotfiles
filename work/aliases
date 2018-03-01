@@ -2,3 +2,6 @@
 
 #####-------------ALIASES------------#####
 alias go_tmuxinator="~/bin/prompt_tmuxinator"
+# for mac os
+alias ll="ls -lah"
+alias l="ls -lh"

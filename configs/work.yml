@@ -1,5 +1,5 @@
 Globals:
-- exitOnError: false
+- exitOnError: true
   confirmEveryPackage: true
 
 includes:

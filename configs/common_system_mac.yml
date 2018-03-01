@@ -1,0 +1,39 @@
+FileAction:
+- bin:
+  - hidden: false
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- common_exports:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- common_aliases:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- common_system:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- tmux.conf:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- tmux.theme.sh:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+- zshrc:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+
+includes:
+  - tmux.yml

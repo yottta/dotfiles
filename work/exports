@@ -9,8 +9,11 @@ if [ $? -eq 0 ]; then
 fi
 
 # GO RELATED
-if [ -d $HOME/data/workspace/projects/common/gocode ]; then
-  export GOPATH="$HOME/data/workspace/projects/common/gocode"
+gocode_path="$HOME/data/gocode"
+go_root="$HOME/softs/go"
+if [ -d $gocode_path ]; then
+  export GOPATH="$gocode_path"
+  export PATH="$GOPATH/bin:$PATH"
 fi
 
 if [ -d $HOME/gocode ]; then
@@ -19,8 +22,7 @@ fi
 
 which go > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-  export GOROOT="$HOME/data/workspace/softs/go"
+  export GOROOT="$go_root"
   export PATH="$GOROOT/bin:$PATH"
 fi
 
-export PATH="$GOPATH/bin:$PATH"
