@@ -1,4 +1,6 @@
 #!/bin/bash
+export PATH="/usr/local/bin:$PATH"
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 if [ -f ~/.proxy_functions ]; then
   export $(~/.proxy_functions 1)
 fi
@@ -9,8 +11,8 @@ if [ $? -eq 0 ]; then
 fi
 
 # GO RELATED
-gocode_path="$HOME/data/gocode"
-go_root="$HOME/softs/go"
+gocode_path="$HOME/data/workspace/gocode"
+go_root="$HOME/data/workspace/softs/go"
 if [ -d $gocode_path ]; then
   export GOPATH="$gocode_path"
   export PATH="$GOPATH/bin:$PATH"
