@@ -28,3 +28,16 @@ if [ $? -ne 0 ]; then
   export PATH="$GOROOT/bin:$PATH"
 fi
 
+kube_prompt() {
+  kubectl_current_context=$(kubectl config current-context) 2> /dev/null
+  if [ $? -ne 0 ]; then 
+    return
+  fi
+  kubectl_project=$(echo $kubectl_current_context | cut -d '_' -f 2)
+  #kubectl_cluster=$(echo $kubectl_current_context | cut -d '_' -f 4)
+  #kubectl_prompt="k8s:($kubectl_project|$kubectl_cluster)"
+  kubectl_prompt="k8s:($kubectl_project)"
+  echo "[$kubectl_prompt]"
+}
+
+PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ %{$fg_bold[blue]%}$(kube_prompt)$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '

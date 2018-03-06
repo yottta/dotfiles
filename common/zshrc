@@ -15,37 +15,59 @@ plugins=()
 export HISTSIZE=99999999
 DISABLE_AUTO_TITLE="true"
 
-# PROMPT settings
-NEWLINE=$'\n'
-RPROMPT="%*"
-PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
-
-# personal settings
-[ -f ~/.common_system ] && . ~/.common_system
-
 
 ######### keybindings #########
 # go one directory back - ctrl + k
 function up_widget() {
-	BUFFER="cd .."
-	zle accept-line
+  BUFFER="cd .."
+  zle accept-line
 }
 zle -N up_widget
 bindkey "^k" up_widget
 
 # go to home directory - ctrl + h
 function goto_home() { 
-	BUFFER="cd ~/"$BUFFER
-	zle end-of-line
-	zle accept-line
+  BUFFER="cd ~/"$BUFFER
+  zle end-of-line
+  zle accept-line
 }
 zle -N goto_home
 bindkey "^h" goto_home
 
 # add to current BUFFER the sudo keyword
 function add_sudo() {
-	BUFFER="sudo "$BUFFER
-	zle end-of-line
+  BUFFER="sudo "$BUFFER
+  zle end-of-line
 }
 zle -N add_sudo
 bindkey "^s" add_sudo
+
+
+
+setopt prompt_subst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' stagedstr 'M' 
+zstyle ':vcs_info:*' unstagedstr 'M' 
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats \
+  '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
+zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+zstyle ':vcs_info:*' enable git 
++vi-git-untracked() {
+if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+  [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+hook_com[unstaged]+='%F{1}??%f'
+fi
+}
+precmd () { vcs_info }
+
+# PROMPT settings
+NEWLINE=$'\n'
+RPROMPT="%*"
+# old prompt
+# PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
+PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
+
+# personal settings
+[ -f ~/.common_system ] && . ~/.common_system
