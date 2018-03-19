@@ -1,0 +1,128 @@
+#!/bin/bash
+export FT_K8S_CONFIG_FOLDER=$HOME/.kube
+export KUBE_ENV=""
+
+which kubectl > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+  source <(kubectl completion zsh)
+fi
+
+kube_prompt() {
+  #	kubectl_current_context=$(kubectl config current-context) 2> /dev/null
+  #	if [ $? -ne 0 ]; then 
+  #		return
+  #	fi
+  #	kubectl_project=$(echo $kubectl_current_context | cut -d '_' -f 2)
+  #	#kubectl_cluster=$(echo $kubectl_current_context | cut -d '_' -f 4)
+  #	#kubectl_prompt="k8s:($kubectl_project|$kubectl_cluster)"
+  #	kubectl_prompt="k8s:($kubectl_project)"
+  if [ ${#KUBE_ENV} -gt 0 ]; then
+    echo "[$KUBE_ENV]"
+  fi
+}
+
+PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ %{$fg_bold[blue]%}$(kube_prompt)$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
+
+#k8s aliases / functions
+alias kc='kubectl'
+alias kclf='kubectl logs --tail=200  -f'
+alias kcgs='kubectl get service -o wide'
+alias kcgd='kubectl get deployment -o wide'
+alias kcgp='kubectl get pod -o wide'
+alias kcgn='kubectl get node -o wide'
+alias kcdf='kubectl delete -f'
+alias kcaf='kubectl apply -f'
+alias kcci='kubectl cluster-info'
+alias kcbad='kubectl get pod | grep "0\/"'
+alias kcre='kubectl get pod | sort -nk 4 | grep -v "Running   0"'
+alias kcrey='kubectl get pod  | sort -nk 4 | grep -v "Running   0\|NAME" | cut -d" " -f1 | xargs -i kubectl describe pod {} | grep "Reason\|^Name:\|Finished"'
+alias kcall='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+
+function kcdp() {
+  kubectl describe pod $@ | less -S
+}
+function kcdd() {
+  kubectl describe deployment $@ | less -S
+}
+function kcds() {
+  kubectl describe service $@ | less -S
+}
+function kcgpg() { kubectl get pod -o wide| grep $@; }
+function kcgsg() { kubectl get service -o wide| grep $@; } 
+function kcgdg() { kubectl get deployment -o wide | grep $@; }
+function kcxsh() { kubectl exec -ti $@ sh; }
+function kcxbash() { kubectl exec -ti $@ bash; }
+
+# not in use anymore
+#function kcc() {
+#  contexts=($(kubectl config get-contexts | tail +2 | sed 's/\*//g' | awk '{print $1}'))
+#  idx=0
+#  echo "Choose one of the following contexts:"
+#  for x in "${contexts[@]}"; do
+#    ((idx++))
+#    echo "$idx) $x"
+#  done
+#  read choose
+#  kubectl config use-context ${contexts[choose]}
+#}
+
+function kcpf() { 
+  result=$(kubectl get pod | grep -m1 $1)
+  exitCode=$?
+  if [ ! "$exitCode" -eq 0 ]; then
+    echo "Could not find pod matching [$@]."
+    return 1;	
+  fi
+  local_port="8080"
+  if [ $# -gt 1 ]; then
+    local_port="$2"
+  fi
+
+  podName=$(echo $result | awk '{print $1}')
+  echo "Forwarding port 8080 of $podName to local port $local_port"
+  kubectl port-forward $podName $local_port:8080
+}
+
+function setup_cluster() {
+  which tmux > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    tmux rename-window $KUBE_ENV
+  fi
+  kcci
+}
+
+alias kcc_ked='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-delivery; export KUBE_ENV=k8s-eu-del; setup_cluster'
+alias kcc_kep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-publish; export KUBE_ENV=k8s-eu-pub; setup_cluster'
+alias kcc_ken='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-neo4j; export KUBE_ENV=k8s-eu-neo4j; setup_cluster'
+alias kcc_ped='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-delivery; export KUBE_ENV=prod-eu-del; setup_cluster'
+alias kcc_pen='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-neo4j; export KUBE_ENV=prod-eu-neo4j; setup_cluster'
+alias kcc_pep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-publish; export KUBE_ENV=prod-eu-pub; setup_cluster'
+alias kcc_pud='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-delivery; export KUBE_ENV=prod-us-del; setup_cluster'
+alias kcc_pun='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-neo4j; export KUBE_ENV=prod-us-neo4j; setup_cluster'
+alias kcc_pup='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-publish; export KUBE_ENV=prod-us-pub; setup_cluster'
+alias kcc_sted='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-delivery; export KUBE_ENV=staging-eu-del; setup_cluster'
+alias kcc_sten='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-neo4j; export KUBE_ENV=staging-eu-neo4j; setup_cluster'
+alias kcc_step='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-publish; export KUBE_ENV=staging-eu-pub; setup_cluster'
+alias kcc_stud='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-delivery; export KUBE_ENV=staging-us-del; setup_cluster'
+alias kcc_stun='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-neo4j; export KUBE_ENV=staging-us-neo4j; setup_cluster'
+alias kcc_cjed='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-upp-dev-cj-delivery-eu; export KUBE_ENV=cj-eu-del; setup_cluster'
+alias kcc_cjep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-upp-dev-cj-publish-eu KUBE_ENV=cj-eu-pub; setup_cluster'
+alias kcc_stup='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-publish; export KUBE_ENV=staging-us-pub; setup_cluster'
+
+
+
+# for later use
+#alias xp='ssh -A core@xp-tunnel-up.ft.com'
+#alias pub-xp='ssh -A core@pub-xp-tunnel-up.ft.com'
+#alias pre-prod-uk='ssh -A core@pre-prod-uk-tunnel-up.ft.com'
+#alias pre-prod-us='ssh -A core@pre-prod-us-tunnel-up.ft.com'
+#alias pub-pre-prod-uk='ssh -A core@pub-pre-prod-uk-tunnel-up.ft.com'
+#alias pub-pre-prod-us='ssh -A core@pub-pre-prod-us-tunnel-up.ft.com'
+#alias prod-uk='ssh -A core@prod-uk-tunnel-up.ft.com'
+#alias prod-us='ssh -A core@prod-us-tunnel-up.ft.com'
+#alias pub-prod-uk='ssh -A core@pub-prod-uk-tunnel-up.ft.com'
+#alias pub-prod-us='ssh -A core@pub-prod-us-tunnel-up.ft.com'
+#alias semantic='ssh -A core@semantic-tunnel-up.ft.com'
+#alias pub-semantic='ssh -A core@pub-semantic-tunnel-up.ft.com'
+#alias pub-dynpub='ssh -A core@pub-dynpub-uk-tunnel-up.ft.com'
+#alias dynpub='ssh -A core@dynpub-eu-tunnel-up.ft.com'

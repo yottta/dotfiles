@@ -1,0 +1,11 @@
+FileAction:
+  vim:
+    hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+  vimrc:
+    hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME

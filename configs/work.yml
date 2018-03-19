@@ -17,6 +17,11 @@ FileAction:
     source: ../work
     command: ln -s
     destination: $HOME
+- k8s_setup:
+  - hidden: true
+    source: ../work
+    command: ln -s
+    destination: $HOME
 - tmuxinator:
   - hidden: true
     source: ../work

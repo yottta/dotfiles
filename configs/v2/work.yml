@@ -1,0 +1,18 @@
+Globals:
+  exitOnError: true
+  confirmEveryPackage: true
+
+includes:
+  - common_system.yml
+  - editors.yml
+
+FileAction:
+  aliases:
+    hidden: true
+    source: ../work
+    command: ln -s
+    destination: $HOME
+
+PackageAction:
+  i3:
+    alternatives: i3wm
