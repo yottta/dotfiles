@@ -91,25 +91,45 @@ function setup_cluster() {
   kcci
 }
 
-alias kcc_ked='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-delivery; export KUBE_ENV=k8s-eu-del; setup_cluster'
-alias kcc_kep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-publish; export KUBE_ENV=k8s-eu-pub; setup_cluster'
-alias kcc_ken='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-neo4j; export KUBE_ENV=k8s-eu-neo4j; setup_cluster'
-alias kcc_ped='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-delivery; export KUBE_ENV=prod-eu-del; setup_cluster'
-alias kcc_pen='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-neo4j; export KUBE_ENV=prod-eu-neo4j; setup_cluster'
-alias kcc_pep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-publish; export KUBE_ENV=prod-eu-pub; setup_cluster'
-alias kcc_pud='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-delivery; export KUBE_ENV=prod-us-del; setup_cluster'
-alias kcc_pun='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-neo4j; export KUBE_ENV=prod-us-neo4j; setup_cluster'
-alias kcc_pup='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-publish; export KUBE_ENV=prod-us-pub; setup_cluster'
-alias kcc_sted='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-delivery; export KUBE_ENV=staging-eu-del; setup_cluster'
-alias kcc_sten='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-neo4j; export KUBE_ENV=staging-eu-neo4j; setup_cluster'
-alias kcc_step='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-publish; export KUBE_ENV=staging-eu-pub; setup_cluster'
-alias kcc_stud='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-delivery; export KUBE_ENV=staging-us-del; setup_cluster'
-alias kcc_stun='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-neo4j; export KUBE_ENV=staging-us-neo4j; setup_cluster'
-alias kcc_cjed='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-upp-dev-cj-delivery-eu; export KUBE_ENV=cj-eu-del; setup_cluster'
-alias kcc_cjep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-upp-dev-cj-publish-eu KUBE_ENV=cj-eu-pub; setup_cluster'
-alias kcc_stup='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-publish; export KUBE_ENV=staging-us-pub; setup_cluster'
 
+alias kcc_ked="source cluster-login.sh upp-k8s-dev-delivery-eu; export KUBE_ENV=k8s-dev-del-eu; setup_cluster"
+alias kcc_kep="source cluster-login.sh upp-k8s-dev-publish-eu; export KUBE_ENV=k8s-dev-pub-eu; setup_cluster"
+alias kcc_ken="source cluster-login.sh upp-k8s-neo4j-eu; export KUBE_ENV=k8s-neo4j-eu; setup_cluster"
+alias kcc_sep="source cluster-login.sh upp-staging-publish-eu; export KUBE_ENV=stag-pub-eu; setup_cluster"
+alias kcc_sup="source cluster-login.sh upp-staging-publish-us; export KUBE_ENV=stag-pub-us; setup_cluster"
+alias kcc_sed="source cluster-login.sh upp-staging-delivery-eu; export KUBE_ENV=stag-del-eu; setup_cluster"
+alias kcc_sud="source cluster-login.sh upp-staging-delivery-us; export KUBE_ENV=stag-del-us; setup_cluster"
+alias kcc_sen="source cluster-login.sh upp-staging-neo4j-eu; export KUBE_ENV=stag-neo4j-eu; setup_cluster"
+alias kcc_sun="source cluster-login.sh upp-staging-neo4j-us; export KUBE_ENV=stag-neo4j-us; setup_cluster"
+alias kcc_pep="source cluster-login.sh upp-prod-publish-eu; export KUBE_ENV=prod-pub-eu; setup_cluster"
+alias kcc_pup="source cluster-login.sh upp-prod-publish-us; export KUBE_ENV=prod-pub-us; setup_cluster"
+alias kcc_ped="source cluster-login.sh upp-prod-delivery-eu; export KUBE_ENV=prod-del-eu; setup_cluster"
+alias kcc_pud="source cluster-login.sh upp-prod-delivery-us; export KUBE_ENV=prod-del-us; setup_cluster"
+alias kcc_pen="source cluster-login.sh upp-prod-neo4j-eu; export KUBE_ENV=prod-neo4j-eu; setup_cluster"
+alias kcc_pun="source cluster-login.sh upp-prod-neo4j-us; export KUBE_ENV=prod-neo4j-us; setup_cluster"
+alias kcc_pac_staging_eu="source cluster-login.sh pac-staging-eu; export KUBE_ENV=pac-stag-eu; setup_cluster"
+alias kcc_pac_staging_us="source cluster-login.sh pac-staging-us; export KUBE_ENV=pac-stag-us; setup_cluster"
+alias kcc_pac_prod_eu="source cluster-login.sh pac-prod-eu; export KUBE_ENV=pac-prod-eu; setup_cluster"
+alias kcc_pac_prod_us="source cluster-login.sh pac-prod-us; export KUBE_ENV=pac-prod-us; setup_cluster"
+alias kcc_pac_golden_corpus="source cluster-login.sh pac-golden-corpus; export KUBE_ENV=pac-golden-corpus; setup_cluster"
 
+#alias kcc_ked='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-delivery; export KUBE_ENV=k8s-eu-del; setup_cluster'
+#alias kcc_kep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-publish; export KUBE_ENV=k8s-eu-pub; setup_cluster'
+#alias kcc_ken='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-neo4j; export KUBE_ENV=k8s-eu-neo4j; setup_cluster'
+#alias kcc_ped='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-delivery; export KUBE_ENV=prod-eu-del; setup_cluster'
+#alias kcc_pen='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-neo4j; export KUBE_ENV=prod-eu-neo4j; setup_cluster'
+#alias kcc_pep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-eu-publish; export KUBE_ENV=prod-eu-pub; setup_cluster'
+#alias kcc_pud='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-delivery; export KUBE_ENV=prod-us-del; setup_cluster'
+#alias kcc_pun='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-neo4j; export KUBE_ENV=prod-us-neo4j; setup_cluster'
+#alias kcc_pup='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-prod-us-publish; export KUBE_ENV=prod-us-pub; setup_cluster'
+#alias kcc_sed='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-delivery; export KUBE_ENV=staging-eu-del; setup_cluster'
+#alias kcc_sen='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-neo4j; export KUBE_ENV=staging-eu-neo4j; setup_cluster'
+#alias kcc_sep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-eu-publish; export KUBE_ENV=staging-eu-pub; setup_cluster'
+#alias kcc_sud='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-delivery; export KUBE_ENV=staging-us-del; setup_cluster'
+#alias kcc_sun='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-neo4j; export KUBE_ENV=staging-us-neo4j; setup_cluster'
+#alias kcc_sup='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-publish; export KUBE_ENV=staging-us-pub; setup_cluster'
+#alias kcc_cjed='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-upp-dev-cj-delivery-eu; export KUBE_ENV=cj-eu-del; setup_cluster'
+#alias kcc_cjep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-upp-dev-cj-publish-eu KUBE_ENV=cj-eu-pub; setup_cluster'
 
 # for later use
 #alias xp='ssh -A core@xp-tunnel-up.ft.com'
@@ -126,3 +146,4 @@ alias kcc_stup='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-staging-us-pu
 #alias pub-semantic='ssh -A core@pub-semantic-tunnel-up.ft.com'
 #alias pub-dynpub='ssh -A core@pub-dynpub-uk-tunnel-up.ft.com'
 #alias dynpub='ssh -A core@dynpub-eu-tunnel-up.ft.com'
+export KUBECONFIG=$HOME/data/workspace/softs/k8s-auth-setup/kubeconfig

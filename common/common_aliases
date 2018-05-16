@@ -25,6 +25,10 @@ alias go_to_playground="ssh <playground_ip>"
 # cd mapped as cd and ls
 cd_and_ls() {
   cd $1;
+  if [ -z ${#KUBE_ENV} ]; then
+    current_dir=`basename $(pwd)`
+    tmux rename-window $current_dir
+  fi
   ls;
 }
 alias cd="cd_and_ls"
