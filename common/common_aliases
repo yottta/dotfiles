@@ -7,7 +7,7 @@ alias vi=vim
 alias vim="vim -p"
 alias mvnci="mvn clean install -DskipTests=true"
 
-alias ssh="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+#alias ssh="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 # git related
@@ -18,14 +18,12 @@ alias gpull="git pull origin master"
 alias gpush="git push origin master"
 alias ga="git add"
 alias gch="git checkout --"
-
-# work related
-alias go_to_playground="ssh <playground_ip>"
+alias git_clean_branches="git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
 
 # cd mapped as cd and ls
 cd_and_ls() {
   cd $1;
-  if [ -z ${#KUBE_ENV} ]; then
+  if [ -z $KUBE_ENV ]; then
     current_dir=`basename $(pwd)`
     tmux rename-window $current_dir
   fi

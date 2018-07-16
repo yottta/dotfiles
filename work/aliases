@@ -2,6 +2,7 @@
 
 #####-------------ALIASES------------#####
 alias go_tmuxinator="~/bin/prompt_tmuxinator"
+alias go_to_tools_gocode="export GOPATH=~/data/workspace/gocode_tools && cd ~/data/workspace/gocode_tools/src/github.com/"
 # for mac os
 alias ll="ls -lah"
 alias l="ls -lh"
