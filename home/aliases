@@ -1,6 +1,5 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-alias ee="export SWT_GTK3=0; ($ECLIPSE_HOME/eclipse -data $HOME/data/workspace/projects/project_appointment &); exit"
-alias go_remote="(rdesktop work_pc_ip -u work_email -0 -D -g 1366x720 &); exit"
+alias ee="export SWT_GTK3=0; ($ECLIPSE_HOME/eclipse &); exit"
 alias go_on_main="sudo wakeonlan -i host_dynamic_dns -p 9 FC:AA:14:26:6A:20 && ssh -o ConnectTimeout=40 host_dynamic_dns"

@@ -4,6 +4,12 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $HOME/.config
+- devilspie2:
+  - hidden: true
+    source: ../common
+    command: ln -s
+    destination: $HOME
+
 
 PackageAction:
 - wmctrl

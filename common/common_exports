@@ -34,6 +34,7 @@ group_lazy_load() {
 
 export LINUX_SOFTS=$HOME/data/workspace
 export SOFTS_PATH=$LINUX_SOFTS/softs
+export PROJECTS_PATH=$LINUX_SOFTS/projects
 
 # java
 export JAVA_HOME=$SOFTS_PATH/jdk
@@ -48,8 +49,6 @@ export MAVEN_OPTS="-Xms256m -Xmx512m"
 export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH
 
 export EDITOR="vim"
-
-
 
 # angular 4 specific
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
