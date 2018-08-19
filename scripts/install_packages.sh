@@ -59,6 +59,7 @@ function install_common() {
 
     # xfce movescreen depends
     sudo $installer install wmctrl
+    sudo $installer install devilspie2
 }
 
 function install_debian_specific() {
