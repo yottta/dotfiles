@@ -2,10 +2,14 @@
 
 wallpapers_dir_path=$1
 
+file_list=()
+while IFS= read -d $'\0' -r file ; do
+    file_list=("${file_list[@]}" "$file")
+done < <(find -L $HOME/.wallpapers \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) -print0)
+
 while :
 do
-  array=($(ls $wallpapers_dir_path | grep -iv *sh))
-  img_nr=$(shuf -i1-${#array[@]} -n1)
-  feh --bg-scale $wallpapers_dir_path/${array[$img_nr]}
+  img_nr=$(shuf -i 0-${#file_list[@]} -n 1)
+  feh --bg-scale "${file_list[$img_nr]}"
   sleep 300
 done

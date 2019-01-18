@@ -63,7 +63,10 @@ add the following config to /etc/pacman.conf
   SigLevel = Never
   Server = http://repo.archlinux.fr/$arch
 pacman -Syu
-pacman -S yogourt
+git clone https://aur.archlinux.org/google-chrome.git
+cd google-chrome
+makepkg -s
+pacman -U google-chrome....tar.gz
 yogourt google-chrome
 sudo pacman -S volumeicon
 sudo pacman -S mc tmux feh 
@@ -155,3 +158,14 @@ sudo pacman -S blueberry (for tray icon)
 # for fixing the mono problem
 pacmd ls (to find your device index)
 pacmd set-card-profile <your device index> a2dp_sink
+
+16. Slack dark mode
+append the following code snippet to /usr/lib/slack/resources/app.asar.unpacked/src/static/ssb-interop.js
+document.addEventListener('DOMContentLoaded', function() {
+ $.ajax({
+   url: 'https://raw.githubusercontent.com/laCour/slack-night-mode/master/css/raw/black.css',
+   success: function(css) {
+     $("<style></style>").appendTo('head').html(css);
+   }
+ });
+});

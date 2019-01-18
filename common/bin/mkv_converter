@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+get_abs_filename() {
+  echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
+
+
+target_file_path=$1
+if [ -z $target_file_path ]; then
+  echo "Please provide the mkv file that you want to convert"
+  exit 1
+fi
+
+file_abs_path=$(get_abs_filename $target_file_path)
+
+if [ ! -f $file_abs_path ]; then 
+  echo "$file_abs_path not a file"
+  exit 1
+fi
+
+echo $file_abs_path
+file_dir=$(dirname $file_abs_path)
+file_name=$(basename $file_abs_path)
+
+eval ffmpeg -i $file_abs_path -acodec mp3 -vcodec copy "$file_dir/ok_$file_name"
