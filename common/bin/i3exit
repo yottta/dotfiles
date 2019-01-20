@@ -1,6 +1,6 @@
 #!/bin/sh
 lock() {
-  i3lock -f -u -i /home/enraid/Pictures/wallpapers/archlinux-simplyblack-43.png
+  i3lock -f -t -i $HOME/.wallpapers/archlinux-simplyblack.png
 }
 
 case "$1" in

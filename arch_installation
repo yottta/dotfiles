@@ -169,3 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
    }
  });
 });
+
+17. Look and feel
+pacman -S arc-gtk-theme (https://github.com/horst3180/arc-theme)
+sudo pacman -S moka-icon-theme
