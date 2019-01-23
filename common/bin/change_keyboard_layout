@@ -8,3 +8,4 @@ if [ "$current_lang" == 'de' ]; then
 else
   setxkbmap de
 fi
+pkill -RTMIN+2 i3blocks

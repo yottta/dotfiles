@@ -10,6 +10,7 @@ set $workspace_active_bg_color      #ff0000
 set $workspace_active_text_color    #000000
 set $workspace_inactive_bg_color    #000000
 set $workspace_inactive_text_color  #ff0000
+set $workspace_border_color #3e87d5 
 
 set $window_active_bg_color     #99a2b2
 set $window_active_text_color   #000000
@@ -24,7 +25,7 @@ set $wp1 "1 &#xf120;"
 set $wp2 "2 &#xf268;"
 set $wp3 "3 &#xf128;"
 set $wp4 "4 &#xf128;"
-set $wp5 "5 &#xf128;"
+set $wp5 "5 &#xf3ef;"
 set $wp6 "6 &#xf128;"
 set $wp7 "7 &#xf128;"
 set $wp8 "8 &#xf128;"
@@ -35,7 +36,7 @@ set $wp10 "10 &#xf04b;"
 
 # Font for window titles. Will also be used by the bar unless a different font is used in the bar {} block below.
 #font pango:System_San_Fransisco_Display 8
-font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 10
 ##### window settings #####
 # colors
 # target                border                        background                  text                        indicator
@@ -44,18 +45,18 @@ client.unfocused        $window_inactive_bg_color     $window_inactive_bg_color 
 client.focused_inactive $window_inactive_bg_color     $window_inactive_bg_color   $window_inactive_text_color #00ff00
 client.urgent           $urgent_bg_color              $urgent-bg-color            $window_active_text_color   #00ff00
 
-hide_edge_borders both
+hide_edge_borders smart
 ##### window settings (end) #####
 
 ##### status bar #####
 bar {
-  tray_output primary
   status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
+  tray_output primary
 	colors {
 		background $bar_bg_color
 	  separator #757575
 		#                  border                         background                    text
-		focused_workspace  $workspace_active_bg_color     $workspace_active_bg_color    $workspace_active_text_color
+		focused_workspace  $workspace_border_color        $workspace_active_bg_color    $workspace_active_text_color
 		inactive_workspace $workspace_inactive_bg_color   $workspace_inactive_bg_color  $workspace_inactive_text_color
 		urgent_workspace   $urgent_bg_color               $urgent_bg_color              $workspace_active_text_color
 	} 
@@ -64,11 +65,11 @@ bar {
 
 ##### key bindings #####
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ #increase sound volume
-bindsym $mod+Shift+Ctrl+Up exec --no-startup-id amixer -q sset Master 5%+ #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- #decrease sound volume
-bindsym $mod+Shift+Ctrl+Down exec --no-startup-id amixer -q sset Master 5%- #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ && pkill -RTMIN+3 i3blocks #increase sound volume
+bindsym $mod+Shift+Ctrl+Up exec --no-startup-id amixer -q sset Master 5%+ && pkill -RTMIN+3 i3blocks #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q sset Master 5%- && pkill -RTMIN+3 i3blocks #decrease sound volume
+bindsym $mod+Shift+Ctrl+Down exec --no-startup-id amixer -q sset Master 5%- && pkill -RTMIN+3 i3blocks #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle && pkill -RTMIN+3 i3blocks # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
@@ -125,7 +126,9 @@ mode "$mode_system" {
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id dmenu_run -i -l 10
+#bindsym $mod+d exec --no-startup-id dmenu_run -i -l 10
+bindsym $mod+d exec rofi -show run -theme sidebar
+
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -195,6 +198,7 @@ bindsym $mod+Shift+r restart
 ## custom ##
 # start a terminal
 bindsym $mod+Return exec xfce4-terminal -e tmux
+bindsym $mod+Shift+w exec --no-startup-id google-chrome-stable
 
 # custom bind for keyboard layout changing
 bindsym $mod+l exec $HOME/bin/change_keyboard_layout
@@ -202,20 +206,28 @@ bindsym $mod+l exec $HOME/bin/change_keyboard_layout
 ##### key bindings (end) #####
 
 ##### autostarting operations #####
-exec --no-startup-id $HOME/bin/change_wallpaper $HOME/.wallpapers
 #exec_always feh --bg-scale /home/enraid/wallpapers/archlinux-simplyblack.png
+#
+exec --no-startup-id $HOME/bin/change_wallpaper $HOME/.wallpapers
 exec --no-startup-id nm-applet
-exec --no-startup-id xrandr --current | head -2 | tail -1 | cut -d' ' -f1 | xargs -I '{}' xrandr --output {} --primary
-exec --no-startup-id xset r rate 200 40
+exec --no-startup-id xrandr --current  | grep " connected" | cut -d' ' -f1 | xargs -I '{}' xrandr --output {} --primary
+#exec --no-startup-id xset r rate 200 40
 exec --no-startup-id copyq
 exec --no-startup-id google-chrome-stable
 exec --no-startup-id volumeicon
-exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id xfce4-terminal -e tmux
 exec --no-startup-id blueberry-tray
+exec --no-startup-id slack
+exec --no-startup-id transmission-gtk
 
 ##### assigns between apps and workspaces ######
+
+assign [class="Xfce4-terminal"] $wp1
 assign [class="Google-chrome"] $wp2
 assign [class="Clementine"] $wp10
 assign [class="Thunderbird"] $wp9
 assign [class="Pidgin"] $wp9
+assign [class="Slack"] $wp5
+assign [class="Transmission"] $wp8
+
