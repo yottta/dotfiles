@@ -12,4 +12,5 @@ FileAction:
 
 
 PackageAction:
-- wmctrl
+  wmctrl:
+    alternatives: wmctrl
