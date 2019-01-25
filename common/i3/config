@@ -206,15 +206,13 @@ bindsym $mod+l exec $HOME/bin/change_keyboard_layout
 ##### key bindings (end) #####
 
 ##### autostarting operations #####
-#exec_always feh --bg-scale /home/enraid/wallpapers/archlinux-simplyblack.png
-#
 exec --no-startup-id $HOME/bin/change_wallpaper $HOME/.wallpapers
 exec --no-startup-id nm-applet
 exec --no-startup-id xrandr --current  | grep " connected" | cut -d' ' -f1 | xargs -I '{}' xrandr --output {} --primary
-#exec --no-startup-id xset r rate 200 40
+exec --no-startup-id xset r rate 200 40
 exec --no-startup-id copyq
 exec --no-startup-id google-chrome-stable
-exec --no-startup-id volumeicon
+#exec --no-startup-id volumeicon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id xfce4-terminal -e tmux
 exec --no-startup-id blueberry-tray

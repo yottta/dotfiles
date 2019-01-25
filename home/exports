@@ -38,3 +38,6 @@ fi
 
 export PATH="$GOPATH/bin:$PATH"
 export PATH="$GOROOT/..:$PATH"
+
+alias python="/usr/bin/python3"
+alias pip="/usr/local/bin/pip3"
