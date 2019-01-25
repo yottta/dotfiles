@@ -23,3 +23,7 @@ if [ $? -ne 0 ]; then
 fi
 
 [ -f $HOME/.k8s_setup ] && . $HOME/.k8s_setup
+
+export CIRCLE_COVERAGE_REPORT=/tmp
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
