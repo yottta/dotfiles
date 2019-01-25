@@ -1,26 +1,41 @@
 FileAction:
-- dunst:
-  - hidden: false
+  dunst:
+    hidden: false
     source: ../common
     command: ln -s
-    destination: $HOME/.config
-- i3:
-  - hidden: false
+    destination: $#HOME#$/.config
+  i3:
+    hidden: false
     source: ../common
     command: ln -s
-    destination: $HOME/.config
-- rofi: # not sure about this...seems broken the way it is configured
-  - hidden: false
+    destination: $#HOME#$/.config
+  rofi:
+    hidden: false
     source: ../common/i3
     command: ln -s
-    destination: $HOME/.config
-- xinitrc:
-  - hidden: true
+    destination: $#HOME#$/.config
+  xinitrc:
+    hidden: true
     source: ../common
     command: ln -s
-    destination: $HOME
-- Xmodmap:
-  - hidden: true
+    destination: $#HOME#$
+  Xmodmap:
+    hidden: true
     source: ../common
     command: ln -s
-    destination: $HOME
+    destination: $#HOME#$
+  fonts:
+    hidden: false
+    source: ../common
+    command: ln -s
+    destination: $#HOME#$/.local/share
+  wallpapers:
+    hidden: true
+    source: ../common
+    command: ln -s
+    destination: $#HOME#$
+  Xdefaults:
+    hidden: true
+    source: ../common
+    command: ln -s
+    destination: $#HOME#$

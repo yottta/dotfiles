@@ -1,5 +1,8 @@
 #!/bin/bash
-DEFAULT_SESSION=i3
-xmodmap ~/.Xmodmap
+# remaping some keys
+#xmodmap ~/.Xmodmap
+
+# useful for laptops - listens to keyboard and disables touchpad when the typing is on
 syndaemon -i 0.3 -K -R -d
+
 exec i3

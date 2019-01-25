@@ -5,23 +5,24 @@ Globals:
 includes:
   - common_system.yml
   - editors.yml
+  - xfce.yml
 
 FileAction:
-  aliases:
-    hidden: true
+- aliases:
+  - hidden: true
     source: ../home
     command: ln -s
-    destination: $#HOME#$
-  bashrc:
-    hidden: true
+    destination: $HOME
+- bashrc:
+  - hidden: true
     source: ../home
     command: ln -s
-    destination: $#HOME#$
-  exports:
-    hidden: true
+    destination: $HOME
+- exports:
+  - hidden: true
     source: ../home
     command: ln -s
-    destination: $#HOME#$
+    destination: $HOME
 
 PackageAction:
 - i3:

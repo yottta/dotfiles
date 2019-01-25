@@ -1,14 +1,14 @@
 FileAction:
-  xfce4:
-    hidden: true
+- xfce4:
+  - hidden: true
     source: ../common
     command: ln -s
-    destination: $#HOME#$/.config
-  devilspie2:
-    hidden: true
+    destination: $HOME/.config
+- devilspie2:
+  - hidden: true
     source: ../common
     command: ln -s
-    destination: $#HOME#$
+    destination: $HOME
 
 
 PackageAction:

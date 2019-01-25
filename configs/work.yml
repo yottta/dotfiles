@@ -1,5 +1,5 @@
 Globals:
-- exitOnError: true
+  exitOnError: true
   confirmEveryPackage: true
 
 includes:
@@ -7,27 +7,22 @@ includes:
   - editors.yml
 
 FileAction:
-- aliases:
-  - hidden: true
+  aliases:
+    hidden: true
     source: ../work
     command: ln -s
-    destination: $HOME
-- exports:
-  - hidden: true
+    destination: $#HOME#$
+  exports:
+    hidden: true
     source: ../work
     command: ln -s
-    destination: $HOME
-- k8s_setup:
-  - hidden: true
+    destination: $#HOME#$
+  k8s_setup:
+    hidden: true
     source: ../work
     command: ln -s
-    destination: $HOME
-- tmuxinator:
-  - hidden: true
-    source: ../work
-    command: ln -s
-    destination: $HOME
+    destination: $#HOME#$
 
 PackageAction:
-- i3:
-  - alternatives: i3wm
+  i3:
+    alternatives: i3wm

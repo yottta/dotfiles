@@ -7,21 +7,21 @@ includes:
   - editors.yml
 
 FileAction:
-  aliases:
-    hidden: true
-    source: ../home
+- aliases:
+  - hidden: true
+    source: ../work
     command: ln -s
-    destination: $#HOME#$
-  bashrc:
-    hidden: true
-    source: ../home
+    destination: $HOME
+- exports:
+  - hidden: true
+    source: ../work
     command: ln -s
-    destination: $#HOME#$
-  exports:
-    hidden: true
-    source: ../home
+    destination: $HOME
+- k8s_setup:
+  - hidden: true
+    source: ../work
     command: ln -s
-    destination: $#HOME#$
+    destination: $HOME
 
 PackageAction:
 - i3:
