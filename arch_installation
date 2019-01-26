@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 set -o xtrace
-echo "da"
-pacman -S dasd
+
 section=$1
 if [ -z $section ]; then 
   echo "No section given"
@@ -81,7 +80,7 @@ if [ $section -eq 3 ]; then
   pacman -S bash-completion
   
   #bootloader
-  mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+  #mount -t efivarfs efivarfs /sys/firmware/efi/efivars
   bootctl install
   echo "title Arch Linux" > /boot/loader/entries/arch.conf
   echo "linux /vmlinuz-linux" >> /boot/loader/entries/arch.conf
@@ -92,8 +91,6 @@ if [ $section -eq 3 ]; then
   pacman -S xorg-server xorg-xinit xorg-apps
   # if something is wrong when xserver is started, => pacman -S xf86-video-intel
   echo "Check /boot/loader/entries/arch.conf exit and reboot. Login as root and start the section 4"
-  #exit
-  #reboot 
 fi
 
 
@@ -110,7 +107,6 @@ if [ $section -eq 4 ]; then
 fi
 
 ############
-#echo "i3 exec" > ~/.xinitrc
 if [ $section -eq 5 ]; then
   sudo pacman -S xfce4-terminal wget curl
   sudo pacman -S zsh
