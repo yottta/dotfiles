@@ -1,6 +1,6 @@
 FileAction:
   xfce4:
-    hidden: true
+    hidden: false
     source: ../common
     command: ln -s
     destination: $#HOME#$/.config

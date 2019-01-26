@@ -39,3 +39,8 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $#HOME#$
+  terminal:
+    hidden: false
+    source: ../common/xfce4
+    command: ln -s
+    destination: $#HOME#$/.config/xfce4
