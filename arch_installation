@@ -122,7 +122,8 @@ fi
 
 if [ $section -eq 6 ]; then
   sudo pacman -S python python-pip cmake npm
-  sudo pacman -S qt5-script qt5-svc qt5-x11extras libxtst hicolor-icon-theme zip unzip steam youtube-dl
+  #sudo pacman -S qt5-script qt5-svc qt5-x11extras libxtst hicolor-icon-theme zip unzip steam youtube-dl copyq # use this instead of the next of if copyq is not working
+  sudo pacman -S zip unzip steam youtube-dl copyq
   git clone https://aur.archlinux.org/slack-desktop.git
   cd slack-desktop
   makepkg -s
@@ -157,4 +158,5 @@ if [ $section -eq 6 ]; then
   echo "# automatically switch to newly-connected devices" >> /etc/pulse/default.pa
   echo "load-module module-switch-on-connect" >> /etc/pulse/default.pa
   echo "CHECK /etc/pulse/default.pa. Check links in home and to the second drive. Check VSCode as well"
+  echo "Download wallpapers or link them"
 fi
