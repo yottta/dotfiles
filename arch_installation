@@ -1,4 +1,8 @@
 #!/bin/bash
+set -e
+set -o xtrace
+echo "da"
+pacman -S dasd
 section=$1
 if [ -z $section ]; then 
   echo "No section given"
@@ -35,10 +39,6 @@ if [ $section -eq 2 ]; then
   mkdir -p {/mnt/boot,/mnt/home}
   mount /dev/sda1 /mnt/boot # boot partition
   mount /dev/sda4 /mnt/home # home partition
-  
-  cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_bak
-  sed -i 's/^/#Server/Server/' /etc/pacman.d/mirrorlist_bak
-  rankmirrors -n 6 /etc/pacman.d/mirrorlist_bak > /etc/pacman.d/mirrorlist
   pacstrap -i /mnt base base-devel vim git
   
   genfstab -U -p /mnt >> /mnt/etc/fstab # and replace defaults from swap with "defaults,discard"
@@ -57,6 +57,7 @@ if [ $section -eq 3 ]; then
   locale-gen
   echo LANG=en_US.UTF-8 > /etc/locale.conf
   export LANG=en_US.UTF-8
+  rm /etc/localtime
   ln -s /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
   echo $user"PC" > /etc/hostname
   
@@ -71,6 +72,8 @@ if [ $section -eq 3 ]; then
   
   echo "input root passwd"
   passwd # change root password
+  groupadd docker
+  groupadd $user
   useradd -m -g users -G wheel,storage,power,docker,$user -s /bin/bash $user
   echo "input $user passwd"
   passwd $user
@@ -78,7 +81,7 @@ if [ $section -eq 3 ]; then
   pacman -S bash-completion
   
   #bootloader
-  mount -t efivarsfs efivarsfs /sys/firmware/efi/efivars
+  mount -t efivarfs efivarfs /sys/firmware/efi/efivars
   bootctl install
   echo "title Arch Linux" > /boot/loader/entries/arch.conf
   echo "linux /vmlinuz-linux" >> /boot/loader/entries/arch.conf
@@ -86,7 +89,7 @@ if [ $section -eq 3 ]; then
   echo "initrd /intel-ucode.img" >> /boot/loader/entries/arch.conf
   echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /dev/sda3) rw" >> /boot/loader/entries/arch.conf
   sudo pacman -S intel-ucode nvidia nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils networkmanager network-manager-applet
-  pacman -S xorg-server xorg-server-utils xorg-xinit xorg-apps
+  pacman -S xorg-server xorg-xinit xorg-apps
   # if something is wrong when xserver is started, => pacman -S xf86-video-intel
   echo "Check /boot/loader/entries/arch.conf exit and reboot. Login as root and start the section 4"
   #exit
@@ -109,10 +112,13 @@ fi
 ############
 #echo "i3 exec" > ~/.xinitrc
 if [ $section -eq 5 ]; then
-  sudo pacman -S xfce4-terminal
+  sudo pacman -S xfce4-terminal wget curl
+  sudo pacman -S zsh
+  git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+  chsh -s $(chsh -l | grep zsh | head  -1)
   git clone https://github.com/andreic92/dotfiles $HOME/.dotfiles
   cd $HOME/.dotfiles
-  eval ./install.sh
+  eval ./install_arch.sh
   sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
   sudo systemctl enable lightdm.service
   echo "Going to reboot, login as \$user and start with section 6. Enter to continue"
@@ -121,49 +127,47 @@ if [ $section -eq 5 ]; then
 fi
 
 if [ $section -eq 6 ]; then
-  sudo pacman -S python python-pip cmake npm
-  #sudo pacman -S qt5-script qt5-svc qt5-x11extras libxtst hicolor-icon-theme zip unzip steam youtube-dl copyq # use this instead of the next of if copyq is not working
-  sudo pacman -S zip unzip steam youtube-dl copyq
   mkdir $HOME/Downloads
+
   cd $HOME/Downloads
   git clone https://aur.archlinux.org/slack-desktop.git
   cd slack-desktop
   makepkg -s
-  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' sudo pacman -U {}
+  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} slack.tar.xz
+  sudo pacman -U slack.tar.xz
+
   cd $HOME/Downloads
   git clone https://aur.archlinux.org/google-chrome.git
   cd google-chrome
   makepkg -s
-  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' sudo pacman -U {}
+  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} chrome.tar.xz
+  sudo pacman -U chrome.tar.xz
+
   cd $HOME/Downloads
   git clone https://aur.archlinux.org/skypeforlinux-stable-bin.git
   cd skypeforlinux-stable-bin
   makepkg -s
-  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' sudo pacman -U {}
+  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} skype.tar.xz
+  sudo pacman -U skype.tar.xz
+
+  #sudo pacman -S qt5-script qt5-svc qt5-x11extras libxtst hicolor-icon-theme zip unzip steam youtube-dl copyq # use this instead of the next of if copyq is not working
+  sudo pacman -S mc tmux feh gedit code thunar lxappearance transmission-gtk acpi sysstat dstat ack openssh docker ntp dunst libnotify nmap traceroute libreoffice ngrep cronie nedit smplayer ffmpeg pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware blueberry arc-gtk-theme moka-icon-theme ncurses tcpdump zip unzip steam youtube-dl copyq python python-pip cmake npm
   sudo npm install castnow -g
-  sudo pacman -S mc tmux feh gedit code
-  sudo pacman -S thunar lxappearance transmission transmission-gtk
-  sudo pacman -S acpi sysstat dstat ack
-  sudo pacman -S openssh docker ntp
+  sudo systemctl enable bluetooth
+  sudo systemctl start bluetooth
   sudo systemctl enable ntpd
   sudo systemctl start ntpd
   sudo systemctl enable sshd
   sudo systemctl start sshd
   sudo systemctl enable docker
   sudo systemctl start sshd
-  sudo pacman -S dunst libnotify wget nmap traceroute libreoffice ngrep cronie nedit smplayer ffmpeg
-  sudo pacman -S pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware blueberry
-  sudo systemctl enable bluetooth
-  sudo systemctl start bluetooth
-  sudo pacman -S arc-gtk-theme moka-icon-theme ncurses tcpdump
+
   ln -s /media/personal_drive .
   mkdir -p ~/data/workspace
   ln -s ~/personal_drive/storage/Programming/development_softwares/linux/softs ~/data/workspace/softs
-  sudo pacman -S zsh
-  git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
-  chsh -s $(chsh -l | grep zsh | head  -1)
-  echo "# automatically switch to newly-connected devices" >> /etc/pulse/default.pa
-  echo "load-module module-switch-on-connect" >> /etc/pulse/default.pa
+
+  sudo sh -c 'echo "# automatically switch to newly-connected devices" >> /etc/pulse/default.pa'
+  sudo sh -c 'echo "load-module module-switch-on-connect" >> /etc/pulse/default.pa'
   echo "CHECK /etc/pulse/default.pa. Check links in home and to the second drive. Check VSCode as well"
   echo "Download wallpapers or link them"
 fi

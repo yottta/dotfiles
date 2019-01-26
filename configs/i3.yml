@@ -11,7 +11,7 @@ FileAction:
     destination: $#HOME#$/.config
   rofi:
     hidden: false
-    source: ../common/i3
+    source: ../common
     command: ln -s
     destination: $#HOME#$/.config
   xinitrc:
@@ -19,11 +19,11 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $#HOME#$
-  Xmodmap:
-    hidden: true
-    source: ../common
-    command: ln -s
-    destination: $#HOME#$
+    #  Xmodmap:
+    #    hidden: true
+    #    source: ../common
+    #    command: ln -s
+    #    destination: $#HOME#$
   fonts:
     hidden: false
     source: ../common
@@ -39,8 +39,8 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $#HOME#$
-  terminal:
+  terminalrc:
     hidden: false
-    source: ../common/xfce4
+    source: ../common/xfce4/terminal
     command: ln -s
-    destination: $#HOME#$/.config/xfce4
+    destination: $#HOME#$/.config/xfce4/terminal
