@@ -110,8 +110,8 @@ fi
 #echo "i3 exec" > ~/.xinitrc
 if [ $section -eq 5 ]; then
   sudo pacman -S xfce4-terminal
-  git clone https://github.com/andreic92/dotfiles .dotfiles
-  cd ~/.dotfiles
+  git clone https://github.com/andreic92/dotfiles $HOME/.dotfiles
+  cd $HOME/.dotfiles
   eval ./install.sh
   sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
   sudo systemctl enable lightdm.service
@@ -124,14 +124,18 @@ if [ $section -eq 6 ]; then
   sudo pacman -S python python-pip cmake npm
   #sudo pacman -S qt5-script qt5-svc qt5-x11extras libxtst hicolor-icon-theme zip unzip steam youtube-dl copyq # use this instead of the next of if copyq is not working
   sudo pacman -S zip unzip steam youtube-dl copyq
+  mkdir $HOME/Downloads
+  cd $HOME/Downloads
   git clone https://aur.archlinux.org/slack-desktop.git
   cd slack-desktop
   makepkg -s
   find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' sudo pacman -U {}
+  cd $HOME/Downloads
   git clone https://aur.archlinux.org/google-chrome.git
   cd google-chrome
   makepkg -s
   find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' sudo pacman -U {}
+  cd $HOME/Downloads
   git clone https://aur.archlinux.org/skypeforlinux-stable-bin.git
   cd skypeforlinux-stable-bin
   makepkg -s
@@ -155,6 +159,9 @@ if [ $section -eq 6 ]; then
   ln -s /media/personal_drive .
   mkdir -p ~/data/workspace
   ln -s ~/personal_drive/storage/Programming/development_softwares/linux/softs ~/data/workspace/softs
+  sudo pacman -S zsh
+  git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+  chsh -s $(chsh -l | grep zsh | head  -1)
   echo "# automatically switch to newly-connected devices" >> /etc/pulse/default.pa
   echo "load-module module-switch-on-connect" >> /etc/pulse/default.pa
   echo "CHECK /etc/pulse/default.pa. Check links in home and to the second drive. Check VSCode as well"
