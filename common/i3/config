@@ -3,14 +3,15 @@ set $mod Mod4
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 focus_follows_mouse no
+
 ##### VARIABLES ######
 # colors
-set $bar_bg_color                   #000000
-set $workspace_active_bg_color      #ff0000
-set $workspace_active_text_color    #000000
-set $workspace_inactive_bg_color    #000000
-set $workspace_inactive_text_color  #ff0000
-set $workspace_border_color #3e87d5 
+set $bar_bg_color                   #4F4F4F
+set $workspace_urgent_bg_color      #000000
+
+set $workspace_active_text_color    #F77F00
+set $workspace_urgent_text_color    #B3001B
+set $workspace_inactive_text_color  #FFFFFF
 
 set $window_active_bg_color     #99a2b2
 set $window_active_text_color   #000000
@@ -23,7 +24,7 @@ set $urgent_bg_color    #2b8cff
 # workspaces
 set $wp1 "1 &#xf120;"
 set $wp2 "2 &#xf268;"
-set $wp3 "3 &#xf128;"
+set $wp3 "3 &#xf121;"
 set $wp4 "4 &#xf128;"
 set $wp5 "5 &#xf3ef;"
 set $wp6 "6 &#xf128;"
@@ -35,8 +36,8 @@ set $wp10 "10 &#xf04b;"
 ##### VARIABLES (END) #####
 
 # Font for window titles. Will also be used by the bar unless a different font is used in the bar {} block below.
-#font pango:System_San_Fransisco_Display 8
-font pango:DejaVu Sans Mono 10
+font pango:System_San_Fransisco_Display 9
+#font pango:DejaVu Sans Mono 10
 ##### window settings #####
 # colors
 # target                border                        background                  text                        indicator
@@ -47,21 +48,21 @@ client.urgent           $urgent_bg_color              $urgent-bg-color          
 
 hide_edge_borders smart
 ##### window settings (end) #####
-
 ##### status bar #####
 bar {
   status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
   tray_output primary
+  height 23
+
 	colors {
 		background $bar_bg_color
 	  separator #757575
 		#                  border                         background                    text
-		focused_workspace  $workspace_border_color        $workspace_active_bg_color    $workspace_active_text_color
-		inactive_workspace $workspace_inactive_bg_color   $workspace_inactive_bg_color  $workspace_inactive_text_color
-		urgent_workspace   $urgent_bg_color               $urgent_bg_color              $workspace_active_text_color
+		focused_workspace  $bar_bg_color        					$bar_bg_color                 $workspace_active_text_color
+		inactive_workspace $bar_bg_color   								$bar_bg_color                 $workspace_inactive_text_color
+		urgent_workspace   $workspace_urgent_bg_color     $workspace_urgent_bg_color    $workspace_urgent_text_color
 	} 
 }
-##### status bar #####
 
 ##### key bindings #####
 # Pulse Audio controls
@@ -125,10 +126,9 @@ mode "$mode_system" {
 # kill focused window
 bindsym $mod+Shift+q kill
 
-# start dmenu (a program launcher)
+# start dmenu (a program launcher) - no more dmenu, now is rofi
 #bindsym $mod+d exec --no-startup-id dmenu_run -i -l 10
-bindsym $mod+d exec rofi -show run -theme sidebar
-
+bindsym $mod+d exec rofi -show run -theme lb
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -218,6 +218,7 @@ exec --no-startup-id xfce4-terminal -e tmux
 exec --no-startup-id blueberry-tray
 exec --no-startup-id slack
 exec --no-startup-id transmission-gtk
+exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
 
 ##### assigns between apps and workspaces ######
 
@@ -228,4 +229,9 @@ assign [class="Thunderbird"] $wp9
 assign [class="Pidgin"] $wp9
 assign [class="Slack"] $wp5
 assign [class="Transmission"] $wp8
+assign [class="Steam"] $wp10
 
+# for i3gaps
+for_window [class="^.*"] border pixel 0
+gaps inner 15
+smart_gaps on

@@ -3,3 +3,4 @@
 #####-------------ALIASES------------#####
 alias ee="export SWT_GTK3=0; ($ECLIPSE_HOME/eclipse &); exit"
 alias go_on_main="sudo wakeonlan -i host_dynamic_dns -p 9 FC:AA:14:26:6A:20 && ssh -o ConnectTimeout=40 host_dynamic_dns"
+alias edit_i3="vim $HOME/.config/i3/config"

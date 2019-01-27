@@ -97,8 +97,18 @@ fi
 if [ $section -eq 4 ]; then
   systemctl enable NetworkManager
   systemctl start NetworkManager
+
+  mkdir $HOME/Downloads
+
+  cd $HOME/Downloads
+  git clone https://aur.archlinux.org/i3blocks-gaps-git.git
+  cd i3blocks-gaps-git
+  makepkg -s
+  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} i3blocks-gaps.tar.xz
+  sudo pacman -U i3blocks-gaps.tar.xz
+
   pacman -S ttf-linux-libertine ttf-inconsolata
-  pacman -S i3-gaps i3lock i3blocks i3status rofi
+  pacman -S i3-gaps i3lock i3status rofi compton
   pacman -S ttf-dejavu opendesktop-fonts alsa-utils pavucontrol pulseaudio-alsa
   pacman -S gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
   echo "Going to reboot, login as \$user and start with section 5. Enter to continue"
