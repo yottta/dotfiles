@@ -2,26 +2,13 @@
 export FT_K8S_CONFIG_FOLDER=$HOME/.kube
 export KUBE_ENV=""
 
-which kubectl > /dev/null 2>&1
-if [ $? -eq 0 ]; then
-  source <(kubectl completion zsh)
-fi
-
 kube_prompt() {
-  #	kubectl_current_context=$(kubectl config current-context) 2> /dev/null
-  #	if [ $? -ne 0 ]; then 
-  #		return
-  #	fi
-  #	kubectl_project=$(echo $kubectl_current_context | cut -d '_' -f 2)
-  #	#kubectl_cluster=$(echo $kubectl_current_context | cut -d '_' -f 4)
-  #	#kubectl_prompt="k8s:($kubectl_project|$kubectl_cluster)"
-  #	kubectl_prompt="k8s:($kubectl_project)"
   if [ ${#KUBE_ENV} -gt 0 ]; then
     echo "[$KUBE_ENV]"
   fi
 }
 
-PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ %{$fg_bold[blue]%}$(kube_prompt)$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
+#PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ %{$fg_bold[blue]%}$(kube_prompt)$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
 
 #k8s aliases / functions
 alias kc='kubectl'
@@ -88,9 +75,12 @@ function setup_cluster() {
   if [ $? -eq 0 ]; then
     tmux rename-window $KUBE_ENV
   fi
+  which kubectl > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    source <(kubectl completion zsh)
+  fi
   kcci
 }
-
 
 alias kcc_ked="source cluster-login.sh upp-k8s-dev-delivery-eu; export KUBE_ENV=k8s-dev-del-eu; setup_cluster"
 alias kcc_kep="source cluster-login.sh upp-k8s-dev-publish-eu; export KUBE_ENV=k8s-dev-pub-eu; setup_cluster"

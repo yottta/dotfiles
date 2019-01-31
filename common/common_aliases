@@ -18,7 +18,14 @@ alias gpull="git pull origin master"
 alias gpush="git push origin master"
 alias ga="git add"
 alias gch="git checkout --"
-alias git_clean_branches="git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
+alias git_clean_branches="git_branches_clean"
+
+git_branches_clean() {
+  git fetch -p
+  for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do
+    git branch -D $branch
+  done
+}
 
 # cd mapped as cd and ls
 cd_and_ls() {
