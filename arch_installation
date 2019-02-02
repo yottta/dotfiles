@@ -157,7 +157,7 @@ if [ $section -eq 6 ]; then
   sudo pacman -U skype.tar.xz
 
   #sudo pacman -S qt5-script qt5-svc qt5-x11extras libxtst hicolor-icon-theme zip unzip steam youtube-dl copyq # use this instead of the next of if copyq is not working
-  sudo pacman -S mc tmux feh gedit code thunar lxappearance transmission-gtk acpi sysstat dstat ack openssh docker ntp dunst libnotify nmap traceroute libreoffice ngrep cronie nedit smplayer ffmpeg pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware blueberry arc-gtk-theme moka-icon-theme ncurses tcpdump zip unzip steam youtube-dl copyq python python-pip cmake npm
+  sudo pacman -S mc tmux feh gedit code thunar lxappearance transmission-gtk acpi sysstat dstat ack openssh docker ntp dunst libnotify nmap traceroute libreoffice ngrep cronie nedit smplayer ffmpeg pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware blueberry arc-gtk-theme moka-icon-theme ncurses tcpdump zip unzip steam youtube-dl copyq python python-pip cmake npm tree
   sudo npm install castnow -g
   sudo systemctl enable bluetooth
   sudo systemctl start bluetooth
