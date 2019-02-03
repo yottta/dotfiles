@@ -1,15 +1,25 @@
 #!/bin/bash
 
 wallpapers_dir_path=$1
+if [ -z $wallpapers_dir_path ]; then
+  echo "Invalid directory"
+  exit 1
+fi
 
-file_list=()
-while IFS= read -d $'\0' -r file ; do
-    file_list=("${file_list[@]}" "$file")
-done < <(find -L $HOME/.wallpapers \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) -print0)
+if [ ! -d $wallpapers_dir_path ]; then
+  echo "Invalid directory"
+  exit 1
+fi
+
+#file_list=()
+#while IFS= read -d $'\0' -r file ; do
+#    file_list=("${file_list[@]}" "$file")
+#done < <(find -L $HOME/.wallpapers \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) -print0)
 
 while :
 do
-  img_nr=$(shuf -i 0-${#file_list[@]} -n 1)
-  feh --bg-scale "${file_list[$img_nr]}"
+#  img_nr=$(shuf -i 0-${#file_list[@]} -n 1)
+#  feh --bg-scale "${file_list[$img_nr]}"
+  feh --recursive --randomize --bg-scale $1/*
   sleep 300
 done
