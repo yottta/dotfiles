@@ -201,7 +201,7 @@ bindsym $mod+Return exec xfce4-terminal -e tmux
 bindsym $mod+Shift+w exec --no-startup-id google-chrome-stable
 
 # custom bind for keyboard layout changing
-bindsym $mod+l exec $HOME/bin/change_keyboard_layout
+bindsym $mod+l exec $HOME/bin/change_keyboard_layout us ro
 ## custom (end) ##
 ##### key bindings (end) #####
 
@@ -215,7 +215,7 @@ exec --no-startup-id google-chrome-stable
 #exec --no-startup-id volumeicon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id xfce4-terminal -e tmux
-exec --no-startup-id blueberry-tray
+exec_always --no-startup-id blueberry-tray
 exec --no-startup-id slack
 exec --no-startup-id transmission-gtk
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"

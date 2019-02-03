@@ -1,11 +1,33 @@
 #!/bin/bash
 # change the current lang.
-# todo - make this configurable - for the moment supports only 2 languages
+
+if [ $# -eq 0 ]; then
+  echo "Pass some layouts. Usage: ./change_keyboard_layout us de ro"
+  exit 1
+fi
+
+first_layout=$1
+ok="false"
 
 current_lang=$(setxkbmap -query | tail -1 | rev | cut -d' ' -f1 | rev)
-if [ "$current_lang" == 'de' ]; then
-  setxkbmap us
-else
-  setxkbmap de
+while [ $# -ge 1 ]; do
+  if [ "$1" = "$current_lang" ]; then
+    if [ $# -gt 1 ]; then
+      shift
+      setxkbmap $1
+      ok="true"
+      break
+    else
+      setxkbmap $first_layout
+      ok="true"
+      break
+    fi
+  fi
+  shift
+done
+
+if [ "$ok" = "false" ]; then
+  setxkbmap $first_layout
 fi
+
 pkill -RTMIN+2 i3blocks
