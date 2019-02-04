@@ -70,7 +70,8 @@ RPROMPT="%*"
 #PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
 #PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
 
-# personal settings
+PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%~ %{$fg_bold[blue]%}$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
+
+# personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
 
-PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%~ %{$fg_bold[blue]%}$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
