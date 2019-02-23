@@ -202,6 +202,10 @@ bindsym $mod+Shift+w exec --no-startup-id google-chrome-stable
 
 # custom bind for keyboard layout changing
 bindsym $mod+l exec $HOME/bin/change_keyboard_layout us ro
+
+# screenshot
+bindsym Print exec deepin-screenshot --save-path $HOME/Screenshots
+
 ## custom (end) ##
 ##### key bindings (end) #####
 
@@ -230,6 +234,7 @@ assign [class="Pidgin"] $wp9
 assign [class="Slack"] $wp5
 assign [class="Transmission"] $wp8
 assign [class="Steam"] $wp10
+assign [class="Code"] $wp3
 
 # for i3gaps
 for_window [class="^.*"] border pixel 0
