@@ -6,7 +6,7 @@ export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
 # GO RELATED
 gocode_path="$HOME/data/workspace/gocode"
-go_root="$HOME/data/workspace/softs/go"
+go_root="$HOME/data/workspace/softs/lib/go"
 if [ -d $gocode_path ]; then
   export GOPATH="$gocode_path"
   export PATH="$GOPATH/bin:$PATH"
@@ -19,8 +19,8 @@ fi
 which go > /dev/null 2>&1
 if [ $? -ne 0 ]; then
   export GOROOT="$go_root"
-  export PATH="$GOROOT/bin:$PATH"
 fi
+export PATH="$SOFTS_PATH/bin:$PATH"
 
 [ -f $HOME/.k8s_setup ] && . $HOME/.k8s_setup
 

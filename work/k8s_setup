@@ -136,4 +136,4 @@ alias kcc_pac_golden_corpus="source cluster-login.sh pac-golden-corpus; export K
 #alias pub-semantic='ssh -A core@pub-semantic-tunnel-up.ft.com'
 #alias pub-dynpub='ssh -A core@pub-dynpub-uk-tunnel-up.ft.com'
 #alias dynpub='ssh -A core@dynpub-eu-tunnel-up.ft.com'
-export KUBECONFIG=$HOME/data/workspace/softs/k8s-auth-setup/kubeconfig
+export KUBECONFIG=$HOME/data/workspace/softs/lib/k8s-auth-setup/kubeconfig
