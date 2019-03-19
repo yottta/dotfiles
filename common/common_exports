@@ -57,3 +57,10 @@ export EDITOR="vim"
 
 # go version manager
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# GO RELATED
+gocode_path="$PROJECTS_PATH/go/gocode"
+if [ -d $gocode_path ]; then
+  export GOPATH="$gocode_path"
+  export PATH="$GOPATH/bin:$PATH"
+fi

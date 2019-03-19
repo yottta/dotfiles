@@ -1,11 +1,6 @@
 #!/bin/bash
 
 #####-------------EXPORTS------------#####
-# global variables
-if [ -f ~/.proxy_functions ]; then
-  export $(~/.proxy_functions 1)
-fi
-
 # eclipse
 export ECLIPSE_HOME=$SOFTS_PATH/eclipse
 
@@ -20,24 +15,6 @@ export GRADLE_HOME=$SOFTS_PATH/gradle-4.1
 
 # include all above software into PATH
 export PATH=${ANT_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin:$PATH
-
-# GO related
-#if [ -d $PROJECTS_PATH/common/gocode ]; then
-  export GOPATH="/media/personal_drive/storage/Programming/projects/common/gocode"
-#fi
-
-if [ -d $HOME/gocode ]; then
-  export GOPATH="$HOME/gocode"
-fi
-
-which go > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-  export GOROOT="$SOFTS_PATH/go"
-  export PATH="$GOROOT/bin:$PATH"
-fi
-
-export PATH="$GOPATH/bin:$PATH"
-export PATH="$GOROOT/..:$PATH"
 
 alias python="/usr/bin/python3"
 alias pip="/usr/local/bin/pip3"

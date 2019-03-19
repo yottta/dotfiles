@@ -4,13 +4,6 @@ export PATH="$HOME/Applications/Visual Studio Code.app/Contents/Resources/app/bi
 export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
-# GO RELATED
-gocode_path="$WORKSPACE_PATH/gocode"
-if [ -d $gocode_path ]; then
-  export GOPATH="$gocode_path"
-  export PATH="$GOPATH/bin:$PATH"
-fi
-
 [ -f $HOME/.k8s_setup ] && . $HOME/.k8s_setup
 
 export CIRCLE_COVERAGE_REPORT=/tmp
