@@ -1,7 +1,9 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-alias go_to_tools_gocode="export GOPATH=~/data/workspace/gocode_tools && cd ~/data/workspace/gocode_tools/src/github.com/"
+alias go_to_tools_gocode="gvm use $(gvm list | tail -2 | head -1) && export GOPATH=~/data/workspace/gocode_tools && cd ~/data/workspace/gocode_tools/src/github.com/"
+alias go_modules="gvm use $(gvm list | tail -2 | head -1) && cd $WORKSPACE_PATH/modules_go_ws"
+
 # for mac os
 alias ll="ls -lah"
 alias l="ls -lh"

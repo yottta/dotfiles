@@ -32,9 +32,9 @@ group_lazy_load() {
     done
 }
 
-export LINUX_SOFTS=$HOME/data/workspace
-export SOFTS_PATH=$LINUX_SOFTS/softs
-export PROJECTS_PATH=$LINUX_SOFTS/projects
+export WORKSPACE_PATH=$HOME/data/workspace
+export SOFTS_PATH=$WORKSPACE_PATH/softs
+export PROJECTS_PATH=$WORKSPACE_PATH/projects
 
 # java
 export JAVA_HOME=$SOFTS_PATH/jdk
@@ -55,3 +55,5 @@ export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH
 
 export EDITOR="vim"
 
+# go version manager
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
