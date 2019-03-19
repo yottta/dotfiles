@@ -49,8 +49,8 @@ match ExtraWhitespace /\s\+$/
 filetype plugin indent on
 
 " to tell you when you passed 80 characters
-highlight ColorColumn ctermbg=red
-call matchadd('ColorColumn', '\%81v', 100)
+" highlight ColorColumn ctermbg=red
+" call matchadd('ColorColumn', '\%81v', 100)
 
 " better searching highlight
 nnoremap <silent> n n:call HLNext(0.2)<cr>

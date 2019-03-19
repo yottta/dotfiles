@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-alias go_to_tools_gocode="gvm use $(gvm list | tail -2 | head -1) && export GOPATH=~/data/workspace/gocode_tools && cd ~/data/workspace/gocode_tools/src/github.com/"
-alias go_modules="gvm use $(gvm list | tail -2 | head -1) && cd $WORKSPACE_PATH/modules_go_ws"
+alias go_to_tools_gocode="gvm use $(gvm list | tail -2 | head -1) && export GOPATH=$PROJECTS_PATH/go/gocode_tools && cd $PROJECTS_PATH/go/gocode_tools"
+alias go_modules="gvm use $(gvm list | tail -2 | head -1) && cd $PROJECTS_PATH/go/modules_go_ws"
 
 # for mac os
 alias ll="ls -lah"
