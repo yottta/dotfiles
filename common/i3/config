@@ -197,7 +197,7 @@ bindsym $mod+Shift+r restart
 
 ## custom ##
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal -e tmux
+bindsym $mod+Return exec xfce4-terminal -e "bash -c 'tmux && zsh'"
 bindsym $mod+Shift+w exec --no-startup-id google-chrome-stable
 
 # custom bind for keyboard layout changing
@@ -215,14 +215,14 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xrandr --current  | grep " connected" | cut -d' ' -f1 | xargs -I '{}' xrandr --output {} --primary
 exec --no-startup-id xset r rate 200 40
 exec --no-startup-id copyq
-exec --no-startup-id google-chrome-stable
 #exec --no-startup-id volumeicon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
-exec --no-startup-id xfce4-terminal -e tmux
-exec_always --no-startup-id blueberry-tray
+exec --no-startup-id xfce4-terminal -e "bash -c 'tmux && zsh'"
+exec_always --no-startup-id blueman-applet
+exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
 exec --no-startup-id slack
 exec --no-startup-id transmission-gtk
-exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
+exec --no-startup-id google-chrome-stable
 
 ##### assigns between apps and workspaces ######
 
