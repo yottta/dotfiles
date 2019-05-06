@@ -1,7 +1,7 @@
 #!/bin/bash
 
 current_system=$(uname -s)
-configbuddy_url=$(curl -s  -i https://api.github.com/repos/andreic92/configbuddy.v2/releases/latest | grep download_url | grep tar.gz | grep -i $current_system | sed 's/": /#/' | cut -d'#' -f2 | sed 's/"//g')
+configbuddy_url=$(curl -s  -i https://api.github.com/repos/yottta/configbuddy.v2/releases/latest | grep download_url | grep tar.gz | grep -i $current_system | sed 's/": /#/' | cut -d'#' -f2 | sed 's/"//g')
 
 cd $HOME
 mkdir __delete_me_configbuddy

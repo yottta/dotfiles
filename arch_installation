@@ -122,7 +122,7 @@ if [ $section -eq 5 ]; then
   sudo pacman -S zsh
   git clone http://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
   chsh -s $(chsh -l | grep zsh | head  -1)
-  git clone https://github.com/andreic92/dotfiles $HOME/.dotfiles
+  git clone https://github.com/yottta/dotfiles $HOME/.dotfiles
   cd $HOME/.dotfiles
   eval ./install_arch.sh
   sudo pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings
