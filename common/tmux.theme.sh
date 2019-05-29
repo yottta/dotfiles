@@ -20,7 +20,7 @@ set -g status-right-length 150
 set -g status-interval 1
 
 #set the activity indicator colour
-set-window-option -g window-status-activity-style fg=$tm_activity_fg_color,bg=default
+set-window-option -g window-status-activity-style fg=$tm_activity_fg_color,bg=$tm_activity_bg_color
 
 # default statusbar colors
 set-option -g status-style fg=$tm_color_active,bg=default

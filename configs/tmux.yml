@@ -14,3 +14,10 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $#HOME#$
+
+PackageAction:
+  - name: i3
+  - name: tmux-resurrect
+    source: git
+    url: https://github.com/tmux-plugins/tmux-resurrect.git
+    destination: $#HOME#$/.tmux-resurrect
