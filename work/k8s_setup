@@ -1,14 +1,14 @@
 #!/bin/bash
-export FT_K8S_CONFIG_FOLDER=$HOME/.kube
-export KUBE_ENV=""
+#export FT_K8S_CONFIG_FOLDER=$HOME/.kube
+#export KUBE_ENV=""
 
-kube_prompt() {
-  if [ ${#KUBE_ENV} -gt 0 ]; then
-    echo "[$KUBE_ENV]"
-  fi
-}
+#kube_prompt() {
+#  if [ ${#KUBE_ENV} -gt 0 ]; then
+#    echo "[$KUBE_ENV]"
+#  fi
+#}
 
-PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%~ %{$fg_bold[blue]%}$(kube_prompt)$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
+#PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%~ %{$fg_bold[blue]%}$(kube_prompt)$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
 
 #k8s aliases / functions
 alias kc='kubectl'
@@ -40,19 +40,6 @@ function kcgdg() { kubectl get deployment -o wide | grep $@; }
 function kcxsh() { kubectl exec -ti $@ sh; }
 function kcxbash() { kubectl exec -ti $@ bash; }
 
-# not in use anymore
-#function kcc() {
-#  contexts=($(kubectl config get-contexts | tail +2 | sed 's/\*//g' | awk '{print $1}'))
-#  idx=0
-#  echo "Choose one of the following contexts:"
-#  for x in "${contexts[@]}"; do
-#    ((idx++))
-#    echo "$idx) $x"
-#  done
-#  read choose
-#  kubectl config use-context ${contexts[choose]}
-#}
-
 function kcpf() { 
   result=$(kubectl get pod | grep -m1 $1)
   exitCode=$?
@@ -70,38 +57,38 @@ function kcpf() {
   kubectl port-forward $podName $local_port:8080
 }
 
-function setup_cluster() {
-  which tmux > /dev/null 2>&1
-  if [ $? -eq 0 ]; then
-    tmux rename-window $KUBE_ENV
-  fi
-  which kubectl > /dev/null 2>&1
-  if [ $? -eq 0 ]; then
-    source <(kubectl completion zsh)
-  fi
-  kcci
-}
-
-alias kcc_ked="source cluster-login.sh upp-k8s-dev-delivery-eu; export KUBE_ENV=k8s-dev-del-eu; setup_cluster"
-alias kcc_kep="source cluster-login.sh upp-k8s-dev-publish-eu; export KUBE_ENV=k8s-dev-pub-eu; setup_cluster"
-alias kcc_ken="source cluster-login.sh upp-k8s-neo4j-eu; export KUBE_ENV=k8s-neo4j-eu; setup_cluster"
-alias kcc_sep="source cluster-login.sh upp-staging-publish-eu; export KUBE_ENV=stag-pub-eu; setup_cluster"
-alias kcc_sup="source cluster-login.sh upp-staging-publish-us; export KUBE_ENV=stag-pub-us; setup_cluster"
-alias kcc_sed="source cluster-login.sh upp-staging-delivery-eu; export KUBE_ENV=stag-del-eu; setup_cluster"
-alias kcc_sud="source cluster-login.sh upp-staging-delivery-us; export KUBE_ENV=stag-del-us; setup_cluster"
-alias kcc_sen="source cluster-login.sh upp-staging-neo4j-eu; export KUBE_ENV=stag-neo4j-eu; setup_cluster"
-alias kcc_sun="source cluster-login.sh upp-staging-neo4j-us; export KUBE_ENV=stag-neo4j-us; setup_cluster"
-alias kcc_pep="source cluster-login.sh upp-prod-publish-eu; export KUBE_ENV=prod-pub-eu; setup_cluster"
-alias kcc_pup="source cluster-login.sh upp-prod-publish-us; export KUBE_ENV=prod-pub-us; setup_cluster"
-alias kcc_ped="source cluster-login.sh upp-prod-delivery-eu; export KUBE_ENV=prod-del-eu; setup_cluster"
-alias kcc_pud="source cluster-login.sh upp-prod-delivery-us; export KUBE_ENV=prod-del-us; setup_cluster"
-alias kcc_pen="source cluster-login.sh upp-prod-neo4j-eu; export KUBE_ENV=prod-neo4j-eu; setup_cluster"
-alias kcc_pun="source cluster-login.sh upp-prod-neo4j-us; export KUBE_ENV=prod-neo4j-us; setup_cluster"
-alias kcc_pac_staging_eu="source cluster-login.sh pac-staging-eu; export KUBE_ENV=pac-stag-eu; setup_cluster"
-alias kcc_pac_staging_us="source cluster-login.sh pac-staging-us; export KUBE_ENV=pac-stag-us; setup_cluster"
-alias kcc_pac_prod_eu="source cluster-login.sh pac-prod-eu; export KUBE_ENV=pac-prod-eu; setup_cluster"
-alias kcc_pac_prod_us="source cluster-login.sh pac-prod-us; export KUBE_ENV=pac-prod-us; setup_cluster"
-alias kcc_pac_golden_corpus="source cluster-login.sh pac-golden-corpus; export KUBE_ENV=pac-golden-corpus; setup_cluster"
+#function setup_cluster() {
+#  which tmux > /dev/null 2>&1
+#  if [ $? -eq 0 ]; then
+#    tmux rename-window $KUBE_ENV
+#  fi
+#  which kubectl > /dev/null 2>&1
+#  if [ $? -eq 0 ]; then
+#    source <(kubectl completion zsh)
+#  fi
+#  kcci
+#}
+#
+#alias kcc_ked="source cluster-login.sh upp-k8s-dev-delivery-eu; export KUBE_ENV=k8s-dev-del-eu; setup_cluster"
+#alias kcc_kep="source cluster-login.sh upp-k8s-dev-publish-eu; export KUBE_ENV=k8s-dev-pub-eu; setup_cluster"
+#alias kcc_ken="source cluster-login.sh upp-k8s-neo4j-eu; export KUBE_ENV=k8s-neo4j-eu; setup_cluster"
+#alias kcc_sep="source cluster-login.sh upp-staging-publish-eu; export KUBE_ENV=stag-pub-eu; setup_cluster"
+#alias kcc_sup="source cluster-login.sh upp-staging-publish-us; export KUBE_ENV=stag-pub-us; setup_cluster"
+#alias kcc_sed="source cluster-login.sh upp-staging-delivery-eu; export KUBE_ENV=stag-del-eu; setup_cluster"
+#alias kcc_sud="source cluster-login.sh upp-staging-delivery-us; export KUBE_ENV=stag-del-us; setup_cluster"
+#alias kcc_sen="source cluster-login.sh upp-staging-neo4j-eu; export KUBE_ENV=stag-neo4j-eu; setup_cluster"
+#alias kcc_sun="source cluster-login.sh upp-staging-neo4j-us; export KUBE_ENV=stag-neo4j-us; setup_cluster"
+#alias kcc_pep="source cluster-login.sh upp-prod-publish-eu; export KUBE_ENV=prod-pub-eu; setup_cluster"
+#alias kcc_pup="source cluster-login.sh upp-prod-publish-us; export KUBE_ENV=prod-pub-us; setup_cluster"
+#alias kcc_ped="source cluster-login.sh upp-prod-delivery-eu; export KUBE_ENV=prod-del-eu; setup_cluster"
+#alias kcc_pud="source cluster-login.sh upp-prod-delivery-us; export KUBE_ENV=prod-del-us; setup_cluster"
+#alias kcc_pen="source cluster-login.sh upp-prod-neo4j-eu; export KUBE_ENV=prod-neo4j-eu; setup_cluster"
+#alias kcc_pun="source cluster-login.sh upp-prod-neo4j-us; export KUBE_ENV=prod-neo4j-us; setup_cluster"
+#alias kcc_pac_staging_eu="source cluster-login.sh pac-staging-eu; export KUBE_ENV=pac-stag-eu; setup_cluster"
+#alias kcc_pac_staging_us="source cluster-login.sh pac-staging-us; export KUBE_ENV=pac-stag-us; setup_cluster"
+#alias kcc_pac_prod_eu="source cluster-login.sh pac-prod-eu; export KUBE_ENV=pac-prod-eu; setup_cluster"
+#alias kcc_pac_prod_us="source cluster-login.sh pac-prod-us; export KUBE_ENV=pac-prod-us; setup_cluster"
+#alias kcc_pac_golden_corpus="source cluster-login.sh pac-golden-corpus; export KUBE_ENV=pac-golden-corpus; setup_cluster"
 
 #alias kcc_ked='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-delivery; export KUBE_ENV=k8s-eu-del; setup_cluster'
 #alias kcc_kep='export KUBECONFIG=$FT_K8S_CONFIG_FOLDER/kubeconfig-k8s-eu-publish; export KUBE_ENV=k8s-eu-pub; setup_cluster'
@@ -136,4 +123,4 @@ alias kcc_pac_golden_corpus="source cluster-login.sh pac-golden-corpus; export K
 #alias pub-semantic='ssh -A core@pub-semantic-tunnel-up.ft.com'
 #alias pub-dynpub='ssh -A core@pub-dynpub-uk-tunnel-up.ft.com'
 #alias dynpub='ssh -A core@dynpub-eu-tunnel-up.ft.com'
-export KUBECONFIG=$HOME/data/workspace/softs/lib/k8s-auth-setup/kubeconfig
+#export KUBECONFIG=$HOME/data/workspace/softs/lib/k8s-auth-setup/kubeconfig
