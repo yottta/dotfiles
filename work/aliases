@@ -7,3 +7,29 @@ alias go_modules="gvm use $(gvm list | tail -2 | head -1) && cd $PROJECTS_PATH/g
 # for mac os
 alias ll="ls -lah"
 alias l="ls -lh"
+alias uuidgen="uuid_generator | tr '\n' ' ' | pbcopy"
+alias gc="git_commit_liquid_share"
+
+
+git_commit_liquid_share() {
+    issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
+
+    setup_git_repo
+    msg="$issue - $1"
+    echo "Commit message:"
+    printf "\t$msg\n"
+
+    printf "Do you want to continue? (y/n): "
+    read input
+    if [[ $input == "y" ]]; then
+        git commit -m "$msg"
+        return
+    fi
+    echo "COMMIT ABORTED"
+}
+
+setup_git_repo() {
+    git config user.name andrei.ciobanu
+    git config user.email andrei@liquidshare.io
+}
+
