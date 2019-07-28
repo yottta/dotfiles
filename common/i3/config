@@ -56,7 +56,7 @@ bar {
 
 	colors {
 		background $bar_bg_color
-	  separator #757575
+                separator #757575
 		#                  border                         background                    text
 		focused_workspace  $bar_bg_color        					$bar_bg_color                 $workspace_active_text_color
 		inactive_workspace $bar_bg_color   								$bar_bg_color                 $workspace_inactive_text_color
@@ -217,12 +217,14 @@ exec --no-startup-id xset r rate 200 40
 exec --no-startup-id copyq
 #exec --no-startup-id volumeicon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
-exec --no-startup-id xfce4-terminal -e "bash -c 'tmux && zsh'"
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
-exec --no-startup-id slack
-exec --no-startup-id transmission-gtk
-exec --no-startup-id google-chrome-stable
+exec --no-startup-id ~/bin/i3_startup
+#exec --no-startup-id transmission-gtk; slack; google-chrome-stable; sleep 10; wmctrl -r 'transmission-gtk' -b remove,demands_attention; wmctrl -r 'google-chrome-stable' -b remove,demands_attention
+#exec --no-startup-id slack
+#exec --no-startup-id transmission-gtk
+#exec --no-startup-id google-chrome-stable
+exec --no-startup-id xfce4-terminal -e "bash -c 'tmux && zsh'"
 
 ##### assigns between apps and workspaces ######
 
