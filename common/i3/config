@@ -215,15 +215,10 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xrandr --current  | grep " connected" | cut -d' ' -f1 | xargs -I '{}' xrandr --output {} --primary
 exec --no-startup-id xset r rate 200 40
 exec --no-startup-id copyq
-#exec --no-startup-id volumeicon
 exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
 exec --no-startup-id ~/bin/i3_startup
-#exec --no-startup-id transmission-gtk; slack; google-chrome-stable; sleep 10; wmctrl -r 'transmission-gtk' -b remove,demands_attention; wmctrl -r 'google-chrome-stable' -b remove,demands_attention
-#exec --no-startup-id slack
-#exec --no-startup-id transmission-gtk
-#exec --no-startup-id google-chrome-stable
 exec --no-startup-id xfce4-terminal -e "bash -c 'tmux && zsh'"
 
 ##### assigns between apps and workspaces ######
