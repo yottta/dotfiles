@@ -1,0 +1,8 @@
+#!/bin/bash
+transmission-gtk &
+slack &
+google-chrome-stable &
+sleep 10
+wmctrl -r 'Transmission' -b remove,demands_attention
+wmctrl -r 'slack' -b remove,demands_attention
+wmctrl -r 'Google Chrome' -b remove,demands_attention
