@@ -13,7 +13,7 @@ alias scp="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 # git related
 alias gd="git diff"
 alias gs="git status"
-alias gc="git commit"
+alias gc="git commit -m"
 alias gpull="git pull origin master"
 alias gpush="git push origin master"
 alias ga="git add"
