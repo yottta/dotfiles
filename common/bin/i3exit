@@ -17,10 +17,10 @@ case "$1" in
     lock && systemctl hibernate
     ;;
   reboot)
-    sysmemctl reboot
+    systemctl reboot
     ;;
   shutdown)
-    xfce4-terminal -e "sudo pacman -Syu --noconfirm"
+    xfce4-terminal -e "sudo pacman -Syyu --noconfirm"
     systemctl poweroff
     ;;
   *)
