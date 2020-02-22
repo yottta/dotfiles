@@ -7,6 +7,11 @@ if [ -z $section ]; then
   echo "No section given"
   exit 1
 fi
+drive=$2
+if [ -z $drive ]; then
+  echo "Drive needed as well. Check with lsblk what drive you want to do the installation on"
+  exit 2
+fi
 
 if [ $section -eq 1 ]; then
   ####################### partitioning
@@ -15,7 +20,7 @@ if [ $section -eq 1 ]; then
   echo "/ (root) - size: 30GiB; hexCode: 8300; name: root"
   echo "/home - size: the remainder; hexCode: 8300; name: home"
   echo "write it!"
-  cgdisk /dev/sda
+  cgdisk /dev/$drive
   # /boot - size: 2GiB; hexCode: EF00; name: boot
   # [swap] - size: 16GiB; hexCode: 8200; name: swap
   # / (root) - size: 30GiB; hexCode: 8300; name: root
@@ -29,19 +34,19 @@ fi
 if [ $section -eq 2 ]; then
   ################ formatting new disks
   mkfs.fat -F32 /dev/sda1 # boot partition
-  mkswap /dev/sda2 # swap partition
-  swapon /dev/sda2 # swap partition
-  mkfs.ext4 /dev/sda3 # root partiton
-  mkfs.ext4 /dev/sda4 # home partiton
+  mkswap /dev/"$drive"2 # swap partition
+  swapon /dev/"$drive"2 # swap partition
+  mkfs.ext4 /dev/"$drive"3 # root partiton
+  mkfs.ext4 /dev/"$drive"4 # home partiton
   
-  mount /dev/sda3 /mnt # root partition
+  mount /dev/"$drive"3 /mnt # root partition
   mkdir -p {/mnt/boot,/mnt/home}
-  mount /dev/sda1 /mnt/boot # boot partition
-  mount /dev/sda4 /mnt/home # home partition
+  mount /dev/"$drive"1 /mnt/boot # boot partition
+  mount /dev/"$drive"4 /mnt/home # home partition
   pacstrap -i /mnt base base-devel vim git
   
   genfstab -U -p /mnt >> /mnt/etc/fstab # and replace defaults from swap with "defaults,discard"
-  echo "UUID=$(ls -l /dev/disk/by-uuid | grep sdb1 | awk '{print $9}')   /media/personal_drive ext4  defaults  0 0" >> /mnt/etc/fstab
+  echo "UUID=$(ls -l /dev/disk/by-uuid | grep sdc1 | awk '{print $9}')   /media/personal_drive ext4  defaults  0 0" >> /mnt/etc/fstab
   mkdir -p /mnt/media/personal_drive
   echo "check /mnt/etc/fstab. run 'arch-chroot /mnt' and start the script again with section 3"
 fi
@@ -86,7 +91,7 @@ if [ $section -eq 3 ]; then
   echo "linux /vmlinuz-linux" >> /boot/loader/entries/arch.conf
   echo "initrd /initramfs-linux.img" >> /boot/loader/entries/arch.conf
   echo "initrd /intel-ucode.img" >> /boot/loader/entries/arch.conf
-  echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /dev/sda3) rw" >> /boot/loader/entries/arch.conf
+  echo "options root=PARTUUID=$(blkid -s PARTUUID -o value /dev/"$drive"3) rw" >> /boot/loader/entries/arch.conf
   sudo pacman -S intel-ucode nvidia nvidia-libgl lib32-nvidia-libgl lib32-nvidia-utils nvidia-utils networkmanager network-manager-applet
   pacman -S xorg-server xorg-xinit xorg-apps
   # if something is wrong when xserver is started, => pacman -S xf86-video-intel
