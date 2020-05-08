@@ -3,19 +3,20 @@ export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 
 # oh-my-zsh
 source $ZSH/oh-my-zsh.sh
+source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # plugins
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=()
+plugins=(docker docker-compose)
 
 # zsh properties
 export HISTSIZE=99999999
 DISABLE_AUTO_TITLE="true"
 
-
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ######### keybindings #########
 # go one directory back - ctrl + k
 function up_widget() {
@@ -74,4 +75,3 @@ PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%~ %{$fg_bold[blue]%}$reset_color ${vcs_info_ms
 
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
-

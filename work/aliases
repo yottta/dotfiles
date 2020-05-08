@@ -1,19 +1,40 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-alias go_to_tools_gocode="gvm use $(gvm list | tail -2 | head -1) && export GOPATH=$PROJECTS_PATH/go/gocode_tools && cd $PROJECTS_PATH/go/gocode_tools"
-alias go_modules="gvm use $(gvm list | tail -2 | head -1) && cd $PROJECTS_PATH/go/modules_go_ws"
+#alias go_to_tools_gocode="gvm use $(gvm list | tail -2 | head -1) && export GOPATH=$PROJECTS_PATH/go/gocode_tools && cd $PROJECTS_PATH/go/gocode_tools"
+#alias go_modules="gvm use $(gvm list | tail -2 | head -1) && cd $PROJECTS_PATH/go/modules_go_ws"
+alias go_to_postgres_dev="tmux rename-window dev_postgres; ssh -L 5433:<postgres_rds_dns_name>:5432 ec2-user@<bastion>"
+alias go_to_postgres_dev_gce="tmux rename-window dev_postgres; ssh -L 5433:<sql_instance>:5432 <username>@<bastion>"
+alias go_to_postgres_sandbox_gce="tmux rename-window sandbox_postgres; ssh -L 5433:<sql_instance>:5432 <username>@<bastion>"
 
 # for mac os
 alias ll="ls -lah"
 alias l="ls -lh"
 alias uuidgen="uuid_generator | tr '\n' ' ' | pbcopy"
-alias gc="git_commit_liquid_share"
+alias gc="git_commit_ls"
+alias gpush="git_push_ls"
+alias gstls="git stash list"
+alias gstsh="git stash show -p"
+alias gstst="git stash --include-untracked"
+alias gstpo="git stash pop"
+alias docker_start_kafka="docker run -d --rm -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper"
+alias docker_start_postgres="$PROJECTS_PATH/liquidshare/devops/scripts/postgres/postgres.sh"
 
 
-git_commit_liquid_share() {
+fix_generated_dir() {
+    cd $(ll | grep service | grep -v proto | rev | cut -d' ' -f1 | rev)/src/main;
+    test -e "generated"
+    rm -rf generated;
+    ln -s ../../build/generated .
+    cd ../../../
+}
+git_commit_ls() {
     issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
 
+    if [[ $issue =~ "master" ]]; then
+        echo "you are trying to commit on master! aborted!"
+        return 1
+    fi
     setup_git_repo
     msg="$issue - $1"
     echo "Commit message:"
@@ -23,13 +44,32 @@ git_commit_liquid_share() {
     read input
     if [[ $input == "y" ]]; then
         git commit -m "$msg"
+        git_push_ls
         return
     fi
     echo "COMMIT ABORTED"
 }
 
+git_push_ls() {
+    branch_name=$(git branch -a  | grep '*' | sed 's/^* //')
+
+    setup_git_repo
+    cmd="git push origin $branch_name"
+    echo "Command that will be executed:"
+    printf "\t$cmd\n"
+
+    printf "Do you want to continue? (y/n): "
+    read input
+    if [[ $input == "y" ]]; then
+        eval $cmd
+        return
+    fi
+    printf "$cmd" | pbcopy
+    echo "PUSH ABORTED"
+}
+
 setup_git_repo() {
-    git config user.name andrei.ciobanu
-    git config user.email andrei@liquidshare.io
+    git config user.name <username>
+    git config user.email <email>
 }
 

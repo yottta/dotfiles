@@ -17,11 +17,13 @@ alias gc="git commit -m"
 alias gpull="git pull origin master"
 alias gpush="git push origin master"
 alias ga="git add"
-alias gch="git checkout --"
+alias gch="git restore"
 alias git_clean_branches="git_branches_clean"
+alias gchm="git checkout master"
+alias gchb="git checkout"
 
 git_branches_clean() {
-  git fetch -p
+  git fetch -p --tags
   for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do
     git branch -D $branch
   done

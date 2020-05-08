@@ -56,7 +56,7 @@ export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH
 export EDITOR="vim"
 
 # go version manager
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+#[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 # GO RELATED
 gocode_path="$PROJECTS_PATH/go/gocode"
