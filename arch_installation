@@ -33,7 +33,7 @@ fi
 
 if [ $section -eq 2 ]; then
   ################ formatting new disks
-  mkfs.fat -F32 /dev/sda1 # boot partition
+  mkfs.fat -F32 /dev/"$drive"1 # boot partition
   mkswap /dev/"$drive"2 # swap partition
   swapon /dev/"$drive"2 # swap partition
   mkfs.ext4 /dev/"$drive"3 # root partiton
@@ -103,17 +103,17 @@ if [ $section -eq 4 ]; then
   systemctl enable NetworkManager
   systemctl start NetworkManager
 
-  mkdir $HOME/Downloads
-
-  cd $HOME/Downloads
-  git clone https://aur.archlinux.org/i3blocks-gaps-git.git
-  cd i3blocks-gaps-git
-  makepkg -s
-  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} i3blocks-gaps.tar.xz
-  sudo pacman -U i3blocks-gaps.tar.xz
+#  mkdir $HOME/Downloads
+#
+#  cd $HOME/Downloads
+#  git clone https://aur.archlinux.org/i3blocks-gaps-git.git
+#  cd i3blocks-gaps-git
+#  makepkg -s
+#  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} i3blocks-gaps.tar.xz
+#  sudo pacman -U i3blocks-gaps.tar.xz
 
   pacman -S ttf-linux-libertine ttf-inconsolata
-  pacman -S i3-gaps i3lock i3status rofi compton
+  pacman -S i3-gaps i3lock i3status i3blocks rofi compton
   pacman -S ttf-dejavu opendesktop-fonts alsa-utils pavucontrol pulseaudio-alsa
   pacman -S gst-plugins-base gst-plugins-base-libs gst-plugins-good gst-plugins-bad gst-plugins-ugly gst-libav
   echo "Going to reboot, login as \$user and start with section 5. Enter to continue"
@@ -138,33 +138,34 @@ if [ $section -eq 5 ]; then
 fi
 
 if [ $section -eq 6 ]; then
-  # needed for deepin-screenshot
-  mkdir -p $HOME/Screenshots
-  mkdir $HOME/Downloads
+  ## needed for deepin-screenshot
+  #mkdir -p $HOME/Screenshots
+  #mkdir $HOME/Downloads
 
-  cd $HOME/Downloads
-  git clone https://aur.archlinux.org/slack-desktop.git
-  cd slack-desktop
-  makepkg -s
-  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} slack.tar.xz
-  sudo pacman -U slack.tar.xz
+  #cd $HOME/Downloads
+  #git clone https://aur.archlinux.org/slack-desktop.git
+  #cd slack-desktop
+  #makepkg -s
+  #find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} slack.tar.xz
+  #sudo pacman -U slack.tar.xz
 
-  cd $HOME/Downloads
-  git clone https://aur.archlinux.org/google-chrome.git
-  cd google-chrome
-  makepkg -s
-  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} chrome.tar.xz
-  sudo pacman -U chrome.tar.xz
+  #cd $HOME/Downloads
+  #git clone https://aur.archlinux.org/google-chrome.git
+  #cd google-chrome
+  #makepkg -s
+  #find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} chrome.tar.xz
+  #sudo pacman -U chrome.tar.xz
 
-  cd $HOME/Downloads
-  git clone https://aur.archlinux.org/skypeforlinux-stable-bin.git
-  cd skypeforlinux-stable-bin
-  makepkg -s
-  find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} skype.tar.xz
-  sudo pacman -U skype.tar.xz
+  #cd $HOME/Downloads
+  #git clone https://aur.archlinux.org/skypeforlinux-stable-bin.git
+  #cd skypeforlinux-stable-bin
+  #makepkg -s
+  #find . -maxdepth 1 -name "*tar.xz" | cut -d '/' -f2 | xargs -I '{}' mv {} skype.tar.xz
+  #sudo pacman -U skype.tar.xz
 
   #sudo pacman -S qt5-script qt5-svc qt5-x11extras libxtst hicolor-icon-theme zip unzip steam youtube-dl copyq # use this instead of the next of if copyq is not working
-  sudo pacman -S mc tmux feh gedit code thunar lxappearance transmission-gtk acpi sysstat dstat ack openssh docker ntp dunst libnotify nmap traceroute libreoffice ngrep cronie nedit smplayer ffmpeg pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware blueman arc-gtk-theme moka-icon-theme ncurses tcpdump zip unzip steam youtube-dl copyq python python-pip cmake npm tree imagemagick deepin-screenshot pinta tumbler
+  sudo pacman -S mc tmux feh gedit code thunar lxappearance transmission-gtk acpi sysstat dstat ack openssh docker ntp dunst libnotify nmap traceroute libreoffice ngrep cronie nedit smplayer ffmpeg pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils blueman arc-gtk-theme moka-icon-theme ncurses tcpdump zip unzip steam youtube-dl copyq python python-pip cmake npm tree imagemagick deepin-screenshot pinta tumbler
+  #sudo pacman -S mc tmux feh gedit code thunar lxappearance transmission-gtk acpi sysstat dstat ack openssh docker ntp dunst libnotify nmap traceroute libreoffice ngrep cronie nedit smplayer ffmpeg pulseaudio-alsa pulseaudio-bluetooth bluez bluez-libs bluez-utils bluez-firmware blueman arc-gtk-theme moka-icon-theme ncurses tcpdump zip unzip steam youtube-dl copyq python python-pip cmake npm tree imagemagick deepin-screenshot pinta tumbler
   sudo npm install castnow -g
   sudo systemctl enable bluetooth
   sudo systemctl start bluetooth

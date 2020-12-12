@@ -1,0 +1,6 @@
+(if
+    (is (window_class) "Transmission-gtk")
+        (begin
+    (set_workspace 8)
+    (maximize)
+))

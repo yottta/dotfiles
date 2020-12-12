@@ -36,7 +36,7 @@ function install_common() {
     sudo $installer install mc
     sudo $installer install vim
     #sudo $installer install thunderbird
-    sudo $installer install pidgin
+#    sudo $installer install pidgin
     #sudo $installer install clementine
     sudo $installer install tmux
     sudo $installer install sysstat
@@ -58,8 +58,8 @@ function install_common() {
     #sudo $installer install google-chrome
 
     # xfce movescreen depends
-    sudo $installer install wmctrl
-    sudo $installer install devilspie2
+#    sudo $installer install wmctrl
+#    sudo $installer install devilspie2
 }
 
 function install_debian_specific() {

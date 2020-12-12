@@ -1,0 +1,6 @@
+(if
+    (is (window_class) "Xfce4-terminal")
+        (begin
+    (set_workspace 1)
+    (maximize)
+))

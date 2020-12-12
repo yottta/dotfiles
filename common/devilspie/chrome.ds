@@ -1,0 +1,6 @@
+(if
+    (is (window_class) "Google-chrome")
+        (begin
+    (set_workspace 2)
+    (maximize)
+))

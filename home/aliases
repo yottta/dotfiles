@@ -5,4 +5,10 @@ alias ee="export SWT_GTK3=0; ($ECLIPSE_HOME/eclipse &); exit"
 alias go_on_main="sudo wakeonlan -i host_dynamic_dns -p 9 FC:AA:14:26:6A:20 && ssh -o ConnectTimeout=40 host_dynamic_dns"
 alias edit_i3="vim $HOME/.config/i3/config"
 alias open="xdg-open"
-alias convert_for_castnow="ffmpeg -i $@.mkv -acodec mp3 -vcodec copy converted_$@.mkv"
+#alias convert_for_castnow="ffmpeg -i $@.mkv -acodec mp3 -vcodec copy converted_$@.mkv"
+# for those with commentaries - and then use convert_for_castnow
+alias select_one_audio="ffmpeg -i Top.Gun.1986.1080p.BluRay.DTS.x264.RoSubbed-CtrlHD.mkv -acodec mp3 -vcodec copy -c copy -map 0:v -map 0:a:0 converted_.mkv"
+
+function convert_for_castnow() {
+    ffmpeg -i $1.mkv -acodec mp3 -vcodec copy converted_$1.mkv
+}

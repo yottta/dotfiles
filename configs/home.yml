@@ -23,7 +23,3 @@ FileAction:
     source: ../home
     command: ln -s
     destination: $#HOME#$
-
-PackageAction:
-  i3:
-    alternatives: i3wm

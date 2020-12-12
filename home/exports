@@ -15,6 +15,7 @@ export GRADLE_HOME=$SOFTS_PATH/gradle-4.1
 
 # include all above software into PATH
 export PATH=${ANT_HOME}/bin:${TOMCAT_HOME}/bin:${GRADLE_HOME}/bin:$PATH
+export PATH="$SOFTS_PATH/bin:$PATH"
 
 alias python="/usr/bin/python3"
 alias pip="/usr/local/bin/pip3"

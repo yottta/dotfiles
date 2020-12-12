@@ -2,7 +2,9 @@
 # remaping some keys
 #xmodmap ~/.Xmodmap
 
+echo "test $(date)" > /var/log/test_andreic
 # useful for laptops - listens to keyboard and disables touchpad when the typing is on
 syndaemon -i 0.3 -K -R -d
 
-exec i3
+#exec i3
+devilspie -a &

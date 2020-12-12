@@ -19,7 +19,7 @@ function get_distro_name() {
 function get_installer_by_distro_name() {
     linux_distro=$(get_distro_name)
     [ $linux_distro == $REDHAT_DISTRO_NAME ] && (echo "dnf")
-    [ $linux_distro == $DEBIAN_DISTRO_NAME ] && (echo "apt-get")
+    [ $linux_distro == $DEBIAN_DISTRO_NAME ] && (echo "apt")
     [ $linux_distro == $OPEN_SUSE_DISTRO_NAME ] && (echo "zypper")
 }
 

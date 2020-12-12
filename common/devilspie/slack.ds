@@ -1,0 +1,6 @@
+(if
+    (is (window_class) "Slack")
+        (begin
+            (set_workspace 5)
+            (maximize)
+))

@@ -29,4 +29,10 @@ ScrollingUnlimited=TRUE
 FontName=DejaVu Sans Mono 10
 FontAllowBold=FALSE
 ColorForeground=#17f018
+BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
+MiscShowRelaunchDialog=TRUE
+MiscNewTabAdjacent=FALSE
+MiscSearchDialogOpacity=100
+MiscShowUnsafePasteDialog=TRUE
+BackgroundDarkness=0.750000
 

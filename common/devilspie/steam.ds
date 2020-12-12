@@ -1,0 +1,21 @@
+(if
+    (is (window_class) "Friends List")
+        (begin
+    (set_workspace 10)
+    (maximize)
+))
+
+(if
+    (is (window_class) "dota2")
+        (begin
+    (set_workspace 10)
+    (maximize)
+))
+
+(if
+    (is (window_class) "Steam")
+        (begin
+    (set_workspace 10)
+    (maximize)
+))
+
