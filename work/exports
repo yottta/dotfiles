@@ -5,8 +5,6 @@ export PATH="$HOME/Library/Python/3.6/bin:$PATH"
 export PATH="/Library/PostgreSQL/11/bin:$PATH"
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 
-[ -f $HOME/.k8s_setup ] && . $HOME/.k8s_setup
-
 export CIRCLE_COVERAGE_REPORT=/tmp
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"

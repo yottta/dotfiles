@@ -1,0 +1,6 @@
+FileAction:
+  k8s_setup:
+    hidden: true
+    source: ../common
+    command: ln -s
+    destination: $#HOME#$

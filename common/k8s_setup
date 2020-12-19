@@ -1,0 +1,54 @@
+#k8s aliases / functions
+alias k='kubectl'
+#alias kclf='kubectl logs --tail=200 -f'
+alias kgs='kubectl get service -o wide'
+alias kgd='kubectl get deployment -o wide'
+alias kgp='kubectl get pod -o wide'
+alias kgn='kubectl get node -o wide'
+alias kdf='kubectl delete -f'
+alias kaf='kubectl apply -f'
+alias kci='kubectl cluster-info'
+alias kbad='kubectl get pod | grep "0\/"'
+alias kall='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+
+function kdp() {
+  kubectl describe pod $@ | less -S
+}
+function klf() {
+    container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
+    kubectl logs --tail=200 -f $1 -c $container_name
+}
+function kdd() {
+  kubectl describe deployment $@ | less -S
+}
+function kds() {
+  kubectl describe service $@ | less -S
+}
+function kgpg() { kubectl get pod -o wide| grep $@; }
+function kgsg() { kubectl get service -o wide| grep $@; } 
+function kgdg() { kubectl get deployment -o wide | grep $@; }
+function kxsh() { 
+    container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
+    kubectl exec -ti $@ -c $container_name sh; 
+}
+function kxbash() {
+    container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
+    kubectl exec -ti $@ -c $container_name bash; 
+}
+
+function kpf() { 
+  result=$(kubectl get pod | grep -m1 $1)
+  exitCode=$?
+  if [ ! "$exitCode" -eq 0 ]; then
+    echo "Could not find pod matching [$@]."
+    return 1;	
+  fi
+  local_port="8080"
+  if [ $# -gt 1 ]; then
+    local_port="$2"
+  fi
+
+  podName=$(echo $result | awk '{print $1}')
+  echo "Forwarding port 8080 of $podName to local port $local_port"
+  kubectl port-forward $podName $local_port:8080
+}

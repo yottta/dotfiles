@@ -6,6 +6,7 @@ includes:
   - common_system.yml
   - editors.yml
   - tmux.yml
+  - k8s.yml
 
 FileAction:
   aliases:

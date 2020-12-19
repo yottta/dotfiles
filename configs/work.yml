@@ -5,6 +5,7 @@ Globals:
 includes:
   - common_system.yml
   - editors.yml
+  - k8s.yml
 
 FileAction:
   aliases:

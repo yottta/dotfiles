@@ -64,3 +64,5 @@ if [ -d $gocode_path ]; then
   export GOPATH="$gocode_path"
   export PATH="$GOPATH/bin:$PATH"
 fi
+
+[ -f $HOME/.k8s_setup ] && . $HOME/.k8s_setup
