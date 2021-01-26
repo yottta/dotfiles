@@ -1,42 +1,46 @@
-#k8s aliases / functions
-alias k='kubectl'
-#alias kclf='kubectl logs --tail=200 -f'
-alias kgs='kubectl get service -o wide'
-alias kgd='kubectl get deployment -o wide'
-alias kgp='kubectl get pod -o wide'
-alias kgn='kubectl get node -o wide'
-alias kdf='kubectl delete -f'
-alias kaf='kubectl apply -f'
-alias kci='kubectl cluster-info'
-alias kbad='kubectl get pod | grep "0\/"'
-alias kall='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+# KREW plugins
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+#curl https://krew.sh/df-pv | bash
 
-function kdp() {
+#k8s aliases / functions
+alias kc='kubectl'
+#alias kclf='kubectl logs --tail=200 -f'
+alias kcgs='kubectl get service -o wide'
+alias kcgd='kubectl get deployment -o wide'
+alias kcgp='kubectl get pod -o wide'
+alias kcgn='kubectl get node -o wide'
+alias kcdf='kubectl delete -f'
+alias kcaf='kubectl apply -f'
+alias kcci='kubectl cluster-info'
+alias kcbad='kubectl get pod | grep "0\/"'
+alias kcall='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+
+function kcdp() {
   kubectl describe pod $@ | less -S
 }
-function klf() {
+function kclf() {
     container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
     kubectl logs --tail=200 -f $1 -c $container_name
 }
-function kdd() {
+function kcdd() {
   kubectl describe deployment $@ | less -S
 }
-function kds() {
+function kcds() {
   kubectl describe service $@ | less -S
 }
-function kgpg() { kubectl get pod -o wide| grep $@; }
-function kgsg() { kubectl get service -o wide| grep $@; } 
-function kgdg() { kubectl get deployment -o wide | grep $@; }
-function kxsh() { 
+function kcgpg() { kubectl get pod -o wide| grep $@; }
+function kcgsg() { kubectl get service -o wide| grep $@; } 
+function kcgdg() { kubectl get deployment -o wide | grep $@; }
+function kcxsh() { 
     container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
     kubectl exec -ti $@ -c $container_name sh; 
 }
-function kxbash() {
+function kcxbash() {
     container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
     kubectl exec -ti $@ -c $container_name bash; 
 }
 
-function kpf() { 
+function kcpf() { 
   result=$(kubectl get pod | grep -m1 $1)
   exitCode=$?
   if [ ! "$exitCode" -eq 0 ]; then

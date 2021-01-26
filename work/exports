@@ -17,10 +17,13 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 export PATH="$SOFTS_PATH/bin:$PATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+export PATH="$HOME/.daml/bin:$PATH"
 
 # for aws-cli
 export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 
+export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+export TERRAGRUNT_SOURCE_UPDATE=true
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C $HOME/data/workspace/softs/bin/vault vault
@@ -30,3 +33,4 @@ if [ -f '$HOME/data/workspace/softs/lib/gcloud/google-cloud-sdk/path.zsh.inc' ];
 
 # The next line enables shell command completion for gcloud.
 if [ -f '$HOME/data/workspace/softs/lib/gcloud/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/data/workspace/softs/lib/gcloud/google-cloud-sdk/completion.zsh.inc'; fi
+
