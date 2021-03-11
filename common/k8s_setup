@@ -33,11 +33,11 @@ function kcgsg() { kubectl get service -o wide| grep $@; }
 function kcgdg() { kubectl get deployment -o wide | grep $@; }
 function kcxsh() { 
     container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
-    kubectl exec -ti $@ -c $container_name sh; 
+    kubectl exec -ti $@ -c $container_name -- sh; 
 }
 function kcxbash() {
     container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
-    kubectl exec -ti $@ -c $container_name bash; 
+    kubectl exec -ti $@ -c $container_name -- bash; 
 }
 
 function kcpf() { 

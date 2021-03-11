@@ -38,4 +38,10 @@ cd_and_ls() {
   fi
   ls;
 }
+
+goto() {
+  upperCased=$(echo $1 | tr '[a-z]' '[A-Z]')
+  definedVarName="GOTO_$upperCased"
+  eval cd "\"\${$definedVarName?}\""
+}
 alias cd="cd_and_ls"
