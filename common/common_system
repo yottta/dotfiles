@@ -10,3 +10,16 @@ if [ $? -eq 0 ]; then
   [ -f /etc/bashrc ] && . /etc/bashrc
 fi
 
+if [ -z $TMUX ] && [ "$(which tmux)" != "" ]; then
+  tmux list-sessions > /dev/null
+  if [ $? -ne 0 ]; then
+    tmux
+  else
+    if [ `tmux list-sessions | wc -l` -eq 1 ]; then
+      tmux attach -t $(tmux list-sessions | cut -d':' -f1)
+    else
+      echo "multiple sessions indentified. please use 'tmux attach -t <target_id>' to attach to the desired session id"
+      tmux list-sessions
+    fi
+  fi
+fi
