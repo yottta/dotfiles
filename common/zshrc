@@ -16,7 +16,8 @@ plugins=(docker docker-compose)
 export HISTSIZE=99999999
 DISABLE_AUTO_TITLE="true"
 
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+#ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 ######### keybindings #########
 # go one directory back - ctrl + k
 function up_widget() {
@@ -48,6 +49,7 @@ bindkey "^s" add_sudo
 
 setopt prompt_subst
 autoload -Uz vcs_info
+autoload -U compinit && compinit
 zstyle ':vcs_info:*' stagedstr 'M' 
 zstyle ':vcs_info:*' unstagedstr 'M' 
 zstyle ':vcs_info:*' check-for-changes true

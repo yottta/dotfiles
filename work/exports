@@ -14,6 +14,8 @@ if [ "`uname -s`" = "Darwin" ]; then
   export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 else
   echo "Linux environment"
+  export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+  export JAVA_HOME="$HOME/data/workspace/softs/lib/jdk-11.0.2"
 fi
 
 export CIRCLE_COVERAGE_REPORT=/tmp

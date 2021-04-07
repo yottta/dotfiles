@@ -52,6 +52,7 @@ fi
 
 # include all above software into PATH
 export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH
+export PATH=${HOME}/.local/bin:$PATH
 
 export EDITOR="vim"
 
