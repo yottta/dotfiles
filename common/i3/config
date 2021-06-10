@@ -52,7 +52,7 @@ hide_edge_borders smart
 bar {
   status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
   tray_output primary
-  height 23
+  #height 23
 
 	colors {
 		background $bar_bg_color
@@ -61,7 +61,7 @@ bar {
 		focused_workspace  $bar_bg_color        					$bar_bg_color                 $workspace_active_text_color
 		inactive_workspace $bar_bg_color   								$bar_bg_color                 $workspace_inactive_text_color
 		urgent_workspace   $workspace_urgent_bg_color     $workspace_urgent_bg_color    $workspace_urgent_text_color
-	} 
+	}
 }
 
 ##### key bindings #####
@@ -197,7 +197,7 @@ bindsym $mod+Shift+r restart
 
 ## custom ##
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal -e "bash -c 'tmux && zsh'"
+bindsym $mod+Return exec $HOME/.cargo/bin/alacritty
 bindsym $mod+Shift+w exec --no-startup-id google-chrome-stable
 
 # custom bind for keyboard layout changing
@@ -210,7 +210,7 @@ bindsym Print exec deepin-screenshot --save-path $HOME/Screenshots
 ##### key bindings (end) #####
 
 ##### autostarting operations #####
-exec --no-startup-id $HOME/bin/change_wallpaper $HOME/.wallpapers
+exec --no-startup-id $HOME/bin/change_wallpaper $HOME/.wallpapers/pictures
 exec --no-startup-id nm-applet
 exec --no-startup-id xrandr --current  | grep " connected" | cut -d' ' -f1 | xargs -I '{}' xrandr --output {} --primary
 exec --no-startup-id xset r rate 200 40
@@ -219,11 +219,12 @@ exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id "killall -q compton; compton --config ~/.config/i3/compton.conf"
 exec --no-startup-id ~/bin/i3_startup
-exec --no-startup-id xfce4-terminal -e "bash -c 'tmux && zsh'"
+exec --no-startup-id $HOME/.cargo/bin/alacritty
+exec --no-startup-id $HOME/bin/set_natural_scrolling
 
 ##### assigns between apps and workspaces ######
 
-assign [class="Xfce4-terminal"] $wp1
+assign [class="Alacritty"] $wp1
 assign [class="Google-chrome"] $wp2
 assign [class="Clementine"] $wp10
 assign [class="Thunderbird"] $wp9

@@ -24,6 +24,15 @@ function cleanup() {
     rm -r $install_directory
 }
 
+function install_i3() {
+  sudo add-apt-repository ppa:kgilmer/speed-ricer
+  sudo apt install i3-gaps
+
+  sudo apt install i3-wm i3 i3blocks i3lock i3status xbacklight xplayerctl rofi htop cargo feh dunst libnotify-bin
+  sudo apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev python3
+  cargo install alacritty
+}
+
 function install_common() {
     sudo $installer update
     

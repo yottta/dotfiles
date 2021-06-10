@@ -1,0 +1,5 @@
+#!/bin/bash
+
+id=`xinput list | grep -i "MX" | cut -d'=' -f2 | cut -d'[' -f1 | head -1 | xargs`
+property_id=`xinput list-props $id | grep Natural | grep "Enabled (" | cut -d'(' -f2 | cut -d')' -f1`
+xinput --set-prop $id $property_id 1
