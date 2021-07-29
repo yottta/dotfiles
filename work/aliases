@@ -1,17 +1,15 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-#alias go_to_tools_gocode="gvm use $(gvm list | tail -2 | head -1) && export GOPATH=$PROJECTS_PATH/go/gocode_tools && cd $PROJECTS_PATH/go/gocode_tools"
-#alias go_modules="gvm use $(gvm list | tail -2 | head -1) && cd $PROJECTS_PATH/go/modules_go_ws"
-alias go_to_postgres_dev="tmux rename-window dev_postgres; ssh -L 5433:<postgres_rds_dns_name>:5432 ec2-user@<bastion>"
-alias go_to_postgres_dev_gce="tmux rename-window dev_postgres; ssh -L 5433:<sql_instance>:5432 <username>@<bastion>"
-alias go_to_postgres_sandbox_gce="tmux rename-window sandbox_postgres; ssh -L 5433:<sql_instance>:5432 <username>@<bastion>"
+alias go_to_java_projects="cd $PROJECTS_PATH/liquidshare/java"
+alias go_to_go_projects="cd $PROJECTS_PATH/liquidshare/go_modules"
 
 # for mac os
 alias ll="ls -lah"
 alias l="ls -lh"
 alias uuidgen="uuid_generator | tr '\n' ' ' | pbcopy"
 alias gc="git_commit_ls"
+alias gcw="git_commit"
 alias gpush="git_push_ls"
 alias gstls="git stash list"
 alias gstsh="git stash show -p"
@@ -19,7 +17,41 @@ alias gstst="git stash --include-untracked"
 alias gstpo="git stash pop"
 alias docker_start_kafka="docker run -d --rm -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper"
 alias docker_start_postgres="$PROJECTS_PATH/liquidshare/devops/scripts/postgres/postgres.sh"
+alias docker_start_sourcegraph="docker run --publish 7080:7080 --publish 127.0.0.1:3370:3370 --rm --volume ~/.sourcegraph/config:/etc/sourcegraph --volume ~/.sourcegraph/data:/var/opt/sourcegraph sourcegraph/server:3.26.1"
 
+ls_db_dump() {
+  if [ $# -lt 2 ]; then
+    echo "usage: ls_db_dump <env> <service_short_name, eg: uam/staticdata/accountmanagement>"
+    return 1
+  fi
+  env=$1
+  service=$2
+  cd "$HOME/data/workspace/projects/ls/devops/utils/db_ssl_cert/${env}_sql_client_certificate"
+  echo "using certificates from $(pwd)"
+  output_file=$HOME/Downloads/db_exports/${service}-$(date +"%Y%m%d-%H%M%S").sql
+  /Library/PostgreSQL/11/bin/pg_dump --verbose "host=localhost port=5433 user=ls_${service}_service_user dbname=ls sslrootcert=server-ca.pem sslcert=client-cert.pem sslkey=client-key.pem" -n ls_${service}_service --format=c -f $output_file
+  echo "dumped done to $output_file"
+}
+
+patch_helm_secret() {
+  printf "\t>> Patching $1 helm secret\n"
+  allSecrets=$(kubectl get secret --sort-by=.metadata.creationTimestamp | grep sh.helm | grep $1)
+
+  printf "\t>> Available $1 helm secrets:\n"
+  echo "$allSecrets"
+  echo ""
+
+  target=$(echo "$allSecrets" | tail -1 | awk '{print $1}')
+  printf "\t>> Going to patch '$target'. Agree? (y/n): "
+
+  read input
+  if [[ $input == "y" ]]; then
+      kubectl patch secret $target -p '{"metadata":{"labels":{"status":"deployed"}}}'
+      #content=$(kubectl get secret $target -oyaml | grep "release:" | cut -d':' -f2 | base64 -D | base64 -D | gunzip)
+      return
+  fi
+  echo "\t>> PATCHING ABORTED!"
+}
 
 fix_generated_dir() {
     cd $(ll | grep service | grep -v proto | rev | cut -d' ' -f1 | rev)/src/main;
@@ -28,6 +60,34 @@ fix_generated_dir() {
     ln -s ../../build/generated .
     cd ../../../
 }
+
+git_commit() {
+    issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
+
+    if [[ $issue =~ "master" ]]; then
+      echo ""
+      echo ""
+      echo ""
+      echo "!!!you are trying to commit on master!!!"
+      echo ""
+      echo ""
+      echo ""
+    fi
+    setup_git_repo
+    msg="$1"
+    echo "Commit message:"
+    printf "\t$msg\n"
+
+    printf "Do you want to continue? (y/n): "
+    read input
+    if [[ $input == "y" ]]; then
+        git commit -m "$msg"
+        git_push_ls
+        return
+    fi
+    echo "COMMIT ABORTED"
+}
+
 git_commit_ls() {
     issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
 
@@ -69,7 +129,20 @@ git_push_ls() {
 }
 
 setup_git_repo() {
-    git config user.name <username>
-    git config user.email <email>
+    git config user.name $git_username
+    git config user.email $git_useremail
+}
+
+setup_ssh_agent() {
+  ssh-agent
+  ssh-add $HOME/.ssh/id_rsa
+}
+
+go_to_live_project_env() {
+  currentDir=$(pwd)
+  prefix=$(echo "$currentDir" | cut -d'/' -f-10)
+  suffix=$(echo "$currentDir" | cut -d'/' -f12-)
+  env=$1
+  cd $prefix/$env/$suffix
 }
 

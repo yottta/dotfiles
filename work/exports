@@ -32,6 +32,7 @@ export GOTO_GO=$PROJECTS_PATH/liquidshare/go_modules
 export GOTO_JAVA=$PROJECTS_PATH/liquidshare/java
 export GOTO_DEVOPS=$PROJECTS_PATH/liquidshare/devops/projects
 export GOTO_UI=$PROJECTS_PATH/liquidshare/ui
+export GOTO_TEST=$HOME/testing
 
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export TERRAGRUNT_SOURCE_UPDATE=true
