@@ -1,6 +1,8 @@
 # KREW plugins
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 #curl https://krew.sh/df-pv | bash
+# enable if needed. But it adds significant delay to new session creation
+#source <(kubectl completion zsh)
 
 #k8s aliases / functions
 alias kc='kubectl'

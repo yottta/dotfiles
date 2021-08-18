@@ -8,13 +8,6 @@ alias go_to_go_projects="cd $PROJECTS_PATH/liquidshare/go_modules"
 alias ll="ls -lah"
 alias l="ls -lh"
 alias uuidgen="uuid_generator | tr '\n' ' ' | pbcopy"
-alias gc="git_commit_ls"
-alias gcw="git_commit"
-alias gpush="git_push_ls"
-alias gstls="git stash list"
-alias gstsh="git stash show -p"
-alias gstst="git stash --include-untracked"
-alias gstpo="git stash pop"
 alias docker_start_kafka="docker run -d --rm -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper"
 alias docker_start_postgres="$PROJECTS_PATH/liquidshare/devops/scripts/postgres/postgres.sh"
 alias docker_start_sourcegraph="docker run --publish 7080:7080 --publish 127.0.0.1:3370:3370 --rm --volume ~/.sourcegraph/config:/etc/sourcegraph --volume ~/.sourcegraph/data:/var/opt/sourcegraph sourcegraph/server:3.26.1"
@@ -59,78 +52,6 @@ fix_generated_dir() {
     rm -rf generated;
     ln -s ../../build/generated .
     cd ../../../
-}
-
-git_commit() {
-    issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
-
-    if [[ $issue =~ "master" ]]; then
-      echo ""
-      echo ""
-      echo ""
-      echo "!!!you are trying to commit on master!!!"
-      echo ""
-      echo ""
-      echo ""
-    fi
-    setup_git_repo
-    msg="$1"
-    echo "Commit message:"
-    printf "\t$msg\n"
-
-    printf "Do you want to continue? (y/n): "
-    read input
-    if [[ $input == "y" ]]; then
-        git commit -m "$msg"
-        git_push_ls
-        return
-    fi
-    echo "COMMIT ABORTED"
-}
-
-git_commit_ls() {
-    issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
-
-    if [[ $issue =~ "master" ]]; then
-        echo "you are trying to commit on master! aborted!"
-        return 1
-    fi
-    setup_git_repo
-    msg="$issue - $1"
-    echo "Commit message:"
-    printf "\t$msg\n"
-
-    printf "Do you want to continue? (y/n): "
-    read input
-    if [[ $input == "y" ]]; then
-        git commit -m "$msg"
-        git_push_ls
-        return
-    fi
-    echo "COMMIT ABORTED"
-}
-
-git_push_ls() {
-    branch_name=$(git branch -a  | grep '*' | sed 's/^* //')
-
-    setup_git_repo
-    cmd="git push origin $branch_name"
-    echo "Command that will be executed:"
-    printf "\t$cmd\n"
-
-    printf "Do you want to continue? (y/n): "
-    read input
-    if [[ $input == "y" ]]; then
-        eval $cmd
-        return
-    fi
-    printf "$cmd" | pbcopy
-    echo "PUSH ABORTED"
-}
-
-setup_git_repo() {
-    git config user.name $git_username
-    git config user.email $git_useremail
 }
 
 setup_ssh_agent() {

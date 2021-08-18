@@ -10,25 +10,6 @@ alias mvnci="mvn clean install -DskipTests=true"
 #alias ssh="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 alias scp="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
-# git related
-alias gd="git diff"
-alias gs="git status"
-alias gc="git commit -m"
-alias gpull="git pull origin master"
-alias gpush="git push origin master"
-alias ga="git add"
-alias gch="git restore"
-alias git_clean_branches="git_branches_clean"
-alias gchm="git checkout master"
-alias gchb="git checkout"
-
-git_branches_clean() {
-  git fetch -p --tags
-  for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do
-    git branch -D $branch
-  done
-}
-
 # cd mapped as cd and ls
 cd_and_ls() {
   cd $1;
@@ -44,4 +25,5 @@ goto() {
   definedVarName="GOTO_$upperCased"
   eval cd "\"\${$definedVarName?}\""
 }
+alias g=goto
 alias cd="cd_and_ls"

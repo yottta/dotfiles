@@ -1,0 +1,7 @@
+FileAction:
+  git:
+    hidden: false
+    source: ../common
+    command: ln -s
+    destination: $#HOME#$/.git
+

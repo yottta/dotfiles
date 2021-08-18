@@ -6,6 +6,7 @@ includes:
   - common_system.yml
   - editors.yml
   - k8s.yml
+  - git.yml
 
 FileAction:
   aliases:

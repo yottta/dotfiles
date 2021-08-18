@@ -1,0 +1,136 @@
+#!/bin/bash
+export git_username=
+export git_useremail=
+
+alias gd="git diff"
+alias gs="git status"
+alias gc="git commit -m"
+alias ga="git add"
+alias gch="git restore"
+alias gchb="git checkout"
+
+alias gc="git_commit_pck"
+alias gcw="git_commit"
+alias gstls="git stash list"
+alias gstsh="git stash show -p"
+alias gstst="git stash --include-untracked"
+alias gstpo="git stash pop"
+
+gchm() {
+  git checkout `git_get_master_branch`
+}
+gpull() {
+  git pull origin `git_get_current_branch`
+}
+gpush() {
+  branch_name=$(git_get_current_branch)
+
+  setup_git_repo
+  cmd="git push origin $branch_name"
+  echo "Command that will be executed:"
+  printf "\t$cmd\n"
+
+  printf "Do you want to continue? (y/n): "
+  read input
+  if [[ $input == "y" ]]; then
+    eval $cmd
+    return
+  fi
+  printf "$cmd" | pbcopy
+  echo "PUSH ABORTED"
+}
+git_get_master_branch() {
+  git branch -a  | egrep -e " master$" -e " main$" | sed 's/*//' | xargs
+}
+
+git_get_current_branch() {
+  git branch -a  | egrep "^(\*)" | sed 's/*//' | xargs
+}
+
+git_clean_branches() {
+  git fetch -p --tags
+  for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do
+    git branch -D $branch
+  done
+}
+
+gchbn() {
+  branch_name=$1
+  branch_name=`echo "$branch_name" | awk '{print tolower($0)}'`
+  branch_name=`echo "$branch_name" | sed -e 's@ @-@g'`
+
+  git checkout -b $branch_name
+}
+
+git_commit() {
+  issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
+
+  if [[ $issue =~ "master" ]]; then
+    echo ""
+    echo ""
+    echo ""
+    echo "!!!you are trying to commit on master!!!"
+    echo ""
+    echo ""
+    echo ""
+  fi
+  setup_git_repo
+  msg="$1"
+  echo "Commit message:"
+  printf "\t$msg\n"
+
+  printf "Do you want to continue? (y/n): "
+  read input
+  if [[ $input == "y" ]]; then
+    git commit -m "$msg"
+    git_push_pck
+    return
+  fi
+  echo "COMMIT ABORTED"
+}
+
+git_commit_pck() {
+  issue=$(git branch -a  | grep '*' | cut -d'-' -f-2 | cut -d'/' -f1 | sed  -e 's/* //' | awk '{print toupper($0)}')
+
+  if [[ $issue =~ "MASTER" ]]; then
+    echo "you are trying to commit on master! aborted!"
+    return 1
+  fi
+  setup_git_repo
+  msg="$issue - $1"
+  echo "Commit message:"
+  printf "\t$msg\n"
+
+  printf "Do you want to continue? (y/n): "
+  read input
+  if [[ $input == "y" ]]; then
+    git commit -m "$msg"
+    git_push_pck
+    return
+  fi
+  echo "COMMIT ABORTED"
+}
+
+git_push_pck() {
+  branch_name=$(git branch -a  | grep '*' | sed 's/^* //')
+
+  setup_git_repo
+  cmd="git push origin $branch_name"
+  echo "Command that will be executed:"
+  printf "\t$cmd\n"
+
+  printf "Do you want to continue? (y/n): "
+  read input
+  if [[ $input == "y" ]]; then
+    eval $cmd
+    return
+  fi
+  printf "$cmd" | pbcopy
+  echo "PUSH ABORTED"
+}
+
+setup_git_repo() {
+  git config user.name $git_username
+  git config user.email $git_useremail
+}
+

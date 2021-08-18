@@ -77,3 +77,8 @@ PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%~ %{$fg_bold[blue]%}$reset_color ${vcs_info_ms
 
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# krew path
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

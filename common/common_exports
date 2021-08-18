@@ -68,3 +68,4 @@ if [ -d $gocode_path ]; then
 fi
 
 [ -f $HOME/.k8s_setup ] && . $HOME/.k8s_setup
+[ -f $HOME/.git ] && . $HOME/.git
