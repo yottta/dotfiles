@@ -1,6 +1,10 @@
 #!/bin/bash
 export git_username=
 export git_useremail=
+export GITHUB_TOKEN=
+export JIRA_USER=
+export JIRA_TOKEN=
+export JIRA_ORG=
 
 alias gd="git diff"
 alias gs="git status"
@@ -54,18 +58,31 @@ git_clean_branches() {
   done
 }
 
-gchbn() {
-  branch_name=$1
-  branch_name=`echo "$branch_name" | awk '{print tolower($0)}'`
-  branch_name=`echo "$branch_name" | sed -e 's@ @-@g'`
+#gchbn() {
+#  branch_name=$1
+#  branch_name=`echo "$branch_name" | awk '{print tolower($0)}'`
+#  branch_name=`echo "$branch_name" | sed -e 's@ @-@g'`
+#
+#  git checkout -b $branch_name
+#}
 
+gchbn() {
+  issue_id=`echo $1 | xargs`
+  issue_content="`curl --fail --request GET --url "https://${JIRA_ORG}.atlassian.net/rest/api/3/search?jql=id=$issue_id" --user "${JIRA_USER}:${JIRA_TOKEN}" --header 'Accept: application/json'`"
+  if [ $? -ne 0 ]; then
+    echo "Issue $issue_id not found"
+    return 1
+  fi
+  issue_summary=`echo "$issue_content" | tr '\r\n' ' ' | jq -r '.issues[0].fields.summary'`
+  issue_summary=`echo $issue_summary | xargs`
+  branch_name=`echo "$issue_id $issue_summary" | sed -e 's@]@@g' -e 's@\[@@g' -e 's@ @-@g' | awk '{print tolower($0)}'`
   git checkout -b $branch_name
 }
 
 git_commit() {
   issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
 
-  if [[ $issue =~ "master" ]]; then
+  if [[ $issue = "master" ]]; then
     echo ""
     echo ""
     echo ""
@@ -92,12 +109,12 @@ git_commit() {
 git_commit_pck() {
   issue=$(git branch -a  | grep '*' | cut -d'-' -f-2 | cut -d'/' -f1 | sed  -e 's/* //' | awk '{print toupper($0)}')
 
-  if [[ $issue =~ "MASTER" ]]; then
+  if [[ $issue = "MASTER" ]]; then
     echo "you are trying to commit on master! aborted!"
     return 1
   fi
   setup_git_repo
-  msg="$issue - $1"
+  msg="$issue $1"
   echo "Commit message:"
   printf "\t$msg\n"
 

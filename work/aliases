@@ -12,17 +12,21 @@ alias docker_start_kafka="docker run -d --rm -p 2181:2181 -p 9092:9092 -e ADVERT
 alias docker_start_postgres="$PROJECTS_PATH/liquidshare/devops/scripts/postgres/postgres.sh"
 alias docker_start_sourcegraph="docker run --publish 7080:7080 --publish 127.0.0.1:3370:3370 --rm --volume ~/.sourcegraph/config:/etc/sourcegraph --volume ~/.sourcegraph/data:/var/opt/sourcegraph sourcegraph/server:3.26.1"
 
-ls_db_dump() {
-  if [ $# -lt 2 ]; then
-    echo "usage: ls_db_dump <env> <service_short_name, eg: uam/staticdata/accountmanagement>"
+pck_db_dump() {
+  db_creds_secret=
+  if [ $# -lt 1 ]; then
+    echo "usage: pck_db_dump <env>"
     return 1
   fi
+  if [ ! -d $HOME/Downloads/db_exports ]; then 
+    mkdir $HOME/Downloads/db_exports
+  fi
   env=$1
-  service=$2
-  cd "$HOME/data/workspace/projects/ls/devops/utils/db_ssl_cert/${env}_sql_client_certificate"
-  echo "using certificates from $(pwd)"
-  output_file=$HOME/Downloads/db_exports/${service}-$(date +"%Y%m%d-%H%M%S").sql
-  /Library/PostgreSQL/11/bin/pg_dump --verbose "host=localhost port=5433 user=ls_${service}_service_user dbname=ls sslrootcert=server-ca.pem sslcert=client-cert.pem sslkey=client-key.pem" -n ls_${service}_service --format=c -f $output_file
+  output_file=$HOME/Downloads/db_exports/${env}-$(date +"%Y%m%d-%H%M%S").sql
+  user=`kubectl get secret $db_creds_secret -ojson | ksd | jq -r '.stringData."db-user"'`
+  password=`kubectl get secret $db_creds_secret -ojson | ksd | jq -r '.stringData."db-password"'`
+  db_name="lmo_backend_${env}"
+  PGPASSWORD=$password /usr/local/Cellar/libpq/13.3/bin/pg_dump --verbose "host=localhost port=54320 user=${user} dbname=${db_name}" -n public --format=c -f $output_file
   echo "dumped done to $output_file"
 }
 

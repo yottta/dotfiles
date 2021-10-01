@@ -25,7 +25,7 @@ function kcdn() {
   kubectl describe node $@ | less -S
 }
 function kclf() {
-    container_name=$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
+    container_name=main #$(echo "$1" | awk -F'-' '{container_name=""; for (i=1; i < NF-1; i ++) {container_name=container_name"-"$i}; print container_name}' | sed 's/^-//')
     kubectl logs --tail=200 -f $1 -c $container_name
 }
 function kcdd() {

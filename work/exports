@@ -1,7 +1,6 @@
 #!/bin/bash
 export PATH="/usr/local/bin:$PATH"
 if [ "`uname -s`" = "Darwin" ]; then
-  echo "Darwin environment"
   export PATH="$HOME/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
   export PATH="$HOME/Library/Python/3.6/bin:$PATH"
   export PATH="/Library/PostgreSQL/11/bin:$PATH"
