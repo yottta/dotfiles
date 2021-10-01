@@ -20,5 +20,3 @@ export PATH="$SOFTS_PATH/bin:$PATH"
 alias python="/usr/bin/python3"
 alias pip="/usr/local/bin/pip3"
 
-export GOPATH=$HOME/Programming/projects/go/gocode
-export PATH="$GOPATH/bin:$PATH"

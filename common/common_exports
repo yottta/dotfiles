@@ -32,8 +32,8 @@ group_lazy_load() {
     done
 }
 
-export WORKSPACE_PATH=$HOME/data/workspace
-export SOFTS_PATH=$WORKSPACE_PATH/softs
+export WORKSPACE_PATH=/media/personal_drive/storage/Programming
+export SOFTS_PATH=$WORKSPACE_PATH/softs/softs
 export PROJECTS_PATH=$WORKSPACE_PATH/projects
 
 # java
@@ -54,6 +54,7 @@ fi
 export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH
 export PATH=${HOME}/.local/bin:$PATH
 export PATH=${HOME}/.cargo/bin:$PATH
+export PATH=$SOFTS_PATH/bin:$PATH
 
 export EDITOR="vim"
 

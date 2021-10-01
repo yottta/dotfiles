@@ -1,2 +1,4 @@
 #!/bin/bash
 [ -f ~/.common_system ] && . ~/.common_system
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
