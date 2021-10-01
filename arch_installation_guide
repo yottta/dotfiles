@@ -5,26 +5,32 @@ Download from Arch site the last version
 Write it to usb flash drive
 Reboot, choose, run
 fdisk -l (see your partitions and disks)
-cfdisk </dev/sda> (partitioning your disk - bootable on root partition)
+cfdisk </dev/sda> (partitioning your disk - bootable on root partition - add an EFI partition)
 mkswap <swap_partition>
 swapon <swap_partition>
 mkfs.ext4 <root_partition>
+mkfs.fat <swap_partition>
 mount <root_partition> /mnt
-pacstrap /mnt base base-devel
+pacstrap /mnt base linux linux-firmware
+mkdir -p /mnt/boot/efi
+mount <efi_partition> /mnt/boot/efi
 arch-chroot /mnt
 passwd (change root passwd)
 pacman -S vim wifi-menu dialog wpa_supplicant git
 vim /etc/locale.gen (uncomment en_US.UTF-8 UTF-8 and en_US ISO-8859-1)
 locale-gen
 ls /sys/class/net and systemctl enable dhcpcd@enp2s0.service (or try to use wifi-menu; don't forget to install dialog and wpa_supplicant packages with pacman because on the installed system the wifi-menu will not work
-ls -s /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
+ln -s /usr/share/zoneinfo/Europe/Bucharest /etc/localtime
 echo <hostname> > /etc/hostname
-pacman -S grub-bios
-grub-install /dev/sda (the disk not the partition)
+pacman -S grub-bios efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot/efi/ /dev/sda (disk, not partition)
+# OLD
+# grub-install /dev/sda (the disk not the partition)
 mkinitcpio -p linux
 grub-mkconfig -o /boot/grub/grub.cfg
 exit
 genfstab -p /mnt >> /mnt/etc/fstab
+umount /mnt/boot/efi
 umount /mnt
 reboot
 
