@@ -35,6 +35,17 @@ umount /mnt
 reboot
 
 2. Post-installation
+# enable network /etc/systemd/network/20-wired.network https://wiki.archlinux.org/title/Systemd-networkd#Wired_adapter_using_DHCP
+[Match]
+Name=<your network see `ip link show`>
+[Network]
+DHCP=yes
+
+echo "net.ipv6.conf.all.disable_ipv6 = 1" > /etc/sysctl.d/40-ipv6.conf
+echo "net.ipv6.conf.default.disable_ipv6 = 1" > /etc/sysctl.d/40-ipv6.conf
+
+systemctl start systemd-networkd
+systemctl enable systemd-networkd
 lspci | grep VGA and pacman -S xf86-video-intel (for intel situation)
 pacman -S xf86-input-synaptics
 pacman -S xorg-server xorg-server-utils xorg-xinit xorg-apps
