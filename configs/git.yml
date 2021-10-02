@@ -1,7 +1,7 @@
 FileAction:
-  git:
+  gitcfg:
     hidden: false
     source: ../common
     command: ln -s
-    destination: $#HOME#$/.git
+    destination: $#HOME#$/.gitcfg
 

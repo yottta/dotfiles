@@ -9,9 +9,9 @@ FileAction:
     source: ../common
     command: ln -s
     destination: $#HOME#$
-  tmux-resurrect:
-    hidden: true
-    source: ../common
-    command: ln -s
-    destination: $#HOME#$
-
+    #  tmux-resurrect:
+    #    hidden: true
+    #    source: ../common
+    #    command: ln -s
+    #    destination: $#HOME#$
+    #

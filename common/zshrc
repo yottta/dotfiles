@@ -3,7 +3,7 @@ export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 
 # oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # plugins
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
