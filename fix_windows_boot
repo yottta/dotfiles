@@ -1,0 +1,61 @@
+#### SOLUTION 1
+Since you are unable to boot Windows after installing Ubuntu, I would suggest you to try rebuilding BCD file and see if that helps.
+
+Create a bootable media and boot the PC using the media.
+
+On the Install Windows screen, select Next > Repair your computer.
+
+On the System Recovery Options screen, select Troubleshoot> Advanced options > Command Prompt.
+
+Now type in the commands and hit enter: BOOTREC /FIXMBR
+BOOTREC /FIXBOOT
+BOOTREC /scanos
+BOOTREC /rebuildbcd
+
+Restart the PC.
+
+
+
+#### SOLUTION 2
+Method 1:
+
+
+
+Try running Boot Repair by Ubuntu and see if that helps. Refer the article Boot-Repair
+
+
+
+Here is some additional information on Dual Booting Windows and Ubuntu.
+
+
+
+Method 2:
+
+
+
+Mark Windows partition as active and try booting Windows.
+
+
+
+Use the bootable media to boot the PC.
+
+On the Install Windows screen, select Next > Repair your computer.
+
+On the System Recovery Options screen, select Troubleshoot> Advanced options >Command Prompt.
+
+Now type diskpart hit enter.
+
+Type the following commands and hit enter: select disk 0
+0 is the disk on which Windows is installed.
+
+Now type list partition and hit enter.
+
+Note the partition on which Windows is installed
+
+Type select partition # and hit enter.
+
+Note: # is the number of the partition on which Windows is installed.
+
+Now type active and hit enter.
+
+Restart the PC.
