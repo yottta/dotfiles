@@ -1,7 +1,11 @@
 #!/bin/bash
+# username that will be present in the commits done with the aliases generated below
 export git_username=
+# user email that will be present in the commits done with the aliases generated below
 export git_useremail=
+# github token used for triggering actions in github
 export GITHUB_TOKEN=
+# Jira credentials used for checking out a branch with the name of the given ticket
 export JIRA_USER=
 export JIRA_TOKEN=
 export JIRA_ORG=
@@ -17,7 +21,8 @@ alias gc="git_commit_pck"
 alias gcw="git_commit"
 alias gstls="git stash list"
 alias gstsh="git stash show -p"
-alias gstst="git stash --include-untracked"
+alias gstst="git stash"
+alias gststa="git stash --include-untracked"
 alias gstpo="git stash pop"
 
 gchm() {
