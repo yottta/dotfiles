@@ -21,7 +21,7 @@ alias gc="git_commit_pck"
 alias gcw="git_commit"
 alias gstls="git stash list"
 alias gstsh="git stash show -p"
-alias gstst="git stash"
+alias gstst="git stash push"
 alias gststa="git stash --include-untracked"
 alias gstpo="git stash pop"
 
@@ -32,10 +32,16 @@ gpull() {
   git pull origin `git_get_current_branch`
 }
 gpush() {
+  extra_args=""
+  if [ $# -gt 0 ]; then
+    if [ "$1" = "f" ]; then
+      extra_args="$extra_args --force-with-lease"
+    fi
+  fi
   branch_name=$(git_get_current_branch)
 
   setup_git_repo
-  cmd="git push origin $branch_name"
+  cmd="git push origin $branch_name$extra_args"
   echo "Command that will be executed:"
   printf "\t$cmd\n"
 
@@ -58,7 +64,7 @@ git_get_current_branch() {
 
 git_clean_branches() {
   git fetch -p --tags
-  for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do
+  for branch in `git branch -vv | egrep -v '[.*]' | awk '{print $1}'`; do
     git branch -D $branch
   done
 }

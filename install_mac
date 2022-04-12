@@ -1,20 +1,27 @@
-brew install wget dep ngrep jq telnet kubernetes-helm pkg-config vault graphviz jenv htop rename 
+brew install wget dep ngrep jq telnet kubernetes-helm pkg-config vault graphviz jenv htop rename rar fzf gnu-sed netcat p7zip sqlite tmux watch 
+brew install -cask stats
 #######MAC extensions########
 itsycal
 Pastebot
+jiggler
+spectacle
+stats (https://github.com/exelban/stats)
 
 ### MAC APPS ###
+iterm2
+gcloud
+nvm (npm)
 skype
 docker
 slack
 authy
-spectacle
-sequel pro
-pulse secure
+dbeaver
 jenv
 Chrome
-Eclipse
+Google Meets
 Postman
+Spotify/Deezer
+Altair
 VsCode
 teamviewer
 vlc
@@ -23,4 +30,10 @@ elmedia player
 sts
 xcode
 ######
-
+Adobe Reader
+Logi Options+
+Signal
+Zoom
+FileZilla
+jmeter
+bombardier
