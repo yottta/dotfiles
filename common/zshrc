@@ -3,7 +3,7 @@ export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 
 # oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-source $ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZSH/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # plugins
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -48,32 +48,54 @@ bindkey "^s" add_sudo
 
 
 setopt prompt_subst
-autoload -Uz vcs_info
+#autoload -Uz vcs_info
 autoload -U compinit && compinit
-zstyle ':vcs_info:*' stagedstr 'M' 
-zstyle ':vcs_info:*' unstagedstr 'M' 
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+#zstyle ':vcs_info:*' stagedstr 'M' 
+#zstyle ':vcs_info:*' unstagedstr 'M' 
+#zstyle ':vcs_info:*' check-for-changes true
+#zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
 zstyle ':vcs_info:*' formats \
   '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
-zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-zstyle ':vcs_info:*' enable git 
-+vi-git-untracked() {
-  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-    [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
-  hook_com[unstaged]+='%F{1}??%f'
-  fi
-}
-precmd () { vcs_info }
+#zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
+#zstyle ':vcs_info:*' enable git
+#+vi-git-untracked() {
+#  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+#    [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
+#  hook_com[unstaged]+='%F{1}??%f'
+#  fi
+#}
+#precmd () { vcs_info }
 
+git_info() {
+  current_branch=`git branch --show-current` 2>/dev/null
+  if [ $? -ne 0 ]; then
+    return
+  fi
+  if [ -z $current_branch ]; then
+    current_branch=`git branch -a | grep "*"`
+    if [[ $current_branch == *"no branch"* ]]; then
+      current_branch=`echo $current_branch | cut -d',' -f2 | sed 's/)//' | xargs`
+    fi
+  fi
+  echo "%F{magenta}[%F{green}${current_branch}%F{magenta}]"
+}
+
+k8s_info() {
+  which kubectx > /dev/null
+  if [ $? -ne 0 ]; then
+    return
+  fi
+  echo "%F{white}<%F{cyan}`kubectx -c`%F{white}>"
+}
 # PROMPT settings
 NEWLINE=$'\n'
-RPROMPT="%*"
+#RPROMPT="%*"
+setopt PROMPT_SUBST
 # old prompt
 #PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
 #PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
 
-PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%~ %{$fg_bold[blue]%}$reset_color ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
+PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%d %{$fg_bold[blue]%}$reset_color%F{red}%*%f $(git_info) $reset_color$(k8s_info) $reset_color $NEWLINE%#> '
 
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
