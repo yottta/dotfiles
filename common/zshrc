@@ -1,23 +1,15 @@
-export ZSH="$HOME/.oh-my-zsh"
 export PATH="$PATH:/opt/local/bin:/opt/local/sbin"
 
+### zsh & oh-my-zsh properties
+# zsh
+HISTSIZE=99999999
 # oh-my-zsh
-source $ZSH/oh-my-zsh.sh
-source $ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# plugins
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(docker docker-compose)
-
-# zsh properties
-export HISTSIZE=99999999
+HIST_STAMPS="mm/dd/yyyy"
 DISABLE_AUTO_TITLE="true"
-
-#ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+# 3rd party
 ZSH_AUTOSUGGEST_STRATEGY=(history)
+
 ######### keybindings #########
 # go one directory back - ctrl + k
 function up_widget() {
@@ -28,7 +20,7 @@ zle -N up_widget
 bindkey "^u" up_widget
 
 # go to home directory - ctrl + h
-function goto_home() { 
+function goto_home() {
   BUFFER="cd ~/"$BUFFER
   zle end-of-line
   zle accept-line
@@ -44,28 +36,7 @@ function add_sudo() {
 zle -N add_sudo
 bindkey "^s" add_sudo
 
-
-
-
-setopt prompt_subst
-#autoload -Uz vcs_info
-autoload -U compinit && compinit
-#zstyle ':vcs_info:*' stagedstr 'M' 
-#zstyle ':vcs_info:*' unstagedstr 'M' 
-#zstyle ':vcs_info:*' check-for-changes true
-#zstyle ':vcs_info:*' actionformats '%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats \
-  '%F{5}[%F{2}%b%F{5}] %F{2}%c%F{3}%u%f'
-#zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
-#zstyle ':vcs_info:*' enable git
-#+vi-git-untracked() {
-#  if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-#    [[ $(git ls-files --other --directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
-#  hook_com[unstaged]+='%F{1}??%f'
-#  fi
-#}
-#precmd () { vcs_info }
-
+# PROMPT settings
 git_info() {
   current_branch=`git branch --show-current` 2>/dev/null
   if [ $? -ne 0 ]; then
@@ -77,27 +48,41 @@ git_info() {
       current_branch=`echo $current_branch | cut -d',' -f2 | sed 's/)//' | xargs`
     fi
   fi
-  echo "%F{magenta}[%F{green}${current_branch}%F{magenta}]"
+  echo "%F{magenta}[%F{red}${current_branch}%F{magenta}]$reset_color"
 }
 
 k8s_info() {
+  out="%F{white}( %F{blue}\u2638%b$reset_color %F{white}| "
   which kubectx > /dev/null
   if [ $? -ne 0 ]; then
     return
   fi
-  echo "%F{white}<%F{cyan}`kubectx -c`%F{white}>"
+  out="$out%F{cyan}`kubectx -c`"
+  which kubens > /dev/null
+  if [ $? -eq 0 ]; then
+    out="$out:`kubens -c`"
+  fi
+  out="$out%F{white} )"
+  echo $out"$reset_color"
 }
-# PROMPT settings
-NEWLINE=$'\n'
-#RPROMPT="%*"
-setopt PROMPT_SUBST
-# old prompt
-#PROMPT="$NEWLINE%{$fg_bold[white]%}%n%{$reset_color%}@%M %{$fg_bold[white]%}%~%{$reset_color%}$NEWLINE%#> "
-#PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%3~ ${vcs_info_msg_0_}$reset_color $NEWLINE%#> '
 
-PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%d %{$fg_bold[blue]%}$reset_color%F{red}%*%f $(git_info) $reset_color$(k8s_info) $reset_color $NEWLINE%#> '
+setopt PROMPT_SUBST
+NEWLINE=$'\n'
+PROMPT='%F{green}%~$reset_color $(git_info) $(k8s_info) $NEWLINE%F{red}%#>$reset_color '
+# uncomment this for a more detailed prompt
+#PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%d %{$fg_bold[blue]%}$reset_color%F{red}%*%f $(git_info) $reset_color$(k8s_info) $reset_color $NEWLINE%#> '
+
+# plugins
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(docker docker-compose timer)
+
+source $ZSH/oh-my-zsh.sh
+source $ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+autoload -U compinit && compinit
 
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
