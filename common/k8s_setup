@@ -8,16 +8,22 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 alias kc='kubectl'
 alias k='kubectl'
 alias kx='kubectx'
+alias kn='kubens'
 #alias kclf='kubectl logs --tail=200 -f'
 alias kcgs='kubectl get service -o wide'
 alias kcgd='kubectl get deployment -o wide'
 alias kcgp='kubectl get pod -o wide'
+alias kcgpw='watch -n 1 kubectl get pod -o wide'
 alias kcgn='kubectl get node -o wide'
 alias kcdf='kubectl delete -f'
 alias kcaf='kubectl apply -f'
 alias kcci='kubectl cluster-info'
 alias kcbad='kubectl get pod | grep "0\/"'
 alias kcall='kubectl get nodes --no-headers | awk '\''{print $1}'\'' | xargs -I {} sh -c '\''echo {} ; kubectl describe node {} | grep Allocated -A 5 | grep -ve Event -ve Allocated -ve percent -ve -- ; echo '\'''
+
+function kdvers() {
+  kc describe deployment $@ | grep "Image:" | cut -d ":" -f3
+}
 
 function kcdp() {
   kubectl describe pod $@ | less -S
