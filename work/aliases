@@ -1,34 +1,12 @@
 #!/bin/bash
 
 #####-------------ALIASES------------#####
-alias go_to_java_projects="cd $PROJECTS_PATH/liquidshare/java"
-alias go_to_go_projects="cd $PROJECTS_PATH/liquidshare/go_modules"
-
 # for mac os
 alias ll="ls -lah"
 alias l="ls -lh"
-alias uuidgen="uuid_generator | tr '\n' ' ' | pbcopy"
 alias docker_start_kafka="docker run -d --rm -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper"
 alias docker_start_postgres="$PROJECTS_PATH/liquidshare/devops/scripts/postgres/postgres.sh"
 alias docker_start_sourcegraph="docker run --publish 7080:7080 --publish 127.0.0.1:3370:3370 --rm --volume ~/.sourcegraph/config:/etc/sourcegraph --volume ~/.sourcegraph/data:/var/opt/sourcegraph sourcegraph/server:3.26.1"
-
-pck_db_dump() {
-  db_creds_secret=
-  if [ $# -lt 1 ]; then
-    echo "usage: pck_db_dump <env>"
-    return 1
-  fi
-  if [ ! -d $HOME/Downloads/db_exports ]; then 
-    mkdir $HOME/Downloads/db_exports
-  fi
-  env=$1
-  output_file=$HOME/Downloads/db_exports/${env}-$(date +"%Y%m%d-%H%M%S").sql
-  user=`kubectl get secret $db_creds_secret -ojson | ksd | jq -r '.stringData."db-user"'`
-  password=`kubectl get secret $db_creds_secret -ojson | ksd | jq -r '.stringData."db-password"'`
-  db_name="lmo_backend_${env}"
-  PGPASSWORD=$password /usr/local/Cellar/libpq/13.3/bin/pg_dump --verbose "host=localhost port=54320 user=${user} dbname=${db_name}" -n public --format=c -f $output_file
-  echo "dumped done to $output_file"
-}
 
 patch_helm_secret() {
   printf "\t>> Patching $1 helm secret\n"
@@ -44,18 +22,9 @@ patch_helm_secret() {
   read input
   if [[ $input == "y" ]]; then
       kubectl patch secret $target -p '{"metadata":{"labels":{"status":"deployed"}}}'
-      #content=$(kubectl get secret $target -oyaml | grep "release:" | cut -d':' -f2 | base64 -D | base64 -D | gunzip)
       return
   fi
   echo "\t>> PATCHING ABORTED!"
-}
-
-fix_generated_dir() {
-    cd $(ll | grep service | grep -v proto | rev | cut -d' ' -f1 | rev)/src/main;
-    test -e "generated"
-    rm -rf generated;
-    ln -s ../../build/generated .
-    cd ../../../
 }
 
 setup_ssh_agent() {
@@ -63,11 +32,23 @@ setup_ssh_agent() {
   ssh-add $HOME/.ssh/id_rsa
 }
 
-go_to_live_project_env() {
-  currentDir=$(pwd)
-  prefix=$(echo "$currentDir" | cut -d'/' -f-10)
-  suffix=$(echo "$currentDir" | cut -d'/' -f12-)
-  env=$1
-  cd $prefix/$env/$suffix
+build_and_deploy_cloud_run() {
+  test -d $HOME/.cloud_run_versions || mkdir $HOME/.cloud_run_versions
+  set -x
+  # env vars
+  GCP_PROJECT=default-proj
+  ARTIFACT_REG_REPO=default-repo
+  project=`pwd`
+  PROJ_NAME=`basename $project`
+  test -f $project/.custom_cr_deployment && source $project/.custom_cr_deployment
+  version="1.0.0"
+  if [ -f $HOME/.cloud_run_versions/.$PROJ_NAME ]; then
+    version=`echo $(cat $HOME/.$PROJ_NAME) | awk -F. '{print $1"."$2+1"."$3}'`
+  fi
+  echo "new version $version for $PROJ_NAME"
+  docker build --platform linux/amd64 --build-arg github_token=$GITHUB_TOKEN -t europe-west1-docker.pkg.dev/$GCP_PROJECT/$ARTIFACT_REG_REPO/$PROJ_NAME:$version .
+  newVersionSha=`docker push europe-west1-docker.pkg.dev/$GCP_PROJECT/$ARTIFACT_REG_REPO/$PROJ_NAME:$version | grep digest | cut -d' ' -f3`
+  gcloud run deploy $PROJ_NAME --image=europe-west1-docker.pkg.dev/$GCP_PROJECT/$ARTIFACT_REG_REPO/$PROJ_NAME@$newVersionSha --region europe-west1
+  echo $version > $HOME/.$PROJ_NAME
+  set +x
 }
-

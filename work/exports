@@ -22,14 +22,13 @@ export GOBIN="$GOPATH/bin"
 export PATH="$GOBIN:$PATH"
 export PATH="$SOFTS_PATH/bin:$PATH"
 
-export CURRENT_PROJECT=pck
 # GOTO definitions
-export CURRENT_PROJECT_WORKSPACE=$PROJECTS_PATH/$CURRENT_PROJECT
+export CURRENT_PROJECT_WORKSPACE=$PROJECTS_PATH/go
 export GOTO_GO=$CURRENT_PROJECT_WORKSPACE/go_modules
 export GOTO_JAVA=$CURRENT_PROJECT_WORKSPACE/java
 export GOTO_UI=$CURRENT_PROJECT_WORKSPACE/ui
 export GOTO_TEST=$HOME/testing
-export GOTO_LMO=$GOTO_GO/lmo-backend
+export GOTO_WORKSPACE=$PROJECTS_PATH
 
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export TERRAGRUNT_SOURCE_UPDATE=true
@@ -45,3 +44,5 @@ if [ -f "$HOME/data/workspace/softs/lib/gcloud/google-cloud-sdk/completion.zsh.i
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+eval "$(rbenv init - zsh)"
