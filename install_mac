@@ -36,4 +36,9 @@ Signal
 Zoom
 FileZilla
 jmeter
-bombardier
+bombardiei
+
+
+# in order to use the same iterm2 configs, do this after running configbuddy
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.dotfiles/common/OSX/iterm2/config"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
