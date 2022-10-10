@@ -51,7 +51,11 @@ PROMPT='%F{green}%~$reset_color $(git_info) $(k8s_info) $reset_color$NEWLINE%#> 
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(docker docker-compose timer)
+#
+# For fzf:
+# git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+# ~/.fzf/install
+plugins=(docker docker-compose timer fzf)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -85,4 +89,3 @@ bindkey "^s" add_sudo
 
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

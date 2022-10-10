@@ -19,3 +19,8 @@ FileAction:
     source: ../work
     command: ln -s
     destination: $#HOME#$
+  zprofile:
+    hidden: true
+    source: ../work
+    command: ln -s
+    destination: $#HOME#$
