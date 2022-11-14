@@ -31,6 +31,10 @@ k8s_info() {
   if [ $? -ne 0 ]; then
     return
   fi
+  kubectx -c > /dev/null 2>&1
+  if [ $? -ne 0 ]; then
+    return
+  fi
   out="$out%F{cyan}`kubectx -c`"
   which kubens > /dev/null
   if [ $? -eq 0 ]; then
