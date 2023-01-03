@@ -26,6 +26,7 @@ export PATH="$SOFTS_PATH/bin:$PATH"
 export CURRENT_PROJECT_WORKSPACE=$PROJECTS_PATH/go
 export GOTO_TEST=$HOME/testing
 export GOTO_WS=$PROJECTS_PATH
+export GOTO_WORK=$PROJECTS_PATH/02_work
 
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export TERRAGRUNT_SOURCE_UPDATE=true
