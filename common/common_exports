@@ -74,17 +74,17 @@ fi
 go_v() {
   if [ $# -eq 0 ]; then
       echo "-> List of available versions"
-      find $SOFTS_PATH/lib -maxdepth 1 -name "go*" -type d | rev | cut -d'/' -f1 | rev
+      find "$SOFTS_PATH/lib" -maxdepth 1 -name "go*" -type d | rev | cut -d'/' -f1 | rev
       return 0
   fi
   v_path=$SOFTS_PATH/lib/$1
-  if [ ! -d $v_path ]; then
+  if [ ! -d "$v_path" ]; then
     # TODO download it
     echo "Invalid go version $1 (search at $v_path)"
     return 1
   fi
   symlink_path=$SOFTS_PATH/lib/go
-  [ -e  ] && rm $symlink_path
+  [ -e "$symlink_path" ] && rm "$symlink_path"
   ln -s "$v_path" "$symlink_path"
   go version
 }
