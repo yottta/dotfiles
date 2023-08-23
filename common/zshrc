@@ -46,7 +46,7 @@ k8s_info() {
 
 setopt PROMPT_SUBST
 NEWLINE=$'\n'
-PROMPT='%F{green}%~$reset_color $(git_info) $(k8s_info) $reset_color$NEWLINE%#> '
+PROMPT='%(?..[%?] )%F{green}%~$reset_color $(git_info) $(k8s_info) $reset_color$NEWLINE%#> '
 # uncomment this for a more detailed prompt
 #PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%d %{$fg_bold[blue]%}$reset_color%F{red}%*%f $(git_info) $reset_color$(k8s_info) $reset_color $NEWLINE%#> '
 
@@ -91,5 +91,40 @@ function add_sudo() {
 zle -N add_sudo
 bindkey "^s" add_sudo
 
+autoload edit-command-line
+bindkey "^v" edit-command-line
+
+###### Print start time for each command
+strlen () {
+    FOO=$1
+    local zero='%([BSUbfksu]|([FB]|){*})'
+    LEN=${#${(S%%)FOO//$~zero/}}
+    echo $LEN
+}
+
+# show right prompt with date ONLY when command is executed
+preexec () {
+    DATE=$( date +"[%H:%M:%S]" )
+    local len_right=$( strlen "$DATE" )
+    len_right=$(( $len_right+1 ))
+    local right_start=$(($COLUMNS - $len_right))
+
+    local len_cmd=$( strlen "$@" )
+    local len_prompt=$(strlen "$PROMPT" )
+    local len_left=$(($len_cmd+$len_prompt))
+
+    RDATE="\033[${right_start}C ${DATE}"
+
+		# this is printed one line after the command to be sure that it does not overwrite parts of the command
+    echo -e "${RDATE}"
+		# since "timer" zsh plugin is also used, create a new line to be sure that the elapsed time is not printed over the start time
+		echo -e ""
+}
+###### Print start time for each command (END)
+
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
