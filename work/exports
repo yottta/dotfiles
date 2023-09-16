@@ -5,8 +5,8 @@ if [ "`uname -s`" = "Darwin" ]; then
   export PATH="$HOME/Library/Python/3.6/bin:$PATH"
   export PATH="/Library/PostgreSQL/11/bin:$PATH"
   export PATH="/usr/local/Cellar/libpq/13.3/bin:$PATH"
-  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
   export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+  export PATH="/opt/homebrew/bin:$PATH"
 #  export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 #  export PATH="$HOME/.jenv/bin:$PATH"
 #  eval "$(jenv init -)"
