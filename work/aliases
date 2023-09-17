@@ -7,6 +7,7 @@ alias l="ls -lh"
 alias docker_start_kafka="docker run -d --rm -p 2181:2181 -p 9092:9092 -e ADVERTISED_HOST=127.0.0.1 johnnypark/kafka-zookeeper"
 alias docker_start_postgres="$PROJECTS_PATH/liquidshare/devops/scripts/postgres/postgres.sh"
 alias docker_start_sourcegraph="docker run --publish 7080:7080 --publish 127.0.0.1:3370:3370 --rm --volume ~/.sourcegraph/config:/etc/sourcegraph --volume ~/.sourcegraph/data:/var/opt/sourcegraph sourcegraph/server:3.26.1"
+alias vim=nvim
 
 patch_helm_secret() {
   printf "\t>> Patching $1 helm secret\n"
