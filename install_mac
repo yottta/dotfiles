@@ -40,8 +40,8 @@ bombardiei
 
 
 # in order to use the same iterm2 configs, do this after running configbuddy
-defaults write com.googlecode.iterm2 PrefsCustomFolder -string "~/.dotfiles/common/OSX/iterm2/config"
-defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+settings -> general -> closing -> quit when all windows are closed
+settings -> profile -> default -> window -> style=maximized
 
 # a history of things that you might need to have installed
 #   346  5/11/2022 14:23  brew install postgresql
