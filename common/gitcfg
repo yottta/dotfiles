@@ -1,14 +1,17 @@
 #!/bin/bash
-# username that will be present in the commits done with the aliases generated below
-export git_username=
-# user email that will be present in the commits done with the aliases generated below
-export git_useremail=
-# github token used for triggering actions in github
-export GITHUB_TOKEN=
-# Jira credentials used for checking out a branch with the name of the given ticket
-export JIRA_USER=
-export JIRA_TOKEN=
-export JIRA_ORG=
+
+#### Commented because are exported in a more secure way
+# # username that will be present in the commits done with the aliases generated below
+# export git_username=
+# # user email that will be present in the commits done with the aliases generated below
+# export git_useremail=
+# # github token used for triggering actions in github
+# export GITHUB_TOKEN=
+# # Jira credentials used for checking out a branch with the name of the given ticket
+# export JIRA_USER=
+# export JIRA_TOKEN=
+# export JIRA_DOMAIN=
+# export JIRA_AUTH_HEADER=
 
 alias gd="git diff"
 alias gs="git status"
@@ -19,12 +22,25 @@ alias gchb="git checkout"
 
 alias gc="git_commit"
 alias gcw="git_commit"
+alias gam="git_add_modified"
 alias gstls="git stash list"
 alias gstsh="git stash show -p"
 alias gstst="git stash push"
 alias gststa="git stash --include-untracked"
 alias gstpo="git stash pop"
 
+go_git_clean() {
+  set -x
+  gchm
+  gpull
+  git_clean_branches
+  go mod tidy
+  if [ $? -ne 0 ]; then
+    go mod tidy -compat=1.17
+  fi
+  set +x
+}
+alias ggc=go_git_clean
 gchm() {
   git checkout `git_get_master_branch`
 }
@@ -70,19 +86,22 @@ git_clean_branches() {
 }
 
 gchbn() {
-  project="TEST"
+  project=""
   issue_id=`echo $1 | xargs`
   if [[ ! "$issue_id" =~ "${project}-" ]]; then
     issue_id="$project-$issue_id"
   fi
-  issue_content="`curl --fail --request GET --url "https://${JIRA_ORG}.atlassian.net/rest/api/3/search?jql=id=$issue_id" --user "${JIRA_USER}:${JIRA_TOKEN}" --header 'Accept: application/json'`"
+  issue_data=`curl --fail --request GET --url "https://${JIRA_DOMAIN}/rest/api/2/search?jql=id=$issue_id" --user "${JIRA_USER}:${JIRA_TOKEN}" --header 'Accept: application/json' --header "${JIRA_AUTH_HEADER}" | jq -r '.issues[0].fields | .issuetype.name, .summary'`
   if [ $? -ne 0 ]; then
     echo "Issue $issue_id not found"
     return 1
   fi
-  issue_summary=`echo "$issue_content" | tr '\r\n' ' ' | jq -r '.issues[0].fields.summary'`
-  issue_summary=`echo $issue_summary | xargs`
-  branch_name=`echo "$issue_id $issue_summary" | sed -e 's@]@@g' -e 's@\[@@g' -e 's@ @-@g' | awk '{print tolower($0)}'`
+  type=$(echo "${issue_data}" | head -1 | awk '{print tolower($0)}')
+  summary=$(echo "${issue_data}" | tail -1 | awk '{print tolower($0)}')
+  branch_name=`echo "$issue_id $summary" | sed -e 's@-@ @g' -e 's@/@@g' -e 's@]@@g' -e 's@\[@@g' -e 's@\s\{2,\}@ @g' -e 's@ @-@g' -e 's@,@@g' -e 's@:@@g' | awk '{print tolower($0)}'`
+  prefix="feat/"
+  [ "$type" != "story" ] && prefix="fix/"
+  branch_name="${prefix}${branch_name}"
   git checkout -b $branch_name
 }
 
@@ -131,8 +150,18 @@ git_push() {
   echo "PUSH ABORTED"
 }
 
+git_add_modified() {
+  git status | grep modified | cut -d':' -f2 | while read -r line; do
+    if [[ "$line" == *.*js ]]; then
+      echo "-> applying prettier format to $line"
+      prettier.cjs $line --write
+    fi
+    git add $line
+  done
+}
+
 setup_git_repo() {
-  git config user.name $git_username
-  git config user.email $git_useremail
+#  git config user.name $git_username
+#  git config user.email $git_useremail
 }
 

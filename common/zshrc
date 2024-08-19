@@ -22,7 +22,7 @@ git_info() {
       current_branch=`echo $current_branch | cut -d',' -f2 | sed 's/)//' | xargs`
     fi
   fi
-  echo "%F{magenta}[%F{red}${current_branch}%F{magenta}]$reset_color"
+  echo "%F{magenta}[%F{red}${current_branch}%F{magenta}]$reset_color "
 }
 
 k8s_info() {
@@ -40,13 +40,29 @@ k8s_info() {
   if [ $? -eq 0 ]; then
     out="$out:`kubens -c`"
   fi
-  out="$out%F{white} )"
+  out="$out%F{white} ) "
   echo $out"$reset_color"
+}
+
+ocli_ctx() {
+  out="%F{white}(%F{blue}ocli%b$reset_color%F{white}>"
+  res="%F{cyan}err"
+  which ocli > /dev/null
+  if [ $? -eq 0 ]; then
+    res="%F{cyan}`ocli cfg ctx`"
+  fi
+  out="${out}${res}%F{white}) "
+  echo "$out"
 }
 
 setopt PROMPT_SUBST
 NEWLINE=$'\n'
-PROMPT='%(?..[%?] )%F{green}%~$reset_color $(git_info) $(k8s_info) $reset_color$NEWLINE%#> '
+# CUSTOM_NO_PROMPT="true"
+if [ ! -z $CUSTOM_NO_PROMPT ]; then
+  PROMPT='%#> '
+else 
+  PROMPT='%(?..[%?] )%F{green}%~$reset_color $(git_info)$(k8s_info)$(ocli_ctx)$reset_color$NEWLINE%#> '
+fi
 # uncomment this for a more detailed prompt
 #PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%d %{$fg_bold[blue]%}$reset_color%F{red}%*%f $(git_info) $reset_color$(k8s_info) $reset_color $NEWLINE%#> '
 
@@ -91,6 +107,7 @@ function add_sudo() {
 zle -N add_sudo
 bindkey "^s" add_sudo
 
+export VISUAL=nvim
 autoload edit-command-line
 bindkey "^v" edit-command-line
 
