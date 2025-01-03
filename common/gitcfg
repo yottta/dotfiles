@@ -34,9 +34,11 @@ go_git_clean() {
   gchm
   gpull
   git_clean_branches
-  go mod tidy
-  if [ $? -ne 0 ]; then
-    go mod tidy -compat=1.17
+  if [ -f go.mod ]; then
+    go mod tidy
+    if [ $? -ne 0 ]; then
+      go mod tidy -compat=1.17
+    fi
   fi
   set +x
 }
