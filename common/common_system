@@ -10,7 +10,12 @@ if [ $? -eq 0 ]; then
   [ -f /etc/bashrc ] && . /etc/bashrc
 fi
 
-if [ -z $TMUX ] && [ "$(which tmux)" != "" ]; then
+# Try to attach to the existing tmux session. If there is no active session, create one. If there are more than 1 sessions, list them to be able to choose on which to connect
+# This done only if:
+# * tmux is installed (which tmux)
+# * the current shell session is outside of a tmux session (check on $TMUX)
+# * the owner of the shell session is having a prompt (check on $PS1 - this was needed because there were background tasks that were invoking bash shells and those were getting attached to the tmux session, flickering the main terminal)
+if [ -z $TMUX ] && [ "$(which tmux)" != "" ] && [ -z "$PS1" ]; then
   tmux list-sessions > /dev/null
   if [ $? -ne 0 ]; then
     tmux
