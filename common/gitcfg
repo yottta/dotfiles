@@ -28,6 +28,7 @@ alias gstsh="git stash show -p"
 alias gstst="git stash push"
 alias gststa="git stash --include-untracked"
 alias gstpo="git stash pop"
+alias ggc=go_git_clean
 
 go_git_clean() {
   set -x
@@ -42,13 +43,14 @@ go_git_clean() {
   fi
   set +x
 }
-alias ggc=go_git_clean
 gchm() {
-  git checkout `git_get_master_branch`
+  git checkout "$(git_get_master_branch)" 
 }
+
 gpull() {
-  git pull origin `git_get_current_branch`
+  git pull origin "$(git_get_current_branch)" 
 }
+
 gpush() {
   extra_args=""
   if [ $# -gt 0 ]; then
@@ -58,57 +60,56 @@ gpush() {
   fi
   branch_name=$(git_get_current_branch)
 
-  setup_git_repo
   cmd="git push origin $branch_name$extra_args"
   echo "Command that will be executed:"
-  printf "\t$cmd\n"
+  printf "\t%s\n" "$cmd"
 
   printf "Do you want to continue? (y/n): "
-  read input
+  read -r input
   if [[ $input == "y" ]]; then
-    eval $cmd
+    eval "$cmd"
     return
   fi
-  printf "$cmd" | pbcopy
+  printf "%s" "$cmd" | pbcopy
   echo "PUSH ABORTED"
 }
 git_get_master_branch() {
-  git branch -a  | egrep -e " master$" -e " main$" | sed 's/*//' | xargs
+  git branch -a  | grep -E -e " master$" -e " main$" | sed 's/*//' | xargs
 }
 
 git_get_current_branch() {
-  git branch -a  | egrep "^(\*)" | sed 's/*//' | xargs
+  git branch -a  | grep -E "^(\*)" | sed 's/*//' | xargs
 }
 
 git_clean_branches() {
   git fetch -p --tags
-  for branch in `git branch -vv | egrep -v '[.*]' | grep -v "main" | grep -v "master" | grep -v "release" | awk '{print $1}'`; do
-    git branch -D $branch
+  for branch in $(git branch -vv | grep -E -v '[.*]' | grep -v "main" | grep -v "master" | grep -v "release" | awk '{print $1}'); do
+    git branch -D "$branch"
   done
 }
 
 gchbn() {
   project=""
-  issue_id=`echo $1 | xargs`
-  if [[ ! "$issue_id" =~ "${project}-" ]]; then
+  issue_id=$(echo "$1" | xargs)
+  if [[ ! "$issue_id" =~ ${project}\- ]]; then
     issue_id="$project-$issue_id"
   fi
-  issue_data=`curl --fail --request GET --url "https://${JIRA_DOMAIN}/rest/api/2/search?jql=id=$issue_id" --user "${JIRA_USER}:${JIRA_TOKEN}" --header 'Accept: application/json' --header "${JIRA_AUTH_HEADER}" | jq -r '.issues[0].fields | .issuetype.name, .summary'`
+  issue_data=$(curl --fail --request GET --url "https://${JIRA_DOMAIN}/rest/api/2/search?jql=id=$issue_id" --user "${JIRA_USER}:${JIRA_TOKEN}" --header 'Accept: application/json' --header "${JIRA_AUTH_HEADER}" | jq -r '.issues[0].fields | .issuetype.name, .summary')
   if [ $? -ne 0 ]; then
     echo "Issue $issue_id not found"
     return 1
   fi
   type=$(echo "${issue_data}" | head -1 | awk '{print tolower($0)}')
   summary=$(echo "${issue_data}" | tail -1 | awk '{print tolower($0)}')
-  branch_name=`echo "$issue_id $summary" | sed -e 's@-@ @g' -e 's@/@@g' -e 's@]@@g' -e 's@\[@@g' -e 's@\s\{2,\}@ @g' -e 's@ @-@g' -e 's@,@@g' -e 's@:@@g' | awk '{print tolower($0)}'`
+  branch_name=$(echo "$issue_id $summary" | sed -e 's@-@ @g' -e 's@/@@g' -e 's@]@@g' -e 's@\[@@g' -e 's@\s\{2,\}@ @g' -e 's@ @-@g' -e 's@,@@g' -e 's@:@@g' | awk '{print tolower($0)}')
   prefix="feat/"
   [ "$type" != "story" ] && prefix="fix/"
   branch_name="${prefix}${branch_name}"
-  git checkout -b $branch_name
+  git checkout -b "$branch_name"
 }
 
 git_commit() {
-  issue=$(git branch -a  | grep '*' | rev | cut -d'/' -f1 | rev)
+  issue=$(git branch -a  | grep '\*' | rev | cut -d'/' -f1 | rev)
 
   if [[ $issue = "master" ]]; then
     echo ""
@@ -119,15 +120,14 @@ git_commit() {
     echo ""
     echo ""
   fi
-  setup_git_repo
   msg="$1"
   echo "Commit message:"
-  printf "\t$msg\n"
+  printf "\t%s\n" "$msg"
 
   printf "Do you want to continue? (y/n): "
-  read input
+  read -r input
   if [[ $input == "y" ]]; then
-    git commit -m "$msg"
+    git commit -m -s "$msg"
     git_push
     return
   fi
@@ -135,20 +135,19 @@ git_commit() {
 }
 
 git_push() {
-  branch_name=$(git branch -a  | grep '*' | sed 's/^* //')
+  branch_name=$(git branch -a  | grep '\*' | sed 's/^* //')
 
-  setup_git_repo
   cmd="git push origin $branch_name"
   echo "Command that will be executed:"
-  printf "\t$cmd\n"
+  printf "\t%s\n" "$cmd"
 
   printf "Do you want to continue? (y/n): "
-  read input
+  read -r input
   if [[ $input == "y" ]]; then
-    eval $cmd
+    eval "$cmd" 
     return
   fi
-  printf "$cmd" | pbcopy
+  printf "%s" "$cmd" | pbcopy 
   echo "PUSH ABORTED"
 }
 
@@ -156,14 +155,9 @@ git_add_modified() {
   git status | grep modified | cut -d':' -f2 | while read -r line; do
     if [[ "$line" == *.*js ]]; then
       echo "-> applying prettier format to $line"
-      prettier.cjs $line --write
+      prettier.cjs "$line" --write
     fi
-    git add $line
+    git add "$line"
   done
-}
-
-setup_git_repo() {
-#  git config user.name $git_username
-#  git config user.email $git_useremail
 }
 

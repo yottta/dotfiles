@@ -7,6 +7,7 @@ HISTSIZE=99999999
 # oh-my-zsh
 HIST_STAMPS="mm/dd/yyyy"
 DISABLE_AUTO_TITLE="true"
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 # 3rd party
 ZSH_AUTOSUGGEST_STRATEGY=(history)
 
