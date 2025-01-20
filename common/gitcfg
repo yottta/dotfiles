@@ -121,13 +121,14 @@ git_commit() {
     echo ""
   fi
   msg="$1"
-  echo "Commit message:"
-  printf "\t%s\n" "$msg"
+  cmd=$(printf 'git commit -m -s "%s"' "$msg")
+  echo "Commit command:"
+  printf "\t%s\n" "$cmd"
 
   printf "Do you want to continue? (y/n): "
   read -r input
   if [[ $input == "y" ]]; then
-    git commit -m -s "$msg"
+    eval "$cmd"
     git_push
     return
   fi
