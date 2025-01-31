@@ -45,27 +45,14 @@ k8s_info() {
   echo $out"$reset_color"
 }
 
-ocli_ctx() {
-  out="%F{white}(%F{blue}ocli%b$reset_color%F{white}>"
-  res="%F{cyan}err"
-  which ocli > /dev/null
-  if [ $? -eq 0 ]; then
-    res="%F{cyan}`ocli cfg ctx`"
-  fi
-  out="${out}${res}%F{white}) "
-  echo "$out"
-}
-
 setopt PROMPT_SUBST
 NEWLINE=$'\n'
 # CUSTOM_NO_PROMPT="true"
 if [ ! -z $CUSTOM_NO_PROMPT ]; then
   PROMPT='%#> '
 else 
-  PROMPT='%(?..[%?] )%F{green}%~$reset_color $(git_info)$(k8s_info)$(ocli_ctx)$reset_color$NEWLINE%#> '
+  PROMPT='%(?..[%?] )%F{green}%~$reset_color $(git_info)$reset_color$NEWLINE%#> '
 fi
-# uncomment this for a more detailed prompt
-#PROMPT='%F{5}[%F{2}%n%F{5}] %F{3}%d %{$fg_bold[blue]%}$reset_color%F{red}%*%f $(git_info) $reset_color$(k8s_info) $reset_color $NEWLINE%#> '
 
 # plugins
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
@@ -76,7 +63,7 @@ fi
 # For fzf:
 # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # ~/.fzf/install
-plugins=(docker docker-compose timer fzf)
+plugins=(timer fzf)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -142,7 +129,10 @@ preexec () {
 
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+## This is left here only for future debugging whenever needs to get the elapsed time for a part of a script. This is for iOS since it's using gdate (brew install coreutils)
+# start=$(gdate +%s%N)
+# YOUR COMMAND HERE
+# end=$(gdate +%s%N)
+# echo "Elapsed Time for TOOL: $(($(($end-$start))/1000000)) ms"
