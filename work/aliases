@@ -60,7 +60,7 @@ gpg_cleanup() {
   printf "\t-> Cleanup old signatures\n"
   rm *SHA256SUMS*
   printf "\t-> Cleanup gpg keys\n"
-  gpg --delete-keys $(gpg --list-keys | grep -A1 -e "^pub\s" | grep -ve "^pub\s" | grep -v "\-\-" | awk 'BEGIN{var=""}{var=var" "$1}END{print var}')
+  for fpr in $(gpg --list-keys --with-colons | grep "pub:" | awk -F: '{print $5}' | sort -u); do  echo -e "y\n" |  gpg --command-fd 0 --expert --delete-keys $fpr; done
   printf "\t-> Cleanup submitted key\n"
   echo "" > submitted
 }
@@ -70,15 +70,12 @@ gpg_import() {
   mv ~/Downloads/*SHA256* .
   sig_file=`ls -lah | grep ".sig" | awk '{print $9}'`
   sha_file=`ls -lah | grep "SHA256" | grep -v ".sig" | awk '{print $9}'`
-  printf "\t-> Using $sig_file and $sha_file\n"
-  printf "\t-> GPG Verify just to ensure that the verification is failing\n"
+  printf "\t-> Using $sig_file and $sha_file\n" printf "\t-> GPG Verify just to ensure that the verification is failing\n"
   gpg --verify "$sig_file" "$sha_file"
   printf "\t-> Import the submitted GPG key\n"
-  gpg --import submitted > tmp 2>&1
-  key_id=`cat tmp | grep key | cut -d ' ' -f3 | cut -d':' -f1`
-  rm tmp
-  printf "\t-> Edit the imported key: $key_id\n"
-  gpg --edit-key $key_id
+  gpg --import submitted
+  printf "\t-> Ultimate trust the imported key\n"
+  for fpr in $(gpg --list-keys --with-colons | grep "pub:" | awk -F: '{print $5}' | sort -u); do  echo -e "5\ny\n" |  gpg --command-fd 0 --expert --edit-key $fpr trust; done
   printf "\t-> Verify with the imported GPG key\n"
   gpg --verify "$sig_file" "$sha_file"
 }
