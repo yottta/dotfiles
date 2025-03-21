@@ -53,3 +53,32 @@ build_and_deploy_cloud_run() {
   echo $version > $HOME/.$PROJ_NAME
   set +x
 }
+
+# Functions to help with validating providers submission on https://github.com/opentofu/registry
+# These functions are following the instructions from https://github.com/opentofu/registry/blob/main/PROCEDURES.md#user-complaint-the-provider-is-not-signed-with-a-valid-signing-key
+gpg_cleanup() {
+  printf "\t-> Cleanup old signatures\n"
+  rm *SHA256SUMS*
+  printf "\t-> Cleanup gpg keys\n"
+  gpg --delete-keys $(gpg --list-keys | grep -A1 -e "^pub\s" | grep -ve "^pub\s" | grep -v "\-\-" | awk 'BEGIN{var=""}{var=var" "$1}END{print var}')
+  printf "\t-> Cleanup submitted key\n"
+  echo "" > submitted
+}
+
+gpg_import() {
+  printf "\t-> Bring the downloaded signatures into the current directory\n"
+  mv ~/Downloads/*SHA256* .
+  sig_file=`ls -lah | grep ".sig" | awk '{print $9}'`
+  sha_file=`ls -lah | grep "SHA256" | grep -v ".sig" | awk '{print $9}'`
+  printf "\t-> Using $sig_file and $sha_file\n"
+  printf "\t-> GPG Verify just to ensure that the verification is failing\n"
+  gpg --verify "$sig_file" "$sha_file"
+  printf "\t-> Import the submitted GPG key\n"
+  gpg --import submitted > tmp 2>&1
+  key_id=`cat tmp | grep key | cut -d ' ' -f3 | cut -d':' -f1`
+  rm tmp
+  printf "\t-> Edit the imported key: $key_id\n"
+  gpg --edit-key $key_id
+  printf "\t-> Verify with the imported GPG key\n"
+  gpg --verify "$sig_file" "$sha_file"
+}
