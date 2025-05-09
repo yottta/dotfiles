@@ -1,0 +1,6 @@
+FileAction:
+  kitty.conf:
+    hidden: false
+    source: ../common
+    command: ln -s
+    destination: $#HOME#$/.config/kitty

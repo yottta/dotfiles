@@ -27,3 +27,4 @@ FileAction:
 
 includes:
   - tmux.yml
+  - terminal.yml
