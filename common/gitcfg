@@ -18,7 +18,7 @@ alias gs="git status"
 alias gc="git commit -m"
 alias ga="git add"
 alias gch="git restore"
-alias gchb="git checkout"
+alias gchb="git_checkout"
 
 alias gc="git_commit"
 alias gcw="git_commit"
@@ -29,6 +29,18 @@ alias gstst="git stash push"
 alias gststa="git stash --include-untracked"
 alias gstpo="git stash pop"
 alias ggc=go_git_clean
+
+git_checkout() {
+  if [[ ${1} == "-b" ]]; then
+    shift
+  fi
+  name="${1}"
+  if git branch -a | grep "${name}" > /dev/null; then
+    git checkout "${name}"
+    return
+  fi
+  git checkout -b "${name}"
+}
 
 go_git_clean() {
   set -x
@@ -154,11 +166,11 @@ git_push() {
 
 git_add_modified() {
   git status | grep modified | cut -d':' -f2 | while read -r line; do
-    if [[ "$line" == *.*js ]]; then
-      echo "-> applying prettier format to $line"
-      prettier.cjs "$line" --write
-    fi
-    git add "$line"
-  done
+  if [[ "$line" == *.*js ]]; then
+    echo "-> applying prettier format to $line"
+    prettier.cjs "$line" --write
+  fi
+  git add "$line"
+done
 }
 
