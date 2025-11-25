@@ -63,7 +63,9 @@ fi
 # For fzf:
 # git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # ~/.fzf/install
-plugins=(timer fzf)
+# Do not install 'timer' since that is customly configured below
+# plugins=(timer fzf)
+plugins=(fzf)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -99,33 +101,52 @@ export VISUAL=nvim
 autoload edit-command-line
 bindkey "^v" edit-command-line
 
-###### Print start time for each command
+###### Print start start time and end time plus duration for each command.
+# This can be improved because right now the time that is used for start/end 
+# is not the same with the one for the elapsed time.
 strlen () {
-    FOO=$1
+    local in=$1
     local zero='%([BSUbfksu]|([FB]|){*})'
-    LEN=${#${(S%%)FOO//$~zero/}}
-    echo $LEN
+    local len=${#${(S%%)in//$~zero/}}
+    echo $len
 }
+function preexec() {
+  cmd_start=$(($(print -P %D{%s%6.}) / 1000))
+  cmd_start_time=$(date +"%H:%M:%S")
+}
+function precmd() {
+  if [ $cmd_start ]; then
+    local now=$(($(print -P %D{%s%6.}) / 1000))
+    local cmd_stop_time=$(date +"%H:%M:%S")
+    local d_ms=$(($now - $cmd_start))
+    local d_s=$((d_ms / 1000))
+    local ms=$((d_ms % 1000))
+    local s=$((d_s % 60))
+    local m=$(((d_s / 60) % 60))
+    local h=$((d_s / 3600))
 
-# show right prompt with date ONLY when command is executed
-preexec () {
-    DATE=$( date +"[%H:%M:%S]" )
-    local len_right=$( strlen "$DATE" )
-    len_right=$(( $len_right+1 ))
+    if   ((h > 0)); then cmd_time=${h}h${m}m
+    elif ((m > 0)); then cmd_time=${m}m${s}s
+    elif ((s > 9)); then cmd_time=${s}.$(printf %03d $ms | cut -c1-2)s # 12.34s
+    elif ((s > 0)); then cmd_time=${s}.$(printf %03d $ms)s # 1.234s
+    else cmd_time=${ms}ms
+    fi
+    local final_output="${cmd_start_time} -> ${cmd_stop_time} (${cmd_time})"
+
+    local len_right=$( strlen "${final_output}" )
+    local len_right=$(( $len_right+1 ))
     local right_start=$(($COLUMNS - $len_right))
 
-    local len_cmd=$( strlen "$@" )
-    local len_prompt=$(strlen "$PROMPT" )
-    local len_left=$(($len_cmd+$len_prompt))
+    local final_date="\033[${right_start}C ${final_output}"
+    echo -e "${final_date}"
 
-    RDATE="\033[${right_start}C ${DATE}"
-
-		# this is printed one line after the command to be sure that it does not overwrite parts of the command
-    echo -e "${RDATE}"
-		# since "timer" zsh plugin is also used, create a new line to be sure that the elapsed time is not printed over the start time
-		echo -e ""
+    unset cmd_start
+  else
+    # Clear previous result when hitting Return with no command to execute
+    unset cmd_time
+  fi
 }
-###### Print start time for each command (END)
+###### Print start start time and end time plus duration for each command. (END)
 
 # personal settings - also could overwrite the PROMPT variable. Search for "PROMPT=" in your dotfiles
 [ -f ~/.common_system ] && . ~/.common_system
@@ -136,3 +157,12 @@ preexec () {
 # YOUR COMMAND HERE
 # end=$(gdate +%s%N)
 # echo "Elapsed Time for TOOL: $(($(($end-$start))/1000000)) ms"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/andrei.ciobanu/data/workspace/softs/lib/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andrei.ciobanu/data/workspace/softs/lib/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/andrei.ciobanu/data/workspace/softs/lib/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andrei.ciobanu/data/workspace/softs/lib/google-cloud-sdk/completion.zsh.inc'; fi
+
+# opencode
+export PATH=/Users/andrei.ciobanu/.opencode/bin:$PATH
