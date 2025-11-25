@@ -1,5 +1,24 @@
 brew install wget dep ngrep jq telnet kubernetes-helm pkg-config vault graphviz jenv htop rename rar fzf gnu-sed netcat p7zip sqlite tmux watch 
 brew install -cask stats
+brew install postgresql
+brew install npm
+brew install yarn
+brew install rbenv ruby-build
+brew install ruby
+brew install ftp
+brew install inetutils
+brew install samba
+brew install chruby ruby-install xz
+brew install aws
+brew install graphviz
+brew install --default-names gnu-sed
+brew install gnu-sed
+brew install yamllint
+brew install dos2unix
+brew install aquasecurity/trivy/trivy
+arch -x86_64 brew install qmk/qmk/qmk
+brew install neovim
+
 #######MAC extensions########
 itsycal
 Pastebot
@@ -8,60 +27,22 @@ spectacle
 stats (https://github.com/exelban/stats)
 
 ### MAC APPS ###
-iterm2
+ghostty
 gcloud
 nvm (npm)
-skype
 docker
 slack
-authy
-dbeaver
-jenv
 Chrome
-Google Meets
 Postman
-Spotify/Deezer
-Altair
+Spotify
 VsCode
 teamviewer
-vlc
-whatsapp
 elmedia player
-sts
 xcode
 ######
 Adobe Reader
 Logi Options+
-Signal
 Zoom
 FileZilla
 jmeter
-bombardiei
-
-
-# in order to use the same iterm2 configs, do this after running configbuddy
-settings -> general -> closing -> quit when all windows are closed
-settings -> profile -> default -> window -> style=maximized
-
-# a history of things that you might need to have installed
-#   346  5/11/2022 14:23  brew install postgresql
- 2149  7/19/2022 18:06  brew install npm
- 2157  7/19/2022 18:14  brew install yarn
- 2507  8/21/2022 19:16  brew install rbenv ruby-build
- 2508  8/21/2022 19:17  brew install ruby
- 2765  9/3/2022 20:45  brew install ftp
- 2767  9/3/2022 20:46  brew install inetutils
- 2774  9/4/2022 15:28  brew install samba
- 3664  10/29/2022 11:35  brew install chruby ruby-install xz
- 4917  1/7/2023 16:45  brew install aws
- 5632  1/18/2023 10:18  brew install graphviz
- 5672  1/19/2023 18:17  brew install --default-names gnu-sed
- 5673  1/19/2023 18:18  brew install gnu-sed
- 7509  2/20/2023 10:14  brew install yamllint
- 7514  2/20/2023 10:17  brew install dos2unix
- 8847  3/8/2023 16:06  brew install aquasecurity/trivy/trivy\n
- 9743  9/5/2023 19:10  brew install qmk/qmk/qmk
- 9744  9/5/2023 19:11  arch -x86_64 brew install qmk/qmk/qmk\n
- 9979  9/16/2023 21:18  brew install neovim
- 9992  9/16/2023 21:25  brew install neovim
-10004  9/16/2023 21:31  history | grep brew install
+bombardier
