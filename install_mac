@@ -1,4 +1,4 @@
-brew install wget dep ngrep jq telnet kubernetes-helm pkg-config vault graphviz jenv htop rename rar fzf gnu-sed netcat p7zip sqlite tmux watch 
+brew install wget dep ngrep jq telnet kubernetes-helm pkg-config vault graphviz jenv htop rename rar fzf gnu-sed netcat p7zip sqlite tmux watch wakeonlan
 brew install -cask stats
 brew install postgresql
 brew install npm
@@ -17,7 +17,7 @@ brew install yamllint
 brew install dos2unix
 brew install aquasecurity/trivy/trivy
 arch -x86_64 brew install qmk/qmk/qmk
-brew install neovim
+brew install neovim ripgrep lua luarocks pstree fd
 
 #######MAC extensions########
 itsycal
