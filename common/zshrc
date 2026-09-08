@@ -166,3 +166,4 @@ if [ -f '/Users/andrei.ciobanu/data/workspace/softs/lib/google-cloud-sdk/complet
 
 # opencode
 export PATH=/Users/andrei.ciobanu/.opencode/bin:$PATH
+test -f "$HOME/.cargo/env" && source "$HOME/.cargo/env"

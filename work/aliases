@@ -61,7 +61,8 @@ gpg_cleanup() {
   printf "\t-> Cleanup old signatures\n"
   rm *SHA256SUMS*
   printf "\t-> Cleanup gpg keys\n"
-  for fpr in $(gpg --list-keys --with-colons | grep "pub:" | awk -F: '{print $5}' | sort -u); do  echo -e "y\n" |  gpg --command-fd 0 --expert --delete-keys $fpr; done
+  # This ignores my key for GitHub
+  for fpr in $(gpg --list-keys --with-colons | grep "pub:" | grep -v "C40390C7A910AEA8" | grep -v "58C6DAFBD444BE45" | awk -F: '{print $5}' | sort -u); do  echo -e "y\n" |  gpg --command-fd 0 --expert --delete-keys $fpr; done
   printf "\t-> Cleanup submitted key\n"
   echo "" > submitted
 }
@@ -77,6 +78,6 @@ gpg_import() {
   gpg --import submitted
   printf "\t-> Ultimate trust the imported key\n"
   for fpr in $(gpg --list-keys --with-colons | grep "pub:" | awk -F: '{print $5}' | sort -u); do  echo -e "5\ny\n" |  gpg --command-fd 0 --expert --edit-key $fpr trust; done
-  printf "\t-> Verify with the imported GPG key\n"
+  printf "\t-> Verify with the imported GPG key. Sig: %s; Sha: %s\n" $sig_file $sha_file
   gpg --verify "$sig_file" "$sha_file"
 }

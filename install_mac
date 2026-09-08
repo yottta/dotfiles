@@ -18,6 +18,7 @@ brew install dos2unix
 brew install aquasecurity/trivy/trivy
 arch -x86_64 brew install qmk/qmk/qmk
 brew install neovim ripgrep lua luarocks pstree fd
+brew install jless
 
 #######MAC extensions########
 itsycal

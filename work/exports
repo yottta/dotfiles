@@ -30,7 +30,7 @@ export GOTO_TEST=$HOME/testing
 export GOTO_WS=$PROJECTS_PATH
 export GOTO_WORK=$PROJECTS_PATH/02_work
 
-export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+# export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
 export TERRAGRUNT_SOURCE_UPDATE=true
 export PATH="$HOME/.tfenv/bin:$PATH"
 export PATH="$HOME/.tgenv/bin:$PATH"
